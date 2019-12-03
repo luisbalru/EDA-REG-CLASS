@@ -57,7 +57,7 @@
 \section{Introducción}
 
 
-El presente documento contiene los resultados obtenidos en el Trabajo Teórico/Práctico Integrador para la evaluación de la asignatura Introducción a la Ciencia de Datos. El trabajo está formado por tres apartados, a saber, análisis de datos (en adelante EDA), regresión y clasificación, centrado en dos conjuntos de datos: Wankara para regresión y Vowel para clasificación. 
+El presente documento contiene los resultados obtenidos en el Trabajo Teórico/Práctico Integrador para la evaluación de la asignatura Introducción a la Ciencia de Datos. El trabajo está formado por tres apartados, a saber, análisis de datos (en adelante EDA), regresión y clasificación, centrado en dos conjuntos de datos: Wankara para regresión y Vowel para clasificación. Ambos dos forman parte del repositorio de Keel (\cite{keel}), el primero en \cite{wankara} y el segundo en \cite{vowel}. A continuación, describo la estructura del documento. En la primera sección, se desarrolla el análisis exploratorio de ambos datasets. A continuación, tras sacar las conclusiones correspondientes, ataco el problema de regresión y, por último, el de clasificación.
 
 
 
@@ -68,13 +68,27 @@ El presente documento contiene los resultados obtenidos en el Trabajo Teórico/P
 %	Análisis de datos
 %----------------------------------------------------------------------------------------
 
+\section{Análisis exploratorio de datos (EDA)}
 
+\subsection{Conjunto de datos Wankara}
 
+\subsection{Conjunto de datos Vowel}
+
+El presente conjunto de datos contiene información sobre el reconocimiento de las once vocales existentes en inglés por parte de 15 interlocutores independientes. Es un problema de clasificación con once clases (las once vocales inglesas) con trece características, diez de ellas reales y tres enteras. A pesar de ser numéricas, esas tres variables son realmente categóricas, dado que
+
+\begin{itemize}
+	\item TT (0/1): Indica si la instancia es de entrenamiento (0) o test (1).
+	\item Sex (0/1): Indica el género del hablante en dicha instancia.
+	\item SpeakerNumber [0,14]: Indica el interlocutor de la instancia.
+\end{itemize}
+
+Por tanto, esas variables se pueden interpretar como factores más que numéricas. De hecho, TT será ignorada en el EDA porque es conveniente realizar el estudio sobre los datos al completo.
 
 %----------------------------------------------------------------------------------------
 %	Regresión
 %----------------------------------------------------------------------------------------
 
+\section{Problema de regresión: Wankara}
 
 
 
@@ -83,6 +97,9 @@ El presente documento contiene los resultados obtenidos en el Trabajo Teórico/P
 %----------------------------------------------------------------------------------------
 %	Clasificación
 %----------------------------------------------------------------------------------------
+
+\section{Problema de clasificación: Vowel}
+
 
 \newpage
 \section{Bibliografía}
