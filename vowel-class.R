@@ -22,3 +22,4 @@ vowel$SpeakerNumber = factor(vowel$SpeakerNumber)
 
 # Resumen estadístico de cada variable
 summary(vowel)
+sapply(vowel[,3:12],sd)
