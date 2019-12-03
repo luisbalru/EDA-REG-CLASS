@@ -74,7 +74,7 @@ El presente documento contiene los resultados obtenidos en el Trabajo Teórico/P
 
 \subsection{Conjunto de datos Vowel}
 
-El presente conjunto de datos contiene información sobre el reconocimiento de las once vocales existentes en inglés por parte de 15 interlocutores independientes. Es un problema de clasificación con once clases (las once vocales inglesas) con trece características, diez de ellas reales y tres enteras. A pesar de ser numéricas, esas tres variables son realmente categóricas, dado que
+El presente conjunto de datos contiene información sobre el reconocimiento de las once vocales existentes en inglés por parte de 15 interlocutores independientes. Es un problema de clasificación de once clases (las once vocales inglesas) con trece características, diez de ellas reales y tres enteras. A pesar de ser numéricas, esas tres variables son realmente categóricas, dado que
 
 \begin{itemize}
 	\item TT (0/1): Indica si la instancia es de entrenamiento (0) o test (1).
@@ -82,7 +82,17 @@ El presente conjunto de datos contiene información sobre el reconocimiento de l
 	\item SpeakerNumber [0,14]: Indica el interlocutor de la instancia.
 \end{itemize}
 
-Por tanto, esas variables se pueden interpretar como factores más que numéricas. De hecho, TT será ignorada en el EDA porque es conveniente realizar el estudio sobre los datos al completo.
+Por tanto, esas variables se pueden interpretar como factores más que numéricas. De hecho, TT será ignorada en el EDA porque es conveniente realizar el estudio sobre los datos al completo. Por tanto, tras estas modificaciones contamos con diez variables reales (F0-F9), dos factores (sexo y número de interlocutor) y once clases (0-10), con un total de 990 instancias. 
+
+Para explorar los datos, en primer lugar, calculo un resumen estadístico de cada variable y su dispersión. En las variables categóricas encontramos:
+
+\begin{itemize}
+	\item Cada interlocutor tiene 66 apariciones en el conjunto de datos.
+	\item 528 de ellos son hombres y 462 mujeres.
+\end{itemize}
+
+Para las variables numéricas, los resultados son los siguientes:
+
 
 %----------------------------------------------------------------------------------------
 %	Regresión
