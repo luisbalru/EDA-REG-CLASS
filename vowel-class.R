@@ -20,3 +20,5 @@ vowel$TT = NULL
 vowel$Sex = factor(vowel$Sex, levels = c(0,1), labels = c("Masculino","Feminino"))
 vowel$SpeakerNumber = factor(vowel$SpeakerNumber)
 
+# Resumen estadístico de cada variable
+summary(vowel)
