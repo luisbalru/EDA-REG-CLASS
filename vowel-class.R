@@ -160,7 +160,7 @@ bpsn9
 # Medida de la "normalidad" de las variables numéricas
 # Test de Shapiro-Wilks vs Kolmogorov-Smirnov (Corrección de Lillie)
 library(nortest)
-
+library(car)
 # Variable F0. 
 # Shapiro: El bajo p-valor (9.807e-5) nos hace rechazar la hipótesis de normalidad
 shapiro.test(vowel$F0)
@@ -175,36 +175,59 @@ lillie.test(vowel$F1)
 # Comprobamos que es bastante próxima a la normal con un qqPlot
 qqPlot(vowel$F1)
 ggplot(vowel, aes(x=F1)) + geom_histogram(aes(y=..density..),binwidth = binwd(vowel$F1)) + stat_function(fun=dnorm, args=list(mean=mean(vowel$F1),sd=sd(vowel$F1)))
-# Variable F2. El bajo p-valor (4.245e-5) nos hace rechazar la hipótesis de normalidad
+
+# Variable F2. 
+# Shapiro:El bajo p-valor (4.245e-5) nos hace rechazar la hipótesis de normalidad
 shapiro.test(vowel$F2)
+#Lillie: p-value = 0.001264 rechazamos la normalidad
+lillie.test(vowel$F2)
 
-# Variable F3. El bajo p-valor (4.324e-9) nos hace rechazar la hipótesis de normalidad
+# Variable F3. 
+# Shapiro:El bajo p-valor (4.324e-9) nos hace rechazar la hipótesis de normalidad
 shapiro.test(vowel$F3)
-library(car)
 qqPlot(vowel$F3)
-qqnorm(vowel$F3, pch = 1, frame = FALSE)
-qqline(vowel$F3, col = "steelblue", lwd = 2)
+# Lillie: p-value = 5.169e-07. Rechazamos la normalidad
+lillie.test(vowel$F3)
 
-# Variable F4. p-valor (0.07073) mayor que 0.05, por lo que podemos admitir la hipótesis de normalidad
+# Variable F4.
+# Shapiro: p-valor (0.07073) mayor que 0.05, por lo que no podemos rechazar la hipótesis de normalidad
 shapiro.test(vowel$F4)
 qqPlot(vowel$F4)
-qqnorm(vowel$F4, pch = 1, frame = FALSE)
-qqline(vowel$F4, col = "steelblue", lwd = 2)
+# Lillie: p-value = 0.08258. No podemos rechazar la hipótesis de normalidad
+lillie.test(vowel$F4)
 
-# Variable F5. El bajo p-valor (5.435e-08) nos hace rechazar la hipótesis de normalidad
+# Variable F5. 
+#Shapiro: El bajo p-valor (5.435e-08) nos hace rechazar la hipótesis de normalidad
 shapiro.test(vowel$F5)
+# Lillie:p-value = 1.921e-08. Rechazamos la hipótesis de normalidad
+lillie.test(vowel$F5)
 
-# Variable F6. pvalue (0.0225)<0.05, rechazamos hipótesis de normalidad
+# Variable F6. 
+# Shapiro:pvalue (0.0225)<0.05, rechazamos hipótesis de normalidad
 shapiro.test(vowel$F6)
+# Lillie: pvalue  0.09071, no podemos rechazar la hipótesis de normalidad
+lillie.test(vowel$F6)
+qqPlot(vowel$F6)
 
-# Variable F7. pvalue (0.0005086)<0.05, rechazamos hipótesis de normalidad
+
+# Variable F7. 
+# Shapiro: pvalue (0.0005086)<0.05, rechazamos hipótesis de normalidad
 shapiro.test(vowel$F7)
+# Lillie:p-value = 0.0002122. Rechazamos la hipótesis de normalidad
+lillie.test(vowel$F7)
 
-# Variable F8. pvalue (0.001437)<0.05, rechazamos hipótesis de normalidad
+# Variable F8. 
+# Shapiro:pvalue (0.001437)<0.05, rechazamos hipótesis de normalidad
 shapiro.test(vowel$F8)
+# Lillie: p-value = 0.1505. No podemos rechazar la hipótesis de normalidad
+lillie.test(vowel$F8)
+qqPlot(vowel$F8)
 
-# Variable F9. pvalue (2.208e-12)<0.05, rechazamos hipótesis de normalidad
+# Variable F9. 
+# Shapiro: pvalue (2.208e-12)<0.05, rechazamos hipótesis de normalidad
 shapiro.test(vowel$F9)
+# Lillie: p-value = 7.729e-14. Rechazamos la hipótesis de normalidad
+lillie.test(vowel$F9)
 
 ## Por sexos
 
