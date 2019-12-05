@@ -158,14 +158,23 @@ bpsn9
 
 ################################################################333
 # Medida de la "normalidad" de las variables numéricas
-# Test de Shapiro-Wilks
+# Test de Shapiro-Wilks vs Kolmogorov-Smirnov (Corrección de Lillie)
+library(nortest)
 
-# Variable F0. El bajo p-valor (9.807e-5) nos hace rechazar la hipótesis de normalidad
+# Variable F0. 
+# Shapiro: El bajo p-valor (9.807e-5) nos hace rechazar la hipótesis de normalidad
 shapiro.test(vowel$F0)
+# Lillie p-valor 0.000719 Rechazamos la normalidad
+lillie.test(vowel$F0)
 
-# Variable F1. pvalue (0.0312) rechaza normalidad
+# Variable F1.
+# Shapiro:pvalue (0.0312) rechaza normalidad
 shapiro.test(vowel$F1)
-
+# Lillie: pvalue 0.2628. No podemos rechazar la hipótesis de normalidad.
+lillie.test(vowel$F1)
+# Comprobamos que es bastante próxima a la normal con un qqPlot
+qqPlot(vowel$F1)
+ggplot(vowel, aes(x=F1)) + geom_histogram(aes(y=..density..),binwidth = binwd(vowel$F1)) + stat_function(fun=dnorm, args=list(mean=mean(vowel$F1),sd=sd(vowel$F1)))
 # Variable F2. El bajo p-valor (4.245e-5) nos hace rechazar la hipótesis de normalidad
 shapiro.test(vowel$F2)
 
