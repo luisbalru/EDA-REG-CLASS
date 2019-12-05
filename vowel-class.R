@@ -171,9 +171,16 @@ shapiro.test(vowel$F2)
 
 # Variable F3. El bajo p-valor (4.324e-9) nos hace rechazar la hipótesis de normalidad
 shapiro.test(vowel$F3)
+library(car)
+qqPlot(vowel$F3)
+qqnorm(vowel$F3, pch = 1, frame = FALSE)
+qqline(vowel$F3, col = "steelblue", lwd = 2)
 
 # Variable F4. p-valor (0.07073) mayor que 0.05, por lo que podemos admitir la hipótesis de normalidad
 shapiro.test(vowel$F4)
+qqPlot(vowel$F4)
+qqnorm(vowel$F4, pch = 1, frame = FALSE)
+qqline(vowel$F4, col = "steelblue", lwd = 2)
 
 # Variable F5. El bajo p-valor (5.435e-08) nos hace rechazar la hipótesis de normalidad
 shapiro.test(vowel$F5)
@@ -226,6 +233,7 @@ shapiro.test(mujeres$F2)
 shapiro.test(mujeres$F3)
 # pvalue (0.1163) > 0.05. Acepto hipótesis de normalidad
 shapiro.test(mujeres$F4)
+qqPlot(mujeres$F4)
 # pvalue (0.04365) < 0.05. Rechazo hipótesis de normalidad
 shapiro.test(mujeres$F5)
 # pvalue (0.09697) > 0.05. Acepto hipótesis de normalidad
@@ -236,6 +244,7 @@ shapiro.test(mujeres$F7)
 shapiro.test(mujeres$F8)
 # pvalue (9.116e-08) < 0.05. Rechazo hipótesis de normalidad
 shapiro.test(mujeres$F9)
+qqPlot(mujeres$F9)
 ##################################################################
 
 ##################################################################
