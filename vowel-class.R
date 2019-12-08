@@ -279,6 +279,7 @@ lillie.test(hombres$F9)
 # Mujeres
 # pvalue (0.005136) < 0.05. Rechazo hipótesis de normalidad
 shapiro.test(mujeres$F0)
+lillie.test(mujeres$F0)
 # pvalue (0.02526) < 0.05. Rechazo hipótesis de normalidad
 shapiro.test(mujeres$F1)
 # pvalue (1.284e-05) < 0.05. Rechazo hipótesis de normalidad
