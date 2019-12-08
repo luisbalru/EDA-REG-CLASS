@@ -320,14 +320,13 @@ chart.Correlation(vowel[,3:12], histogram=TRUE, pch=19)
 
 
 library(Hmisc)
+
 res2<-rcorr(as.matrix(vowel[,3:12]))
 corrmat = flattenCorrMatrix(res2$r, res2$P)
 # Insignificant correlation are crossed
 corrplot(res2$r, type="upper", order="hclust", 
          p.mat = res2$P, sig.level = 0.01, insig = "blank")
-# Insignificant correlations are leaved blank
-corrplot(res2$r, type="upper", order="hclust", 
-         p.mat = res2$P, sig.level = 0.01, insig = "blank")
+
 
 ##################################################################
 
