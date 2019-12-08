@@ -13,6 +13,16 @@ binwd = function(data){
   return(1/(cr)*dt*3.49)
 }
 
+flattenCorrMatrix <- function(cormat, pmat) {
+  ut <- upper.tri(cormat)
+  data.frame(
+    row = rownames(cormat)[row(cormat)[ut]],
+    column = rownames(cormat)[col(cormat)[ut]],
+    cor  =(cormat)[ut],
+    p = pmat[ut]
+  )
+}
+
 # Lectura del fichero de datos para proceder al EDA
 vowel = read.csv("./data/vowel/vowel.dat",header=FALSE, comment.char="@")
 colnames(vowel) = c("TT","SpeakerNumber","Sex","F0","F1","F2","F3","F4","F5","F6","F7","F8","F9","Class")
@@ -235,24 +245,36 @@ lillie.test(vowel$F9)
 
 # pvalue (6.965e-05) < 0.05. Rechazo hipótesis de normalidad
 shapiro.test(hombres$F0)
+lillie.test(hombres$F0)
 # pvalue (0.0002435) < 0.05. Rechazo hipótesis de normalidad
 shapiro.test(hombres$F1)
+lillie.test(hombres$F1)
 # pvalue (0.0003589) < 0.05. Rechazo hipótesis de normalidad
 shapiro.test(hombres$F2)
+lillie.test(hombres$F2)
 # pvalue (1.919e-07) < 0.05. Rechazo hipótesis de normalidad
 shapiro.test(hombres$F3)
+lillie.test(hombres$F3)
 # pvalue (0.07804) > 0.05. Acepto hipótesis de normalidad
 shapiro.test(hombres$F4)
+lillie.test(hombres$F4)
+qqPlot(hombres$F4)
 # pvalue (7.718e-09) < 0.05. Rechazo hipótesis de normalidad
 shapiro.test(hombres$F5)
+lillie.test(hombres$F5)
 # pvalue (3.306e-07) < 0.05. Rechazo hipótesis de normalidad
 shapiro.test(hombres$F6)
+lillie.test(hombres$F6) # p value 0.05132. No puedo rechazar la hipótesis según el test de Lillie
+qqPlot(hombres$F6)
 # pvalue (0.009972) < 0.05. Rechazo hipótesis de normalidad
 shapiro.test(hombres$F7)
+lillie.test(hombres$F7)
 # pvalue (0.00119) < 0.05. Rechazo hipótesis de normalidad
 shapiro.test(hombres$F8)
+lillie.test(hombres$F8)
 # pvalue (1.466e-15) < 0.05. Rechazo hipótesis de normalidad
 shapiro.test(hombres$F9)
+lillie.test(hombres$F9)
 
 # Mujeres
 # pvalue (0.005136) < 0.05. Rechazo hipótesis de normalidad
@@ -263,13 +285,16 @@ shapiro.test(mujeres$F1)
 shapiro.test(mujeres$F2)
 # pvalue (3.099e-07) < 0.05. Rechazo hipótesis de normalidad
 shapiro.test(mujeres$F3)
-# pvalue (0.1163) > 0.05. Acepto hipótesis de normalidad
+# pvalue (0.1163) > 0.05. No puedo rechazar la hipótesis de normalidad
 shapiro.test(mujeres$F4)
+lillie.test(mujeres$F4) #pvalue 0.4692. No puedo rechazar la hipótesis de normalidad
 qqPlot(mujeres$F4)
 # pvalue (0.04365) < 0.05. Rechazo hipótesis de normalidad
 shapiro.test(mujeres$F5)
-# pvalue (0.09697) > 0.05. Acepto hipótesis de normalidad
+# pvalue (0.09697) > 0.05. No podemos rechazar la hipótesis de normalidad
 shapiro.test(mujeres$F6)
+lillie.test(mujeres$F6) # pvalue 0.26. No puedo rechazar la hipótesis de normalidad
+qqPlot(mujeres$F6)
 # pvalue (8.115e-07) < 0.05. Rechazo hipótesis de normalidad
 shapiro.test(mujeres$F7)
 # pvalue (0.003301) < 0.05. Rechazo hipótesis de normalidad
@@ -280,6 +305,22 @@ qqPlot(mujeres$F9)
 ##################################################################
 
 ##################################################################
-# ANOVA. Kruskal–Wallis Test
+# Correlaciones entre variables
+plot(vowel[,3:12])
+plot(hombres[,3:12])
+plot(mujeres[,3:12])
+
+# F0-F1
+install.packages("ggpubr")
+library("ggpubr")
+ggscatter(vowel, x = "F0", y = "F1", 
+          add = "reg.line", conf.int = TRUE, 
+          cor.coef = TRUE, cor.method = "pearson",
+          xlab = "F0", ylab = "F1")
+
+
+library(Hmisc)
+res2<-rcorr(as.matrix(vowel[,3:12]))
+flattenCorrMatrix(res2$r, res2$P)
 
 ##################################################################
