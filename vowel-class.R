@@ -327,6 +327,17 @@ corrmat = flattenCorrMatrix(res2$r, res2$P)
 corrplot(res2$r, type="upper", order="hclust", 
          p.mat = res2$P, sig.level = 0.01, insig = "blank")
 
+res2h = rcorr(as.matrix(hombres[,3:12]))
+corrmath = flattenCorrMatrix(res2h$r, res2h$P)
+# Insignificant correlation are crossed
+corrplot(res2h$r, type="upper", order="hclust", 
+         p.mat = res2h$P, sig.level = 0.01, insig = "blank")
+
+res2m =  rcorr(as.matrix(mujeres[,3:12]))
+corrmath = flattenCorrMatrix(res2m$r, res2m$P)
+# Insignificant correlation are crossed
+corrplot(res2m$r, type="upper", order="hclust", 
+         p.mat = res2m$P, sig.level = 0.01, insig = "blank")
 
 ##################################################################
 
