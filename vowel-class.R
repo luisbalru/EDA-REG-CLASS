@@ -282,26 +282,35 @@ shapiro.test(mujeres$F0)
 lillie.test(mujeres$F0)
 # pvalue (0.02526) < 0.05. Rechazo hipótesis de normalidad
 shapiro.test(mujeres$F1)
+lillie.test(mujeres$F1)
 # pvalue (1.284e-05) < 0.05. Rechazo hipótesis de normalidad
 shapiro.test(mujeres$F2)
+lillie.test(mujeres$F2)
 # pvalue (3.099e-07) < 0.05. Rechazo hipótesis de normalidad
 shapiro.test(mujeres$F3)
+lillie.test(mujeres$F3)
 # pvalue (0.1163) > 0.05. No puedo rechazar la hipótesis de normalidad
 shapiro.test(mujeres$F4)
 lillie.test(mujeres$F4) #pvalue 0.4692. No puedo rechazar la hipótesis de normalidad
 qqPlot(mujeres$F4)
 # pvalue (0.04365) < 0.05. Rechazo hipótesis de normalidad
 shapiro.test(mujeres$F5)
+lillie.test(mujeres$F5) # pvalue 0.08174 > 0.05. No podemos rechazar la hipótesis de normalidad
+qqPlot(mujeres$F5)
 # pvalue (0.09697) > 0.05. No podemos rechazar la hipótesis de normalidad
 shapiro.test(mujeres$F6)
 lillie.test(mujeres$F6) # pvalue 0.26. No puedo rechazar la hipótesis de normalidad
 qqPlot(mujeres$F6)
 # pvalue (8.115e-07) < 0.05. Rechazo hipótesis de normalidad
 shapiro.test(mujeres$F7)
+lillie.test(mujeres$F7)
 # pvalue (0.003301) < 0.05. Rechazo hipótesis de normalidad
 shapiro.test(mujeres$F8)
+lillie.test(mujeres$F8) # pvalue 0.1125. No puedo rechazar la hipótesis de normalidad
+qqPlot(mujeres$F8)
 # pvalue (9.116e-08) < 0.05. Rechazo hipótesis de normalidad
 shapiro.test(mujeres$F9)
+lillie.test(mujeres$F9)
 qqPlot(mujeres$F9)
 ##################################################################
 
