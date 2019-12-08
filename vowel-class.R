@@ -309,18 +309,24 @@ qqPlot(mujeres$F9)
 plot(vowel[,3:12])
 plot(hombres[,3:12])
 plot(mujeres[,3:12])
+install.packages("corrplot")
+library(corrplot)
+corrplot(vowel[,3:12], type = "upper", order = "hclust", 
+         tl.col = "black", tl.srt = 45)
 
-# F0-F1
-install.packages("ggpubr")
-library("ggpubr")
-ggscatter(vowel, x = "F0", y = "F1", 
-          add = "reg.line", conf.int = TRUE, 
-          cor.coef = TRUE, cor.method = "pearson",
-          xlab = "F0", ylab = "F1")
+install.packages("PerformanceAnalytics")
+library("PerformanceAnalytics")
+chart.Correlation(vowel[,3:12], histogram=TRUE, pch=19)
 
 
 library(Hmisc)
 res2<-rcorr(as.matrix(vowel[,3:12]))
-flattenCorrMatrix(res2$r, res2$P)
+corrmat = flattenCorrMatrix(res2$r, res2$P)
+# Insignificant correlation are crossed
+corrplot(res2$r, type="upper", order="hclust", 
+         p.mat = res2$P, sig.level = 0.01, insig = "blank")
+# Insignificant correlations are leaved blank
+corrplot(res2$r, type="upper", order="hclust", 
+         p.mat = res2$P, sig.level = 0.01, insig = "blank")
 
 ##################################################################
