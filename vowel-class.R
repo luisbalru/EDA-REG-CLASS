@@ -330,3 +330,20 @@ corrplot(res2$r, type="upper", order="hclust",
          p.mat = res2$P, sig.level = 0.01, insig = "blank")
 
 ##################################################################
+
+
+#################################################################
+# TRANSFORMACIONES
+install.packages("scales")
+library("scales")
+
+vowel$logF2 = log1p(rescale(vowel$F2))
+# pvalue 0.4792. No rechazamos la hipótesis de normalidad
+lillie.test(vowel$logF2)
+qqPlot(vowel$logF2)
+ggplot(vowel, aes(x=logF2)) + geom_histogram(aes(y=..density..),binwidth = binwd(vowel$logF2)) + stat_function(fun=dnorm, args=list(mean=mean(vowel$logF2),sd=sd(vowel$logF2)))
+
+
+
+
+#################################################################
