@@ -295,8 +295,8 @@ lillie.test(mujeres$F0)
 shapiro.test(mujeres$F1)
 lillie.test(mujeres$F1)
 # pvalue (1.284e-05) < 0.05. Rechazo hipótesis de normalidad
-shapiro.test(mujeres$F2)
-lillie.test(mujeres$F2)
+  shapiro.test(mujeres$F2)
+  lillie.test(mujeres$F2)
 # pvalue (3.099e-07) < 0.05. Rechazo hipótesis de normalidad
 shapiro.test(mujeres$F3)
 lillie.test(mujeres$F3)
