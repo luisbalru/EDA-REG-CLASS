@@ -84,7 +84,7 @@ El presente conjunto de datos contiene información sobre el reconocimiento de l
 
 \begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
 	\centering
-	\includegraphics[scale=0.6]{dist-sexos.png}  %el parámetro scale permite agrandar o chicar la imagen. En el nombre de archivo puede especificar directorios
+	\includegraphics[scale=0.7]{dist-sexos.png}  %el parámetro scale permite agrandar o chicar la imagen. En el nombre de archivo puede especificar directorios
 	\caption{Distribución por sexos de los interlocutores} 
 	\label{fig:dist-sex}
 \end{figure}
@@ -132,6 +132,8 @@ Presentamos la variable F0. En primer lugar, reflejo un resumen estadístico de 
 	\item Asimetría: 0.0662973
 	\item Curtosis: -0.4974651
 \end{itemize}
+
+Por el valor de la curtosis, la variable es platicúrtica y muy ligeramente asimétrica por la derecha.
 
 \begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
 	\centering
@@ -228,6 +230,242 @@ Para las mujeres,
 \end{figure}
 
 se encuentran unos p-valores menores que para los hombres, por lo que también se rechaza la hipótesis de normalidad.
+
+\subsubsection{F1}
+
+Como en el apartado anterior, primero reflejo un resumen estadístico de la variable:
+
+\begin{itemize}
+	\item Media: 1.882
+	\item Mediana: 1.877
+	\item Desviación típica: 1.175272
+	\item Rango: [-1.274,5.074]
+	\item Primer y tercer cuartil: (1.052,2.738)
+	\item Asimetría: -0.04269788
+	\item Curtosis: -0.39925
+\end{itemize}
+
+Por el valor de la curtosis, la variable es platicúrtica y muy ligeramente asimétrica por la izquierda.
+
+\begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
+	\centering
+	\includegraphics[scale=0.6]{dist-F1.png}  %el parámetro scale permite agrandar o chicar la imagen. En el nombre de archivo puede especificar directorios
+	\caption{Histograma de la variable F1} 
+	\label{fig:hist-F1}
+\end{figure}
+
+Pasamos a estudiar la normalidad de la variable. Estos son los resultados de los tests:
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}{.5\textwidth}
+		\centering
+		\includegraphics[width=.7\linewidth]{sw-F1.png}
+		\caption{Shapiro-Wilk}
+		\label{fig:sw-F1}
+	\end{subfigure}%
+	\begin{subfigure}{.5\textwidth}
+		\centering
+		\includegraphics[width=.75\linewidth]{l-F1.png}
+		\caption{Lilliefors}
+		\label{fig:l-F1}
+	\end{subfigure}
+	\caption{Tests de normalidad sobre F1}
+	\label{fig:normF1}
+\end{figure}
+
+Encontramos una discrepancia en los tests. Según el p-valor de Shapiro-Wilk, debemos rechazar la hipótesis de normalidad. Sin embargo, Lilliefors nos indica (0.2628) que no podemos rechazarla. Para esclarecer un poco más el comportamiento de F1, realizo la gráfica de densidad con una normal superpuesta con la media y desviación típica de F1:
+
+ \begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
+ 	\centering
+ 	\includegraphics[scale=0.6]{density-F1.png}  %el parámetro scale permite agrandar o chicar la imagen. En el nombre de archivo puede especificar directorios
+ 	\caption{Histograma con la densidad de F1 y normal para comparar} 
+ 	\label{fig:dense-F1}
+ \end{figure}
+
+así como un QQPlot (\cite{10.1093/biomet/55.1.1}):
+
+\begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
+	\centering
+	\includegraphics[scale=0.6]{qq-F1.png}  %el parámetro scale permite agrandar o chicar la imagen. En el nombre de archivo puede especificar directorios
+	\caption{QQPlot de la variable F1} 
+	\label{fig:qq-F1}
+\end{figure}
+
+A la luz de los resultados, podemos interpretar que F1 tiene un comportamiento muy parecido a la distribución normal. A continuación, presento los boxplots:
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}{.5\textwidth}
+		\centering
+		\includegraphics[width=.9\linewidth]{bps1.png}
+		\caption{Por sexo}
+		\label{fig:bps1}
+	\end{subfigure}%
+	\begin{subfigure}{.5\textwidth}
+		\centering
+		\includegraphics[width=.9\linewidth]{bpsn1.png}
+		\caption{Por interlocutor}
+		\label{fig:bpsn1}
+	\end{subfigure}
+	\caption{Boxplot para F1 estudiando sexos e interlocutores}
+	\label{fig:bf1}
+\end{figure}
+
+Podemos apreciar outliers en los interlocutores 3,8,13 y 14. \\
+
+Si ahora estudiamos los tests de normalidad por sexos, encontramos los siguientes resultados. Para los hombres
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}{.5\textwidth}
+		\centering
+		\includegraphics[width=.6\linewidth]{swh-F1.png}
+		\caption{Shapiro-Wilk}
+		\label{fig:swh-F1}
+	\end{subfigure}%
+	\begin{subfigure}{.5\textwidth}
+		\centering
+		\includegraphics[width=.6\linewidth]{lh-F1.png}
+		\caption{Lilliefors}
+		\label{fig:lh-F1}
+	\end{subfigure}
+	\caption{Tests de normalidad sobre F1 (hombres)}
+	\label{fig:normhF1}
+\end{figure}
+
+Ambos tests nos llevan a rechazar la hipótesis de normalidad. En el caso de las mujeres
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}{.5\textwidth}
+		\centering
+		\includegraphics[width=.6\linewidth]{swm-F1.png}
+		\caption{Shapiro-Wilk}
+		\label{fig:swm-F1}
+	\end{subfigure}%
+	\begin{subfigure}{.5\textwidth}
+		\centering
+		\includegraphics[width=.6\linewidth]{lm-F1.png}
+		\caption{Lilliefors}
+		\label{fig:lm-F1}
+	\end{subfigure}
+	\caption{Tests de normalidad sobre F1 (mujeres)}
+	\label{fig:normmF1}
+\end{figure}
+
+también rechazamos la hipótesis nula. Por tanto, en conjunto la variable se comporta según una normal pero por separado (hombres/mujeres) no.
+
+\subsubsection{F2}
+
+Presentamos la variable F2. En primer lugar, reflejo un resumen estadístico de la misma así como su histograma diferenciando entre hombres y mujeres.
+\begin{itemize}
+	\item Media: -0.50777
+	\item Mediana: -0.5725
+	\item Desviación típica: 0.7119483
+	\item Rango: [-2.487,-1.431]
+	\item Primer y tercer cuartiles: (-0.97575,-0.06875)
+	\item Asimetría: 0.2352169
+	\item Curtosis: -0.1575597
+\end{itemize}
+
+Por el valor de la curtosis, la variable es platicúrtica y ligeramente asimétrica por la derecha.
+
+\begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
+	\centering
+	\includegraphics[scale=0.6]{dist-F2.png}  %el parámetro scale permite agrandar o chicar la imagen. En el nombre de archivo puede especificar directorios
+	\caption{Histograma de la variable F2} 
+	\label{fig:hist-F2}
+\end{figure}
+
+
+Pasamos a estudiar la normalidad de la variable. Estos son los resultados de los tests:
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}{.5\textwidth}
+		\centering
+		\includegraphics[width=.7\linewidth]{sw-F2.png}
+		\caption{Shapiro-Wilk}
+		\label{fig:sw-F2}
+	\end{subfigure}%
+	\begin{subfigure}{.5\textwidth}
+		\centering
+		\includegraphics[width=.7\linewidth]{l-F2.png}
+		\caption{Lilliefors}
+		\label{fig:l-F2}
+	\end{subfigure}
+	\caption{Tests de normalidad sobre F2}
+	\label{fig:normF2}
+\end{figure}
+
+Ambos tests nos indican que debemos rechazar la hipótesis de normalidad. En cuanto a los boxplots:
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}{.5\textwidth}
+		\centering
+		\includegraphics[width=.9\linewidth]{bps2.png}
+		\caption{Por sexo}
+		\label{fig:bps2}
+	\end{subfigure}%
+	\begin{subfigure}{.5\textwidth}
+		\centering
+		\includegraphics[width=.9\linewidth]{bpsn2.png}
+		\caption{Por interlocutor}
+		\label{fig:bpsn2}
+	\end{subfigure}
+	\caption{Boxplot para F2 estudiando sexos e interlocutores}
+	\label{fig:bf2}
+\end{figure}
+
+Encontramos en F2 una gran concentración de outliers para los interlocutores 5,6,10,11 y 13. Es posible que las mediciones hayan sido erróneas. En cualquier caso, podría ser importante la aplicación de técnicas para la disminución de estos valores extraños. \\
+
+Si ahora estudiamos los tests de normalidad por sexos, encontramos los siguientes resultados:
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}{.5\textwidth}
+		\centering
+		\includegraphics[width=.6\linewidth]{swh-F2.png}
+		\caption{Shapiro-Wilk}
+		\label{fig:swh-F2}
+	\end{subfigure}%
+	\begin{subfigure}{.5\textwidth}
+		\centering
+		\includegraphics[width=.6\linewidth]{lh-F2.png}
+		\caption{Lilliefors}
+		\label{fig:lh-F2}
+	\end{subfigure}
+	\caption{Tests de normalidad sobre F2 (hombres)}
+	\label{fig:normhF2}
+\end{figure}
+
+
+
+
+
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}{.5\textwidth}
+		\centering
+		\includegraphics[width=.6\linewidth]{swm-F2.png}
+		\caption{Shapiro-Wilk}
+		\label{fig:swm-F2}
+	\end{subfigure}%
+	\begin{subfigure}{.5\textwidth}
+		\centering
+		\includegraphics[width=.6\linewidth]{lm-F2.png}
+		\caption{Lilliefors}
+		\label{fig:lm-F2}
+	\end{subfigure}
+	\caption{Tests de normalidad sobre F2 (mujeres)}
+	\label{fig:normmF2}
+\end{figure}
+
+Para ambos subconjuntos, los tests nos indican que debemos rechazar la hipótesis de normalidad.
+
+
 %----------------------------------------------------------------------------------------
 %	Regresión
 %----------------------------------------------------------------------------------------
