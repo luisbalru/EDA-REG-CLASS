@@ -82,6 +82,13 @@ El presente conjunto de datos contiene información sobre el reconocimiento de l
 	\item SpeakerNumber [0,14]: Indica el interlocutor de la instancia.
 \end{itemize}
 
+\begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
+	\centering
+	\includegraphics[scale=0.6]{dist-sexos.png}  %el parámetro scale permite agrandar o chicar la imagen. En el nombre de archivo puede especificar directorios
+	\caption{Distribución por sexos de los interlocutores} 
+	\label{fig:dist-sex}
+\end{figure}
+
 Por tanto, esas variables se pueden interpretar como factores más que numéricas. De hecho, TT será ignorada en el EDA porque es conveniente realizar el estudio sobre los datos al completo. Por tanto, tras estas modificaciones contamos con diez variables reales (F0-F9), dos factores (sexo y número de interlocutor) y once clases (0-10), con un total de 990 instancias. 
 
 Para explorar los datos, en primer lugar, calculo un resumen estadístico de cada variable y su dispersión. En las variables categóricas encontramos:
@@ -107,6 +114,120 @@ Para las variables numéricas, los resultados son los siguientes:
 	\end{tabular}}
 	\caption{Resumen estadístico y desviación típica de las características reales}
 \end{table}
+
+Como se puede observar, el rango y el dominio de cada variable es distinto, lo que podría condicionar el rendimiento de los posteriores algoritmos que utilizaremos. Por tanto, será necesario un reescalado de las mismas para evitar esa discriminación positiva de unas variables respecto a otras sólo por ser "mayores". \\
+
+A continuación, presento las 10 variables numéricas con más detenimiento. Una de las características principales de este conjunto de datos es que, si se estudia como un todo, el comportamiento de las variables a veces puede parecer errático. Sin embargo, no se debe soslayar el hecho de que tenemos una variable categórica, la del sexo, que nos hace prácticamente crear dos conjuntos de datos cuasi-independientes: hombres y mujeres, donde sí que encontramos correlaciones y claves para entender el funcionamiento de las características. Como digo, presento cada una de las variables, primero estudiándola en conjunto y luego separando por sexo. Para comprobar si las variables siguen una distribución normal, se han utilizado el test de Shapiro-Wilk (\cite{10.1093/biomet/52.3-4.591}) y la corrección de Lilliefors del test de Kolmogorov-Smirnov (\cite{10.1080/01621459.1967.10482916}). Además, para estudiar el comportamiento tanto por sexo como por interlocutor, represento vía boxplots cada variable.
+\newpage
+
+\subsubsection{F0}
+
+Presentamos la variable F0. En primer lugar, reflejo un resumen estadístico de la misma así como su histograma diferenciando entre hombres y mujeres.
+\begin{itemize}
+	\item Media: -3.204
+	\item Mediana: -3.146
+	\item Desviación típica: 0.8689872
+	\item Rango: [-5.211,-0.941]
+	\item Primer y tercer cuartiles: (-3.888,-2.603)
+	\item Asimetría: 0.0662973
+	\item Curtosis: -0.4974651
+\end{itemize}
+
+\begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
+	\centering
+	\includegraphics[scale=0.6]{dist-F0.png}  %el parámetro scale permite agrandar o chicar la imagen. En el nombre de archivo puede especificar directorios
+	\caption{Histograma de la variable F0} 
+	\label{fig:hist-F0}
+\end{figure}
+
+Pasamos a comprobar si F0 se distribuye según una normal. Para ello, establecemos los tests de hipótesis de Shapiro-Wilk y Lilliefors (Kolmogorov-Smirnov) con los siguientes resultados:
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}{.5\textwidth}
+		\centering
+		\includegraphics[width=.7\linewidth]{sw-F0.png}
+		\caption{Shapiro-Wilk}
+		\label{fig:sw-F0}
+	\end{subfigure}%
+	\begin{subfigure}{.5\textwidth}
+		\centering
+		\includegraphics[width=.7\linewidth]{l-F0.png}
+		\caption{Lilliefors}
+		\label{fig:l-F0}
+	\end{subfigure}
+	\caption{Tests de normalidad sobre F0}
+	\label{fig:normF0}
+\end{figure}
+
+Como los p-valores son menores que 0.05, rechazamos la hipótesis nula (la variable sigue una distribución normal). \\
+
+
+A continuación presento los boxplots:
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}{.5\textwidth}
+		\centering
+		\includegraphics[width=.9\linewidth]{bps0.png}
+		\caption{Por sexo}
+		\label{fig:bps0}
+	\end{subfigure}%
+	\begin{subfigure}{.5\textwidth}
+		\centering
+		\includegraphics[width=.9\linewidth]{bpsn0.png}
+		\caption{Por interlocutor}
+		\label{fig:bpsn0}
+	\end{subfigure}
+	\caption{Boxplot para F0 estudiando sexos e interlocutores}
+	\label{fig:bf0}
+\end{figure}
+
+Como se puede ver, existe un outlier en el interlocutor 7. Además, observamos que los valores para los hombres tienden a ser mayores que para las mujeres. \\
+
+Si ahora estudiamos los tests de normalidad por sexos, encontramos los siguientes resultados:
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}{.5\textwidth}
+		\centering
+		\includegraphics[width=.6\linewidth]{swh-F0.png}
+		\caption{Shapiro-Wilk}
+		\label{fig:swh-F0}
+	\end{subfigure}%
+	\begin{subfigure}{.5\textwidth}
+		\centering
+		\includegraphics[width=.6\linewidth]{lh-F0.png}
+		\caption{Lilliefors}
+		\label{fig:lh-F0}
+	\end{subfigure}
+	\caption{Tests de normalidad sobre F0 (hombres)}
+	\label{fig:normhF0}
+\end{figure}
+
+En este caso, aunque también se rechaza la hipótesis de normalidad, el test de Lilliefors arroja un resultado menor pero cercano a 0.05, por lo que parece acercarse más la variable en los hombres a una distribución normal que con el conjunto completo. \\
+
+Para las mujeres,
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}{.5\textwidth}
+		\centering
+		\includegraphics[width=.6\linewidth]{swm-F0.png}
+		\caption{Shapiro-Wilk}
+		\label{fig:swm-F0}
+	\end{subfigure}%
+	\begin{subfigure}{.5\textwidth}
+		\centering
+		\includegraphics[width=.6\linewidth]{lm-F0.png}
+		\caption{Lilliefors}
+		\label{fig:lm-F0}
+	\end{subfigure}
+	\caption{Tests de normalidad sobre F0 (mujeres)}
+	\label{fig:normmF0}
+\end{figure}
+
+se encuentran unos p-valores menores que para los hombres, por lo que también se rechaza la hipótesis de normalidad.
 %----------------------------------------------------------------------------------------
 %	Regresión
 %----------------------------------------------------------------------------------------
