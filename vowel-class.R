@@ -64,51 +64,61 @@ distf0 = ggplot(vowel,aes(x=F0, fill=Sex)) + geom_histogram(binwidth = binwd(vow
 distf0
 # positiva
 skewness(vowel$F0)
+kurtosis(vowel$F0)
 
 distf1 = ggplot(vowel,aes(x=F1, fill=Sex)) + geom_histogram(binwidth = binwd(vowel$F1)) + theme(legend.position = "right") + labs(title="Distribución de la variable F1")
 distf1
 #negativa
 skewness(vowel$F1)
+kurtosis(vowel$F1)
 
 distf2 = ggplot(vowel,aes(x=F2, fill=Sex)) + geom_histogram(binwidth = binwd(vowel$F2)) + theme(legend.position = "right") + labs(title="Distribución de la variable F2")
 distf2
 # positiva
 skewness(vowel$F2)
+kurtosis(vowel$F2)
 
 distf3 = ggplot(vowel,aes(x=F3, fill=Sex)) + geom_histogram(binwidth = binwd(vowel$F3)) + theme(legend.position = "right") + labs(title="Distribución de la variable F3")
 distf3
 # positiva
 skewness(vowel$F3)
+kurtosis(vowel$F3)
 
 distf4 = ggplot(vowel,aes(x=F4, fill=Sex)) + geom_histogram(binwidth = binwd(vowel$F4)) + theme(legend.position = "right") + labs(title="Distribución de la variable F4")
 distf4
 # positiva
 skewness(vowel$F4)
+kurtosis(vowel$F4)
 
 distf5 = ggplot(vowel,aes(x=F5, fill=Sex)) + geom_histogram(binwidth = binwd(vowel$F5)) + theme(legend.position = "right") + labs(title="Distribución de la variable F5")
 distf5
 # positiva
 skewness(vowel$F5)
+kurtosis(vowel$F5)
 
 distf6 = ggplot(vowel,aes(x=F6, fill=Sex)) + geom_histogram(binwidth = binwd(vowel$F6)) + theme(legend.position = "right") + labs(title="Distribución de la variable F6")
 distf6
 # negativa
 skewness(vowel$F6)
+kurtosis(vowel$F6)
 
 distf7 = ggplot(vowel,aes(x=F7, fill=Sex)) + geom_histogram(binwidth = binwd(vowel$F7)) + theme(legend.position = "right") + labs(title="Distribución de la variable F7")
 distf7
 # positiva
 skewness(vowel$F7)
+kurtosis(vowel$F7)
 
 distf8 = ggplot(vowel,aes(x=F8, fill=Sex)) + geom_histogram(binwidth = binwd(vowel$F8)) + theme(legend.position = "right") + labs(title="Distribución de la variable F8")
 distf8
 # positiva
 skewness(vowel$F8)
+kurtosis(vowel$F8)
 
 distf9 = ggplot(vowel,aes(x=F9, fill=Sex)) + geom_histogram(binwidth = binwd(vowel$F9)) + theme(legend.position = "right") + labs(title="Distribución de la variable F9")
 distf9
 # positiva
 skewness(vowel$F9)
+kurtosis(vowel$F9)
 ##############################################################################################
 
 ##############################################################################################
@@ -176,6 +186,7 @@ library(car)
 shapiro.test(vowel$F0)
 # Lillie p-valor 0.000719 Rechazamos la normalidad
 lillie.test(vowel$F0)
+qqPlot(vowel$F0)
 
 # Variable F1.
 # Shapiro:pvalue (0.0312) rechaza normalidad
