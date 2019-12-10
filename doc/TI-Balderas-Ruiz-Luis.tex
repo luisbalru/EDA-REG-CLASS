@@ -697,7 +697,170 @@ Efectivamente, las instancias de F4 de sexo femenino siguen una distribución no
 
 \subsubsection{F5}
 
+A continuación presentamos la variable F5. Como en los casos anteriores, comenzamos por un resumen estadístico:
+\begin{itemize}
+	\item Media: 0.6302
+	\item Mediana: 0.552
+	\item Desviación típica: 0.6038711 
+	\item Rango: [-0.836,2.327]
+	\item Primer y tercer cuartil: (0.196,1.0285)
+	\item Asimetría: 0.3559791
+	\item Curtosis: -0.2964589
+\end{itemize}
 
+A la vista de los resultados, la variable es platicúrtica y ligeramente asimétrica hacia la derecha. Veamos ahora el histograma separado por sexos:
+
+\begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
+	\centering
+	\includegraphics[scale=0.6]{dist-F5.png}  %el parámetro scale permite agrandar o chicar la imagen. En el nombre de archivo puede especificar directorios
+	\caption{Histograma de la variable F5} 
+	\label{fig:hist-F5}
+\end{figure}
+
+Estudio si F5 se distribuye según una normal vía los tests estadísticos. Los resultados son los siguientes:
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}{.5\textwidth}
+		\centering
+		\includegraphics[width=.7\linewidth]{sw-F5.png}
+		\caption{Shapiro-Wilk}
+		\label{fig:sw-F5}
+	\end{subfigure}%
+	\begin{subfigure}{.5\textwidth}
+		\centering
+		\includegraphics[width=.8\linewidth]{l-F5.png}
+		\caption{Lilliefors}
+		\label{fig:l-F5}
+	\end{subfigure}
+	\caption{Tests de normalidad sobre F5}
+	\label{fig:normF5}
+\end{figure}
+
+Ambos tests nos indican que debemos rechazar la hipótesis de normalidad por el bajo p-valor. Si estudiamos los boxplots, encontramos que
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}{.5\textwidth}
+		\centering
+		\includegraphics[width=.9\linewidth]{bps5.png}
+		\caption{Por sexo}
+		\label{fig:bps5}
+	\end{subfigure}%
+	\begin{subfigure}{.5\textwidth}
+		\centering
+		\includegraphics[width=.9\linewidth]{bpsn5.png}
+		\caption{Por interlocutor}
+		\label{fig:bpsn5}
+	\end{subfigure}
+	\caption{Boxplot para F5 estudiando sexos e interlocutores}
+	\label{fig:bf5}
+\end{figure}
+
+con apenas outliers en los interlocutores 11 y 14. Paso a estudiar la distribución por sexos. En el caso de los hombres, comprobamos la normalidad
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}{.5\textwidth}
+		\centering
+		\includegraphics[width=.6\linewidth]{swh-F5.png}
+		\caption{Shapiro-Wilk}
+		\label{fig:swh-F5}
+	\end{subfigure}%
+	\begin{subfigure}{.5\textwidth}
+		\centering
+		\includegraphics[width=.6\linewidth]{lh-F5.png}
+		\caption{Lilliefors}
+		\label{fig:lh-F5}
+	\end{subfigure}
+	\caption{Tests de normalidad sobre F5 (hombres)}
+	\label{fig:normhF5}
+\end{figure}
+
+rechazando la hipótesis de normalidad como consecuencia de los dos tests. Para las mujeres
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}{.5\textwidth}
+		\centering
+		\includegraphics[width=.6\linewidth]{swm-F5.png}
+		\caption{Shapiro-Wilk}
+		\label{fig:swm-F5}
+	\end{subfigure}%
+	\begin{subfigure}{.5\textwidth}
+		\centering
+		\includegraphics[width=.6\linewidth]{lm-F5.png}
+		\caption{Lilliefors}
+		\label{fig:lm-F5}
+	\end{subfigure}
+	\caption{Tests de normalidad sobre F5 (mujeres)}
+	\label{fig:normmF5}
+\end{figure}
+
+encontramos que Shapiro-Wilk nos indica que rechacemos la hipótesis de normalidad (0.04365 < 0.05) pero Lilliefors no (0.08174>0.05). Como siempre, le doy mayor credibilidad al test de Lilliefors, por lo que no podemos rechazar la hipótesis de normalidad. Para confirmarlo, muestro el gráfico QQ.
+
+\begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
+	\centering
+	\includegraphics[scale=0.6]{qq-F5m.png}  %el parámetro scale permite agrandar o chicar la imagen. En el nombre de archivo puede especificar directorios
+	\caption{QQPlot de la variable F5 (mujeres)} 
+	\label{fig:qq-F5m}
+\end{figure}
+
+En efecto, la gráfica nos muestra que la variable se distribuye al menos de forma muy pareja a la normal. Volvemos a encontrar un caso donde el subconjunto de interlocutores masculinos difiere en distribución respecto del femenino.
+
+\subsubsection{F6}
+
+El resumen estadístico de la variable F6 es el siguiente:
+
+\begin{itemize}
+	\item Media: -0.004365
+	\item Mediana: 0.022
+	\item Desviación típica: 0.4619268
+	\item Rango: [-1.537,1.403]
+	\item Primer y tercer cuartiles: (-0.307,0.2965)
+	\item Asimetría: -0.2055278
+	\item Curtosis: 0.139262
+\end{itemize}
+
+Por lo que la variable F6 tiene una asimetría por la izquierda y es leptocúrtica. Veamos su histograma para confirmarlo.
+
+\begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
+	\centering
+	\includegraphics[scale=0.6]{dist-F6.png}  %el parámetro scale permite agrandar o chicar la imagen. En el nombre de archivo puede especificar directorios
+	\caption{Histograma de la variable F6} 
+	\label{fig:hist-F6}
+\end{figure}
+
+Examinamos si se distribuye como una normal con los tests siguientes.
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}{.5\textwidth}
+		\centering
+		\includegraphics[width=.7\linewidth]{sw-F6.png}
+		\caption{Shapiro-Wilk}
+		\label{fig:sw-F6}
+	\end{subfigure}%
+	\begin{subfigure}{.5\textwidth}
+		\centering
+		\includegraphics[width=.7\linewidth]{l-F6.png}
+		\caption{Lilliefors}
+		\label{fig:l-F6}
+	\end{subfigure}
+	\caption{Tests de normalidad sobre F6}
+	\label{fig:normF6}
+\end{figure}
+
+De nuevo, Shapiro-Wilk nos indica que rechacemos la hipótesis de normalidad mientras Kolmogorov-Smirnov no nos da motivos suficientes para rechazar la hipótesis. Confirmamos que se distribuye como una normal gracias al gráfico QQ.
+
+\begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
+	\centering
+	\includegraphics[scale=0.6]{qq-F6.png}  %el parámetro scale permite agrandar o chicar la imagen. En el nombre de archivo puede especificar directorios
+	\caption{QQPlot de la variable F6} 
+	\label{fig:qq-F6}
+\end{figure}
+
+quedándose dentro de los márgenes de la normal, por lo que asumimos que F6 se distribuye como una normal. 
 %----------------------------------------------------------------------------------------
 %	Regresión
 %----------------------------------------------------------------------------------------
