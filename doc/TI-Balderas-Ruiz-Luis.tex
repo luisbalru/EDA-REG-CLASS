@@ -1070,7 +1070,220 @@ La variable presenta asimetría por la derecha y es platicúrtica.
 	\label{fig:hist-F8}
 \end{figure}
 
- 
+Estudio la distribución de F8 vía los tests estadísticos con hipótesis nula que la variable sigue una distribución normal.
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}{.5\textwidth}
+		\centering
+		\includegraphics[width=.7\linewidth]{sw-F8.png}
+		\caption{Shapiro-Wilk}
+		\label{fig:sw-F8}
+	\end{subfigure}%
+	\begin{subfigure}{.5\textwidth}
+		\centering
+		\includegraphics[width=.7\linewidth]{l-F8.png}
+		\caption{Lilliefors}
+		\label{fig:l-F8}
+	\end{subfigure}
+	\caption{Tests de normalidad sobre F8}
+	\label{fig:normF8}
+\end{figure}
+
+El test de Lilliefors nos indica que no podemos rechazar la hipótesis de normalidad. Confirmamos este resultado con el gráfico QQ:
+
+\begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
+	\centering
+	\includegraphics[scale=0.6]{qq-F8.png}  %el parámetro scale permite agrandar o chicar la imagen. En el nombre de archivo puede especificar directorios
+	\caption{QQPlot de la variable F8} 
+	\label{fig:qq-F8}
+\end{figure}
+
+Si estudiamos los boxplots, vemos que la mayoría de los hombres tienen valores mayores que las mujeres. Además, encontramos ciertos outliers en los interlocutores 1,7 y 12.
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}{.5\textwidth}
+		\centering
+		\includegraphics[width=.9\linewidth]{bps8.png}
+		\caption{Por sexo}
+		\label{fig:bps8}
+	\end{subfigure}%
+	\begin{subfigure}{.5\textwidth}
+		\centering
+		\includegraphics[width=.9\linewidth]{bpsn8.png}
+		\caption{Por interlocutor}
+		\label{fig:bpsn8}
+	\end{subfigure}
+	\caption{Boxplot para F8 estudiando sexos e interlocutores}
+	\label{fig:bf8}
+\end{figure}
+
+Si estudiamos ambos sexos por separado, en primer lugar los hombres,
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}{.5\textwidth}
+		\centering
+		\includegraphics[width=.6\linewidth]{swh-F8.png}
+		\caption{Shapiro-Wilk}
+		\label{fig:swh-F8}
+	\end{subfigure}%
+	\begin{subfigure}{.5\textwidth}
+		\centering
+		\includegraphics[width=.6\linewidth]{lh-F8.png}
+		\caption{Lilliefors}
+		\label{fig:lh-F8}
+	\end{subfigure}
+	\caption{Tests de normalidad sobre F8 (hombres)}
+	\label{fig:normhF8}
+\end{figure}
+
+vemos que debemos rechazar la hipótesis de normalidad. Para las mujeres,
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}{.5\textwidth}
+		\centering
+		\includegraphics[width=.6\linewidth]{swm-F8.png}
+		\caption{Shapiro-Wilk}
+		\label{fig:swm-F8}
+	\end{subfigure}%
+	\begin{subfigure}{.5\textwidth}
+		\centering
+		\includegraphics[width=.6\linewidth]{lm-F8.png}
+		\caption{Lilliefors}
+		\label{fig:lm-F8}
+	\end{subfigure}
+	\caption{Tests de normalidad sobre F8 (mujeres)}
+	\label{fig:normmF8}
+\end{figure}
+
+el test de Shapiro-Wilk nos invita a rechazar la hipótesis de normalidad, mientras que el de Lilliefors no encuentra suficientes motivos para rechazar la hipótesis de normalidad (p-valor > 0.05). Confirmamos ese resultado con el gráfico QQ:
+
+\begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
+	\centering
+	\includegraphics[scale=0.6]{qq-F8m.png}  %el parámetro scale permite agrandar o chicar la imagen. En el nombre de archivo puede especificar directorios
+	\caption{QQPlot de la variable F8 (mujers)} 
+	\label{fig:qq-F8m}
+\end{figure}
+
+donde vemos que la variable siempre se queda entre los márgenes establecidos para un comportamiento "normal". Vemos de nuevo una discrepancia entre el subconjunto de interlocutores masculinos y femeninos.
+
+\subsubsection{F9}
+
+Presentamos el resumen estadístico de la última variable, F9, junto con su histograma:
+
+\begin{itemize}
+	\item Media: -0.07134
+	\item Mediana: -0.1565
+	\item Desviación típica: 0.6039855
+	\item Rango: [-1.68,1.396]
+	\item Primer y tercer cuartiles: (-0.548,0.371)
+	\item Asimetría: 0.294874
+	\item Curtosis: -0.7644792
+\end{itemize}
+
+vemos que, a la luz de los resultados, existe una asimetría a la derecha de la distribución, que además es platicúrtica. Si observamos el histograma
+
+\begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
+	\centering
+	\includegraphics[scale=0.6]{dist-F9.png}  %el parámetro scale permite agrandar o chicar la imagen. En el nombre de archivo puede especificar directorios
+	\caption{Histograma de la variable F9} 
+	\label{fig:hist-F9}
+\end{figure}
+
+como se puede ver, en la distribución de hombres existe una asimetría por la derecha (0.9905848) y para las mujeres, uno por la izquierda (-0.3907809), por lo que vemos la gran disparidad entre ambas distribuciones. \\
+
+Comprobamos ahora la normalidad de la distribución:
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}{.5\textwidth}
+		\centering
+		\includegraphics[width=.7\linewidth]{sw-F9.png}
+		\caption{Shapiro-Wilk}
+		\label{fig:sw-F9}
+	\end{subfigure}%
+	\begin{subfigure}{.5\textwidth}
+		\centering
+		\includegraphics[width=.7\linewidth]{l-F9.png}
+		\caption{Lilliefors}
+		\label{fig:l-F9}
+	\end{subfigure}
+	\caption{Tests de normalidad sobre F9}
+	\label{fig:normF9}
+\end{figure}
+
+Ambos tests nos indican que debemos rechazar la hipótesis de normalidad.
+
+Estudiamos ahora los boxplots.
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}{.5\textwidth}
+		\centering
+		\includegraphics[width=.9\linewidth]{bps9.png}
+		\caption{Por sexo}
+		\label{fig:bps9}
+	\end{subfigure}%
+	\begin{subfigure}{.5\textwidth}
+		\centering
+		\includegraphics[width=.9\linewidth]{bpsn9.png}
+		\caption{Por interlocutor}
+		\label{fig:bpsn9}
+	\end{subfigure}
+	\caption{Boxplot para F9 estudiando sexos e interlocutores}
+	\label{fig:bf9}
+\end{figure}
+
+vemos apenas presencia de outliers aunque sí resultados muy dispares entre hombres y mujeres, e incluso dentro de los mismos sexos. \\
+
+
+Si estudiamos la distribución de los hombres
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}{.5\textwidth}
+		\centering
+		\includegraphics[width=.6\linewidth]{swh-F9.png}
+		\caption{Shapiro-Wilk}
+		\label{fig:swh-F9}
+	\end{subfigure}%
+	\begin{subfigure}{.5\textwidth}
+		\centering
+		\includegraphics[width=.6\linewidth]{lh-F9.png}
+		\caption{Lilliefors}
+		\label{fig:lh-F9}
+	\end{subfigure}
+	\caption{Tests de normalidad sobre F9 (hombres)}
+	\label{fig:normhF9}
+\end{figure}
+
+vemos que debemos rechazar la hipótesis de normalidad. Por parte de las mujeres
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}{.5\textwidth}
+		\centering
+		\includegraphics[width=.6\linewidth]{swm-F9.png}
+		\caption{Shapiro-Wilk}
+		\label{fig:swm-F9}
+	\end{subfigure}%
+	\begin{subfigure}{.5\textwidth}
+		\centering
+		\includegraphics[width=.6\linewidth]{lm-F9.png}
+		\caption{Lilliefors}
+		\label{fig:lm-F9}
+	\end{subfigure}
+	\caption{Tests de normalidad sobre F9 (mujeres)}
+	\label{fig:normmF9}
+\end{figure}
+
+también rechazamos la hipótesis de normalidad.
+
+
+
 %----------------------------------------------------------------------------------------
 %	Regresión
 %----------------------------------------------------------------------------------------
