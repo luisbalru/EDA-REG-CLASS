@@ -337,7 +337,8 @@ corrplot(vowel[,3:12], type = "upper", order = "hclust",
 install.packages("PerformanceAnalytics")
 library("PerformanceAnalytics")
 chart.Correlation(vowel[,3:12], histogram=TRUE, pch=19)
-
+chart.Correlation(hombres[,3:12],histrogram=TRUE, pch=19)
+chart.Correlation(mujeres[,3:12],histrogram=TRUE, pch=19)
 
 library(Hmisc)
 
