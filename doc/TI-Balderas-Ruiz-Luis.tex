@@ -860,7 +860,217 @@ De nuevo, Shapiro-Wilk nos indica que rechacemos la hipótesis de normalidad mie
 	\label{fig:qq-F6}
 \end{figure}
 
-quedándose dentro de los márgenes de la normal, por lo que asumimos que F6 se distribuye como una normal. 
+quedándose dentro de los márgenes de la normal, por lo que asumimos que F6 se distribuye como una normal. Examinemos más detenidamente su comportamiento con boxplots:
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}{.5\textwidth}
+		\centering
+		\includegraphics[width=.9\linewidth]{bps6.png}
+		\caption{Por sexo}
+		\label{fig:bps6}
+	\end{subfigure}%
+	\begin{subfigure}{.5\textwidth}
+		\centering
+		\includegraphics[width=.9\linewidth]{bpsn6.png}
+		\caption{Por interlocutor}
+		\label{fig:bpsn6}
+	\end{subfigure}
+	\caption{Boxplot para F6 estudiando sexos e interlocutores}
+	\label{fig:bf6}
+\end{figure}
+
+Encontramos en ellos una gran cantidad de outliers, sobre todo concentrados en el sexo masculino (interlocutor 3 especialmente). Veamos ahora la distribución por sexos vía los tests estadísticos.
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}{.5\textwidth}
+		\centering
+		\includegraphics[width=.6\linewidth]{swh-F6.png}
+		\caption{Shapiro-Wilk}
+		\label{fig:swh-F6}
+	\end{subfigure}%
+	\begin{subfigure}{.5\textwidth}
+		\centering
+		\includegraphics[width=.6\linewidth]{lh-F6.png}
+		\caption{Lilliefors}
+		\label{fig:lh-F6}
+	\end{subfigure}
+	\caption{Tests de normalidad sobre F6 (hombres)}
+	\label{fig:normhF6}
+\end{figure}
+
+El test de Shapiro-Wilk nos indica que rechacemos la hipótesis de normalidad mientras que Lilliefors, con un p-valor de 0.05132, no puede rechazar la hipótesis nula, aunque con muy poca certeza estadística. El gráfico QQ nos confirma que las colas de los datos están fuera del comportamiento de la distribución normal, por lo que el p-valor se acerca mucho a 0.05.
+
+\begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
+	\centering
+	\includegraphics[scale=0.6]{qq-F6h.png}  %el parámetro scale permite agrandar o chicar la imagen. En el nombre de archivo puede especificar directorios
+	\caption{QQPlot de la variable F6 (hombres)} 
+	\label{fig:qq-F6h}
+\end{figure}
+
+Este resultado puede venir influenciado por la gran cantidad de outliers. En el caso de las mujeres
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}{.5\textwidth}
+		\centering
+		\includegraphics[width=.6\linewidth]{swm-F6.png}
+		\caption{Shapiro-Wilk}
+		\label{fig:swm-F6}
+	\end{subfigure}%
+	\begin{subfigure}{.5\textwidth}
+		\centering
+		\includegraphics[width=.6\linewidth]{lm-F6.png}
+		\caption{Lilliefors}
+		\label{fig:lm-F6}
+	\end{subfigure}
+	\caption{Tests de normalidad sobre F6 (mujeres)}
+	\label{fig:normmF6}
+\end{figure}
+
+ambos tests nos indican que no podemos rechazar la hipótesis de normalidad. Además, el gráfico QQ nos lo confirma
+
+\begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
+	\centering
+	\includegraphics[scale=0.6]{qq-F6m.png}  %el parámetro scale permite agrandar o chicar la imagen. En el nombre de archivo puede especificar directorios
+	\caption{QQPlot de la variable F6 (mujeres)} 
+	\label{fig:qq-F6m}
+\end{figure}
+
+por lo que asumimos que la variable F6 para las mujeres sigue una distribución normal.
+
+\subsubsection{F7}
+
+Como en todas las anteriores, presento el resumen estadístico de la variable F7 y su histograma.
+
+\begin{itemize}
+	\item Media: 0.33655
+	\item Mediana: 0.328
+	\item Desviación típica: 0.5733020
+	\item Rango: [-1.293,2.039]
+	\item Primer y tercer cuartiles: (-0.09575,0.77)
+	\item Asimetría: 0.005939385
+	\item Curtosis: -0.4980897
+\end{itemize}
+
+
+La variable apenas presenta asimetría por la derecha y es platicúrtica.
+
+\begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
+	\centering
+	\includegraphics[scale=0.6]{dist-F7.png}  %el parámetro scale permite agrandar o chicar la imagen. En el nombre de archivo puede especificar directorios
+	\caption{Histograma de la variable F7} 
+	\label{fig:hist-F7}
+\end{figure}
+
+Podemos ver, gracias al histograma, que la población de mujeres tiene gran asimetría por la derecha (0.4939301). Estudiando los tests estadísticos para la normalidad
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}{.5\textwidth}
+		\centering
+		\includegraphics[width=.7\linewidth]{sw-F7.png}
+		\caption{Shapiro-Wilk}
+		\label{fig:sw-F7}
+	\end{subfigure}%
+	\begin{subfigure}{.5\textwidth}
+		\centering
+		\includegraphics[width=.7\linewidth]{l-F7.png}
+		\caption{Lilliefors}
+		\label{fig:l-F7}
+	\end{subfigure}
+	\caption{Tests de normalidad sobre F7}
+	\label{fig:normF7}
+\end{figure}
+
+vemos que ambos tests nos hacen rechazar la hipótesis de normalidad. Si observamos los boxplots
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}{.5\textwidth}
+		\centering
+		\includegraphics[width=.9\linewidth]{bps7.png}
+		\caption{Por sexo}
+		\label{fig:bps7}
+	\end{subfigure}%
+	\begin{subfigure}{.5\textwidth}
+		\centering
+		\includegraphics[width=.9\linewidth]{bpsn7.png}
+		\caption{Por interlocutor}
+		\label{fig:bpsn7}
+	\end{subfigure}
+	\caption{Boxplot para F7 estudiando sexos e interlocutores}
+	\label{fig:bf7}
+\end{figure}
+
+vemos varios outliers de nuevo sobre todo en los hombres (interlocutores 2,3 y 11). Si estudiamos estos conjuntos por separado
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}{.5\textwidth}
+		\centering
+		\includegraphics[width=.6\linewidth]{swh-F7.png}
+		\caption{Shapiro-Wilk}
+		\label{fig:swh-F7}
+	\end{subfigure}%
+	\begin{subfigure}{.5\textwidth}
+		\centering
+		\includegraphics[width=.6\linewidth]{lh-F7.png}
+		\caption{Lilliefors}
+		\label{fig:lh-F7}
+	\end{subfigure}
+	\caption{Tests de normalidad sobre F7 (hombres)}
+	\label{fig:normhF7}
+\end{figure}
+
+ambos estadísticos nos hacen rechazar la hipótesis de normalidad (con posibles modificaciones tras tratar los outliers), al igual que las mujeres
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}{.5\textwidth}
+		\centering
+		\includegraphics[width=.6\linewidth]{swm-F7.png}
+		\caption{Shapiro-Wilk}
+		\label{fig:swm-F7}
+	\end{subfigure}%
+	\begin{subfigure}{.5\textwidth}
+		\centering
+		\includegraphics[width=.6\linewidth]{lm-F7.png}
+		\caption{Lilliefors}
+		\label{fig:lm-F7}
+	\end{subfigure}
+	\caption{Tests de normalidad sobre F7 (mujeres)}
+	\label{fig:normmF7}
+\end{figure}
+
+Debido a la asimetría, una transformación de tipo logaritmo o raíz cuadrada podría corregirse y dar lugar, además, a una distribución más parecida a la normal.
+
+\subsubsection{F8}
+
+He aquí el resumen estadístico e histograma de la variable F8:
+
+\begin{itemize}
+	\item Media: -0.30298
+	\item Mediana: -0.3025
+	\item Desviación típica: 0.5701616
+	\item Rango: [-1.631,1.309]
+	\item Primer y tercer cuartiles: (-0.704,0.09375)
+	\item Asimetría: 0.05370663
+	\item Curtosis: -0.465887
+\end{itemize}
+
+
+La variable presenta asimetría por la derecha y es platicúrtica.
+
+\begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
+	\centering
+	\includegraphics[scale=0.6]{dist-F8.png}  %el parámetro scale permite agrandar o chicar la imagen. En el nombre de archivo puede especificar directorios
+	\caption{Histograma de la variable F8} 
+	\label{fig:hist-F8}
+\end{figure}
+
+ 
 %----------------------------------------------------------------------------------------
 %	Regresión
 %----------------------------------------------------------------------------------------
