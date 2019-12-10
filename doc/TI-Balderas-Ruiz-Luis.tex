@@ -1282,6 +1282,68 @@ vemos que debemos rechazar la hipótesis de normalidad. Por parte de las mujeres
 
 también rechazamos la hipótesis de normalidad.
 
+\subsubsection{Correlación entre variables}
+
+Para estudiar la correlación entre las variables, en primer lugar, hago la representación de todas las variables, tomadas dos a dos, mostrando debajo de la diagonal, el scatter plot de las variables con un ajuste lineal. Por encima de la diagonal, vemos el valor de correlación de dichas variables con el nivel de significancia vía estrellas (p-valores(0, 0.001, 0.01, 0.05, 0.1, 1) <=> símbolos(“***”, “**”, “*”, “.”, " “)).
+
+\begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
+	\centering
+	\includegraphics[scale=0.8]{plot-vowel.png}  %el parámetro scale permite agrandar o chicar la imagen. En el nombre de archivo puede especificar directorios
+	\caption{Comparativa de las variables dos a dos} 
+	\label{fig:plot-vowel}
+\end{figure}
+
+Como podemos ver, la máxima correlación (negativa) es -0.53 entre las variables F3-F6 y F4-F8. Las demás son tendencias vagas. \\
+
+Visto de otra manera, tenemos este gráfico
+
+\begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
+	\centering
+	\includegraphics[scale=0.75]{vowel-flatten.png}  %el parámetro scale permite agrandar o chicar la imagen. En el nombre de archivo puede especificar directorios
+	\caption{Comparativa de las variables dos a dos} 
+	\label{fig:plot-vowel1}
+\end{figure}
+ 
+ \newpage
+Si ahora introducimos la distinción entre hombres y mujeres, obtenemos los siguientes resultados:
+
+\begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
+	\centering
+	\includegraphics[scale=0.75]{hombres-flatten.png}  %el parámetro scale permite agrandar o chicar la imagen. En el nombre de archivo puede especificar directorios
+	\caption{Comparativa de las variables dos a dos (hombres)} 
+	\label{fig:hombres-vowel1}
+\end{figure}
+
+donde aparecen nuevas correlaciones (positivas) entre F2-F9, F2-F8, F1-F8 y nuevas negativas F2-F5, F2-F0,F1-F4,F1-F5, F1-F0, F8-F4 o F8-F5 con valores cercanos a $\pm 0.48$. 
+
+\begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
+	\centering
+	\includegraphics[scale=0.8]{hombres-plot.png}  %el parámetro scale permite agrandar o chicar la imagen. En el nombre de archivo puede especificar directorios
+	\caption{Comparativa de las variables dos a dos (hombres)} 
+	\label{fig:hombres-vowel}
+\end{figure}
+
+\newpage
+
+Para las mujeres
+
+\begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
+	\centering
+	\includegraphics[scale=0.75]{mujeres-flatten.png}  %el parámetro scale permite agrandar o chicar la imagen. En el nombre de archivo puede especificar directorios
+	\caption{Comparativa de las variables dos a dos (mujeres)} 
+	\label{fig:mujeres-vowel1}
+\end{figure}
+
+Por tanto, vemos una vez más que es útil hacer diferenciación por sexos para encontrar correlaciones entre variables.
+
+\begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
+	\centering
+	\includegraphics[scale=0.8]{mujeres-plot.png}  %el parámetro scale permite agrandar o chicar la imagen. En el nombre de archivo puede especificar directorios
+	\caption{Comparativa de las variables dos a dos (mujeres)} 
+	\label{fig:mujeres-vowel}
+\end{figure}
+encontramos grandes correlaciones negativas entre F6-F3 (-0.68), F1-F3 (-0.68) o F7-F9 (-0.63).
+
 
 
 %----------------------------------------------------------------------------------------
