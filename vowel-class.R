@@ -362,6 +362,19 @@ corrplot(res2m$r, type="upper", order="hclust",
 
 ##################################################################
 
+###############################################################
+# BOXPLOT POR CLASES
+boxplot(hombres$F0~hombres$Class,data=hombres)
+boxplot(hombres$F1~hombres$Class,data=hombres)
+boxplot(vowel$F2~vowel$Class,data=vowel)
+boxplot(vowel$F3~vowel$Class,data=vowel)
+boxplot(vowel$F4~vowel$Class,data=vowel)
+boxplot(vowel$F5~vowel$Class,data=vowel)
+boxplot(vowel$F6~vowel$Class,data=vowel)
+boxplot(vowel$F7~vowel$Class,data=vowel)
+boxplot(vowel$F8~vowel$Class,data=vowel)
+boxplot(vowel$F9~vowel$Class,data=vowel)
+###############################################################
 
 #################################################################
 # TRANSFORMACIONES
