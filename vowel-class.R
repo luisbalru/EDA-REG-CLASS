@@ -322,7 +322,6 @@ qqPlot(mujeres$F8)
 # pvalue (9.116e-08) < 0.05. Rechazo hipótesis de normalidad
 shapiro.test(mujeres$F9)
 lillie.test(mujeres$F9)
-qqPlot(mujeres$F9)
 ##################################################################
 
 ##################################################################
