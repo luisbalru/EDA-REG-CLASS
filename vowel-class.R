@@ -421,16 +421,18 @@ ggplot(vowel, aes(x=logF2)) + geom_histogram(aes(y=..density..),binwidth = binwd
 # C.1 kNN
 library(tidyverse)
 library(kknn)
+library(caret)
 library(scales)
+library(class)
 vowel = read.csv("./data/vowel/vowel.dat",header=FALSE, comment.char="@")
 colnames(vowel) = c("TT","SpeakerNumber","Sex","F0","F1","F2","F3","F4","F5","F6","F7","F8","F9","Class")
 for (i in 4:13){
   vowel[,i] = rescale(vowel[,i])
 }
-vowel.training = vowel %>% filter(vowel$TT == 0)
-vowel.test = vowel %>% filter(vowel$TT == 1)
 
-vowel.kknn = kknn(Class~.,vowel.training,vowel.training,k=3)
-summary(vowel.kknn)
-fit_kknn <- fitted(vowel.kknn)
-table(vowel.test$Class, fit)
+train.index <- createDataPartition(vowel$Class, p = .7, list = FALSE)
+v.train <- vowel[ train.index,]
+v.test  <- vowel[-train.index,]
+pr <- knn(train=v.train,test=v.test,cl=v.train$Class,k=3)
+acc1 = sum(pr==v.test$Class)/nrow(v.test)
+table(pr,v.test$Class)
