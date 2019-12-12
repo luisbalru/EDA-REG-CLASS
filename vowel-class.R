@@ -376,6 +376,7 @@ boxplot(vowel$F7~vowel$Class,data=vowel)
 boxplot(vowel$F8~vowel$Class,data=vowel)
 boxplot(vowel$F9~vowel$Class,data=vowel)
 
+
 ###############################################################
 
 #################################################################
