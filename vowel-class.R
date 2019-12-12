@@ -375,7 +375,28 @@ boxplot(vowel$F6~vowel$Class,data=vowel)
 boxplot(vowel$F7~vowel$Class,data=vowel)
 boxplot(vowel$F8~vowel$Class,data=vowel)
 boxplot(vowel$F9~vowel$Class,data=vowel)
-
+# hombres
+boxplot(hombres$F0~hombres$Class,data=hombres)
+boxplot(hombres$F1~hombres$Class,data=hombres)
+boxplot(hombres$F2~hombres$Class,data=hombres)
+boxplot(hombres$F3~hombres$Class,data=hombres)
+boxplot(hombres$F4~hombres$Class,data=hombres)
+boxplot(hombres$F5~hombres$Class,data=hombres)
+boxplot(hombres$F6~hombres$Class,data=hombres)
+boxplot(hombres$F7~hombres$Class,data=hombres)
+boxplot(hombres$F8~hombres$Class,data=hombres)
+boxplot(hombres$F9~hombres$Class,data=hombres)
+# mujeres
+boxplot(mujeres$F0~mujeres$Class,data=mujeres)
+boxplot(mujeres$F1~mujeres$Class,data=mujeres)
+boxplot(mujeres$F2~mujeres$Class,data=mujeres)
+boxplot(mujeres$F3~mujeres$Class,data=mujeres)
+boxplot(mujeres$F4~mujeres$Class,data=mujeres)
+boxplot(mujeres$F5~mujeres$Class,data=mujeres)
+boxplot(mujeres$F6~mujeres$Class,data=mujeres)
+boxplot(mujeres$F7~mujeres$Class,data=mujeres)
+boxplot(mujeres$F8~mujeres$Class,data=mujeres)
+boxplot(mujeres$F9~mujeres$Class,data=mujeres)
 
 ###############################################################
 
