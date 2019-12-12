@@ -415,3 +415,15 @@ ggplot(vowel, aes(x=logF2)) + geom_histogram(aes(y=..density..),binwidth = binwd
 
 
 #################################################################
+#################################################################
+# CLASIFICACIÓN
+
+# C.1 kNN
+library(tidyverse)
+library(philentropy)
+library(rescale)
+vowel = read.csv("./data/vowel/vowel.dat",header=FALSE, comment.char="@")
+colnames(vowel) = c("TT","SpeakerNumber","Sex","F0","F1","F2","F3","F4","F5","F6","F7","F8","F9","Class")
+
+vowel.training = vowel %>% filter(vowel$TT == 0)
+vowel.test = vowel %>% filter(vowel$TT == 1)
