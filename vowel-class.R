@@ -544,11 +544,11 @@ v.train$TT= NULL
 v.train$SpeakerNumber = NULL
 v.test$TT = NULL
 v.test$SpeakerNumber = NULL
-
-vowel.lda = lda(Class ~.-Sex, data=v.train)
-vowel.lda
-predict.lda = predict(vowel.lda,v.test)
-table(predict.lda$class, v.test$Class)
-mean(predict.lda$class == v.test$Class)
-
+v.train$Class = as.factor(v.train$Class)
+v.test$Class = as.factor(v.test$Class)
+vowel.lda.predict <- train(Class ~ ., method = "lda", data = v.train)
+confusionMatrix(v.test$Class, predict(vowel.lda.predict, v.test))
+library(klaR)
+X11(width=15, height=15)
+partimat(Class ~F0+F1+F2+F3, data = v.test, method = "lda")
 
