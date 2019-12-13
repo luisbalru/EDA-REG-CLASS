@@ -434,7 +434,7 @@ accuracy_vowel = c()
 train.index <- createDataPartition(vowel$Class, p = .7, list = FALSE)
 v.train <- vowel[ train.index,]
 v.test  <- vowel[-train.index,]
-for (i in c(1,3,5,7,9)){
+for (i in seq(1,15,2)){
   train.index <- createDataPartition(vowel$Class, p = .7, list = FALSE)
   v.train <- vowel[ train.index,]
   v.test  <- vowel[-train.index,]
@@ -443,7 +443,7 @@ for (i in c(1,3,5,7,9)){
   accuracy_vowel = append(accuracy_vowel,acc1)
 }
 
-plot(x=c(1,3,5,7,9),y=accuracy_vowel,xlab="Valores de k", ylab="Accuracy sobre vowel", main="Resultado kNN",ylim=c(0,1),type='o',col='blue')
+plot(x=seq(1,15,2),y=accuracy_vowel,xlab="Valores de k", ylab="Accuracy sobre vowel", main="Resultado kNN",ylim=c(0,1),type='o',col='blue')
 
 ## REGIONES CON KNN 
 train.index <- createDataPartition(vowel$Class, p = .7, list = FALSE)
@@ -517,15 +517,15 @@ run_knn_fold <- function(i, x, tt = "test",k_par) {
 }
 kfolds_list_train = c()
 kfolds_list_test = c()
-for(i in c(1,3,5,7,9)){
+for(i in seq(1,15,2)){
   acc_mean_train = mean(sapply(1:10,run_knn_fold,nombre,"train",i))
   acc_mean_test = mean(sapply(1:10,run_knn_fold,nombre,"test",i))
   kfolds_list_train = append(kfolds_list_train,acc_mean_train)
   kfolds_list_test = append(kfolds_list_test,acc_mean_test)
 }
 
-plot(x=c(1,3,5,7,9),y=kfolds_list_train,xlab="Valores de k", ylab="Accuracy sobre vowel en train",ylim=c(0,1), main="Resultado kNN 10-kfoldCross validation",type='o',col='blue')
-plot(x=c(1,3,5,7,9),y=kfolds_list_test,xlab="Valores de k", ylab="Accuracy sobre vowel en test",ylim=c(0,1), main="Resultado kNN 10-kfoldCross validation",type='o',col='blue')
+plot(x=seq(1,15,2),y=kfolds_list_train,xlab="Valores de k", ylab="Accuracy sobre vowel en train",ylim=c(0,1), main="Resultado kNN 10-kfoldCross validation",type='o',col='blue')
+plot(x=seq(1,15,2),y=kfolds_list_test,xlab="Valores de k", ylab="Accuracy sobre vowel en test",ylim=c(0,1), main="Resultado kNN 10-kfoldCross validation",type='o',col='blue')
 
 
 ################################################################################################
