@@ -420,7 +420,6 @@ ggplot(vowel, aes(x=logF2)) + geom_histogram(aes(y=..density..),binwidth = binwd
 
 # C.1 kNN
 library(tidyverse)
-library(kknn)
 library(caret)
 library(scales)
 library(class)
@@ -436,3 +435,22 @@ v.test  <- vowel[-train.index,]
 pr <- knn(train=v.train,test=v.test,cl=v.train$Class,k=3)
 acc1 = sum(pr==v.test$Class)/nrow(v.test)
 table(pr,v.test$Class)
+
+#############################
+# Prueba por sexos
+
+hombres = vowel %>% filter(Sex==0)
+mujeres = vowel %>% filter(Sex==1)
+
+hombres.index = createDataPartition(hombres$Class, p = .7, list = FALSE)
+h.train <- hombres[hombres.index,]
+h.test = hombres[-hombres.index,]
+modelo_hombres = knn(train=h.train,test = h.test, cl=h.train$Class, k=3)
+acc_h = sum(modelo_hombres==h.test$Class)/nrow(h.test)
+
+
+mujeres.index = createDataPartition(mujeres$Class, p = .7, list = FALSE)
+m.train <- mujeres[mujeres.index,]
+m.test = mujeres[-mujeres.index,]
+modelo_mujeres = knn(train=m.train,test = m.test, cl=m.train$Class, k=3)
+acc_m = sum(modelo_mujeres==m.test$Class)/nrow(m.test)
