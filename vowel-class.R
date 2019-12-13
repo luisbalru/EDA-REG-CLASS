@@ -491,10 +491,14 @@ run_knn_fold <- function(i, x, tt = "test",k_par) {
   pr <- knn(train=x_tra,test=test,cl=x_tra$Y,k=k_par)
   return(sum(pr==test$Y)/nrow(test)) 
 }
-kfolds_list = c()
+kfolds_list_train = c()
+kfolds_list_test = c()
 for(i in c(1,3,5,7,9)){
-  acc_mean = mean(sapply(1:10,run_knn_fold,nombre,"test",i))
-  kfolds_list = append(kfolds_list,acc_mean)
+  acc_mean_train = mean(sapply(1:10,run_knn_fold,nombre,"train",i))
+  acc_mean_test = mean(sapply(1:10,run_knn_fold,nombre,"test",i))
+  kfolds_list_train = append(kfolds_list_train,acc_mean_train)
+  kfolds_list_test = append(kfolds_list_test,acc_mean_test)
 }
 
-plot(x=c(1,3,5,7,9),y=acc_mujeres,xlab="Valores de k", ylab="Accuracy sobre vowel",ylim=c(0,1), main="Resultado kNN 10-kfoldCross validation",type='o',col='blue')
+plot(x=c(1,3,5,7,9),y=kfolds_list_train,xlab="Valores de k", ylab="Accuracy sobre vowel en train",ylim=c(0,1), main="Resultado kNN 10-kfoldCross validation",type='o',col='blue')
+plot(x=c(1,3,5,7,9),y=kfolds_list_test,xlab="Valores de k", ylab="Accuracy sobre vowel en test",ylim=c(0,1), main="Resultado kNN 10-kfoldCross validation",type='o',col='blue')
