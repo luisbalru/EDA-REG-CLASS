@@ -428,29 +428,67 @@ colnames(vowel) = c("TT","SpeakerNumber","Sex","F0","F1","F2","F3","F4","F5","F6
 for (i in 4:13){
   vowel[,i] = rescale(vowel[,i])
 }
+accuracy_vowel = c()
+for (i in c(1,3,5,7,9)){
+  train.index <- createDataPartition(vowel$Class, p = .7, list = FALSE)
+  v.train <- vowel[ train.index,]
+  v.test  <- vowel[-train.index,]
+  pr <- knn(train=v.train,test=v.test,cl=v.train$Class,k=i)
+  acc1 = sum(pr==v.test$Class)/nrow(v.test)
+  accuracy_vowel = append(accuracy_vowel,acc1)
+}
 
-train.index <- createDataPartition(vowel$Class, p = .7, list = FALSE)
-v.train <- vowel[ train.index,]
-v.test  <- vowel[-train.index,]
-pr <- knn(train=v.train,test=v.test,cl=v.train$Class,k=3)
-acc1 = sum(pr==v.test$Class)/nrow(v.test)
-table(pr,v.test$Class)
-
+plot(x=c(1,3,5,7,9),y=accuracy_vowel,xlab="Valores de k", ylab="Accuracy sobre vowel", main="Resultado kNN",ylim=c(0,1),type='o',col='blue')
 #############################
 # Prueba por sexos
 
 hombres = vowel %>% filter(Sex==0)
 mujeres = vowel %>% filter(Sex==1)
 
-hombres.index = createDataPartition(hombres$Class, p = .7, list = FALSE)
-h.train <- hombres[hombres.index,]
-h.test = hombres[-hombres.index,]
-modelo_hombres = knn(train=h.train,test = h.test, cl=h.train$Class, k=3)
-acc_h = sum(modelo_hombres==h.test$Class)/nrow(h.test)
+acc_hombres = c()
+for (i in c(1,3,5,7,9)){
+  hombres.index = createDataPartition(hombres$Class, p = .7, list = FALSE)
+  h.train <- hombres[hombres.index,]
+  h.test = hombres[-hombres.index,]
+  modelo_hombres = knn(train=h.train,test = h.test, cl=h.train$Class, k=3)
+  acc_h = sum(modelo_hombres==h.test$Class)/nrow(h.test)
+  acc_hombres = append(acc_hombres,acc_h)
+}
 
+plot(x=c(1,3,5,7,9),y=acc_hombres,xlab="Valores de k", ylab="Accuracy sobre hombres",ylim=c(0,1), main="Resultado kNN",type='o',col='blue')
 
-mujeres.index = createDataPartition(mujeres$Class, p = .7, list = FALSE)
-m.train <- mujeres[mujeres.index,]
-m.test = mujeres[-mujeres.index,]
-modelo_mujeres = knn(train=m.train,test = m.test, cl=m.train$Class, k=3)
-acc_m = sum(modelo_mujeres==m.test$Class)/nrow(m.test)
+acc_mujeres = c()
+for(i in c(1,3,5,7,9)){
+  mujeres.index = createDataPartition(mujeres$Class, p = .7, list = FALSE)
+  m.train <- mujeres[mujeres.index,]
+  m.test = mujeres[-mujeres.index,]
+  modelo_mujeres = knn(train=m.train,test = m.test, cl=m.train$Class, k=3)
+  acc_m = sum(modelo_mujeres==m.test$Class)/nrow(m.test)
+  acc_mujeres = append(acc_mujeres,acc_m)
+}
+
+plot(x=c(1,3,5,7,9),y=acc_mujeres,xlab="Valores de k", ylab="Accuracy sobre mujeres",ylim=c(0,1), main="Resultado kNN",type='o',col='blue')
+
+# Cross-validation
+
+nombre <- "./data/vowel/vowel"
+run_knn_fold <- function(i, x, tt = "test",k_par) {
+  file <- paste(x, "-10-", i, "tra.dat", sep="")
+  x_tra <- read.csv(file, comment.char="@", header=FALSE)
+  file <- paste(x, "-10-", i, "tst.dat", sep="")
+  x_tst <- read.csv(file, comment.char="@", header=FALSE)
+  In <- length(names(x_tra)) - 1
+  names(x_tra)[1:In] <- paste ("X", 1:In, sep="")
+  names(x_tra)[In+1] <- "Y"
+  names(x_tst)[1:In] <- paste ("X", 1:In, sep="")
+  names(x_tst)[In+1] <- "Y"
+  if (tt == "train") {
+    test <- x_tra
+  }
+  else {
+    test <- x_tst
+  }
+  pr <- knn(train=x_tra,test=test,cl=x_tra$Y,k=k_par)
+  return(sum(pr==test$Y)/nrow(test)) 
+}
+acc_mean = mean(sapply(1:10,run_knn_fold,nombre,"test",3))
