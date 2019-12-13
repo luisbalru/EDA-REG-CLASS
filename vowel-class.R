@@ -423,12 +423,17 @@ library(tidyverse)
 library(caret)
 library(scales)
 library(class)
+library(plyr)
+library(ggplot2)
 vowel = read.csv("./data/vowel/vowel.dat",header=FALSE, comment.char="@")
 colnames(vowel) = c("TT","SpeakerNumber","Sex","F0","F1","F2","F3","F4","F5","F6","F7","F8","F9","Class")
 for (i in 4:13){
   vowel[,i] = rescale(vowel[,i])
 }
 accuracy_vowel = c()
+train.index <- createDataPartition(vowel$Class, p = .7, list = FALSE)
+v.train <- vowel[ train.index,]
+v.test  <- vowel[-train.index,]
 for (i in c(1,3,5,7,9)){
   train.index <- createDataPartition(vowel$Class, p = .7, list = FALSE)
   v.train <- vowel[ train.index,]
@@ -439,6 +444,25 @@ for (i in c(1,3,5,7,9)){
 }
 
 plot(x=c(1,3,5,7,9),y=accuracy_vowel,xlab="Valores de k", ylab="Accuracy sobre vowel", main="Resultado kNN",ylim=c(0,1),type='o',col='blue')
+
+## REGIONES CON KNN 
+train.index <- createDataPartition(vowel$Class, p = .7, list = FALSE)
+v.train <- vowel[ train.index,]
+v.test  <- vowel[-train.index,]
+pr <- knn(train=v.train,test=v.test,cl=v.train$Class,k=3)
+acc1 = sum(pr==v.test$Class)/nrow(v.test)
+accuracy_vowel = append(accuracy_vowel,acc1)
+plot.df = data.frame(v.test, predicted = pr)
+plot.df1 = data.frame(x = plot.df$F0, 
+                      y = plot.df$F1, 
+                      predicted = plot.df$predicted)
+
+find_hull = function(df) df[chull(df$x, df$y), ]
+boundary = ddply(plot.df1, .variables = "predicted", .fun = find_hull)
+
+ggplot(plot.df, aes(F0, F1, color = predicted, fill = predicted)) + 
+  geom_point(size = 5) + 
+  geom_polygon(data = boundary, aes(x,y), alpha = 0.5)
 #############################
 # Prueba por sexos
 
@@ -502,3 +526,29 @@ for(i in c(1,3,5,7,9)){
 
 plot(x=c(1,3,5,7,9),y=kfolds_list_train,xlab="Valores de k", ylab="Accuracy sobre vowel en train",ylim=c(0,1), main="Resultado kNN 10-kfoldCross validation",type='o',col='blue')
 plot(x=c(1,3,5,7,9),y=kfolds_list_test,xlab="Valores de k", ylab="Accuracy sobre vowel en test",ylim=c(0,1), main="Resultado kNN 10-kfoldCross validation",type='o',col='blue')
+
+
+################################################################################################
+## C.2
+# LDA
+library(MASS)
+# checks (ya hecho en EDA)
+sapply(vowel[,3:13],shapiro.test)
+sapply(vowel[,4:13],var)
+
+train.index <- createDataPartition(vowel$Class, p = .7, list = FALSE)
+v.train <- vowel[ train.index,]
+v.test  <- vowel[-train.index,]
+
+v.train$TT= NULL
+v.train$SpeakerNumber = NULL
+v.test$TT = NULL
+v.test$SpeakerNumber = NULL
+
+vowel.lda = lda(Class ~.-Sex, data=v.train)
+vowel.lda
+predict.lda = predict(vowel.lda,v.test)
+table(predict.lda$class, v.test$Class)
+mean(predict.lda$class == v.test$Class)
+
+
