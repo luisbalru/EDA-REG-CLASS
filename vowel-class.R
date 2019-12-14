@@ -660,3 +660,76 @@ acc_mean_test_qda = mean(resultados_qda_test)
 # Comparación de algoritmos
 tabla = cbind(resultados_knn1_test,resultados_knn3_test,resultados_lda_test,resultados_qda_test)
 tabla_resultados = as.data.frame(tabla,col.names=c("1NN", "3NN","LDA","QDA"))
+
+# COMPARACIONES CON PARES: TEST DE WILCOXON
+## 1) 1NN -  LDA
+
+difs1 = (tabla_resultados[,1]-tabla_resultados[,3])/tabla_resultados[,1]
+wilc_1_3 = cbind(ifelse(difs1<0,abs(difs1)+0.1,0+0.1),ifelse(difs1>0,abs(difs1)+0.1,0.1+0))
+colnames(wilc_1_3) <- c(colnames(tabla_resultados)[1], colnames(tabla_resultados)[3])
+head(wilc_1_3)
+
+K1NNvsLDAtst = wilcox.test(wilc_1_3[,1],wilc_1_3[,2],alternative = "two.sided",paired=TRUE)
+Rmas = K1NNvsLDAtst$statistic
+pvalue = K1NNvsLDAtst$p.value
+K1NNvsLDAtst = wilcox.test(wilc_1_3[,2],wilc_1_3[,1],alternative = "two.sided",paired=TRUE)
+Rmenos = K1NNvsLDAtst$statistic
+Rmas
+Rmenos
+pvalue
+
+## 2) 1NN - QDA
+
+difs2 = (tabla_resultados[,1]-tabla_resultados[,4])/tabla_resultados[,1]
+wilc_1_4 = cbind(ifelse(difs2<0,abs(difs2)+0.1,0+0.1),ifelse(difs2>0,abs(difs2)+0.1,0.1+0))
+colnames(wilc_1_4) <- c(colnames(tabla_resultados)[1], colnames(tabla_resultados)[4])
+head(wilc_1_4)
+
+K1NNvsQDAtst = wilcox.test(wilc_1_4[,1],wilc_1_4[,2],alternative = "two.sided",paired=TRUE)
+Rmas = K1NNvsQDAtst$statistic
+pvalue = K1NNvsQDAtst$p.value
+K1NNvsQDAtst = wilcox.test(wilc_1_4[,2],wilc_1_4[,1],alternative = "two.sided",paired=TRUE)
+Rmenos = K1NNvsQDAtst$statistic
+Rmas
+Rmenos
+pvalue
+
+## 3) 3NN- LDA
+
+difs3 = (tabla_resultados[,2]-tabla_resultados[,3])/tabla_resultados[,2]
+wilc_2_3 = cbind(ifelse(difs3<0,abs(difs3)+0.1,0+0.1),ifelse(difs3>0,abs(difs3)+0.1,0.1+0))
+colnames(wilc_2_3) <- c(colnames(tabla_resultados)[2], colnames(tabla_resultados)[3])
+head(wilc_2_3)
+
+K3NNvsLDAtst = wilcox.test(wilc_2_3[,1],wilc_2_3[,2],alternative = "two.sided",paired=TRUE)
+Rmas = K3NNvsLDAtst$statistic
+pvalue = K3NNvsLDAtst$p.value
+K3NNvsLDAtst = wilcox.test(wilc_2_3[,2],wilc_2_3[,1],alternative = "two.sided",paired=TRUE)
+Rmenos = K3NNvsLDAtst$statistic
+Rmas
+Rmenos
+pvalue
+
+## 4) LDA-QDA
+difs4 = (tabla_resultados[,3]-tabla_resultados[,4])/tabla_resultados[,3]
+wilc_3_4 = cbind(ifelse(difs4<0,abs(difs4)+0.1,0+0.1),ifelse(difs4>0,abs(difs4)+0.1,0.1+0))
+colnames(wilc_3_4) <- c(colnames(tabla_resultados)[3], colnames(tabla_resultados)[4])
+head(wilc_3_4)
+
+LDAvsQDAtst = wilcox.test(wilc_3_4[,1],wilc_3_4[,2],alternative = "two.sided",paired=TRUE)
+Rmas = LDAvsQDAtst$statistic
+pvalue = LDAvsQDAtst$p.value
+LDAvsQDAtst = wilcox.test(wilc_3_4[,2],wilc_3_4[,1],alternative = "two.sided",paired=TRUE)
+Rmenos = LDAvsQDAtst$statistic
+Rmas
+Rmenos
+pvalue
+
+# Comparativa general (Friedman)
+test_friedman <- friedman.test(as.matrix(tabla_resultados))
+test_friedman
+
+# Post-hoc Holm
+tam <- dim(tabla_resultados)
+groups <- rep(1:tam[2], each=tam[1])
+pairwise.wilcox.test(as.matrix(tabla_resultados), groups, p.adjust = "holm", paired = TRUE)
