@@ -571,10 +571,10 @@ run_lda_fold <- function(i, x, tt = "test") {
   else {
     test <- x_tst
   }
-  #x_tra$X1 = NULL
-  #x_tra$X2 = NULL
-  #test$X1 = NULL
-  #test$X2 =  NULL
+  x_tra$X1 = NULL
+  x_tra$X2 = NULL
+  test$X1 = NULL
+  test$X2 =  NULL
   x_tra$Y = as.factor(x_tra$Y)
   test$Y = as.factor(test$Y)
   modelo <- train(Y ~ ., method = "lda", data = x_tra)
@@ -586,3 +586,13 @@ acc_mean_test_lda = mean(sapply(1:10,run_lda_fold,nombre,"test"))
 
 ######################################################################################
 # C.3
+# QDA
+
+# CHECKS: Misma varianza entre elementos de la misma clase
+
+for(i in 0:10){
+  aux = vowel %>% filter(Class == i)
+  print(paste("Clase ",i))
+  print(sapply(aux[,4:13],var))
+}
+
