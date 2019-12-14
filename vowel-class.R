@@ -123,7 +123,8 @@ kurtosis(vowel$F9)
 
 ##############################################################################################
 # BOXPLOTS
-
+# bps_i --> Boxplot separando por Sexo (y con colores cada interlocutor)
+# bpsn_i ---> Boxplot separando por interlocutores (y con colores el sexo)
 bps0 = ggplot(vowel, aes(x=Sex, y=F0, fill = SpeakerNumber)) + geom_boxplot(outlier.colour="red",outlier.shape=8,outlier.size=4)
 bps0
 bpsn0 = ggplot(vowel, aes(x = SpeakerNumber, y = F0, fill = Sex))+ geom_boxplot(outlier.colour="red",outlier.shape=8,outlier.size=4)
@@ -365,7 +366,7 @@ corrplot(res2m$r, type="upper", order="hclust",
 ###############################################################
 # BOXPLOT POR CLASES
 # vowel
-  boxplot(vowel$F0~vowel$Class,data=vowel)
+boxplot(vowel$F0~vowel$Class,data=vowel)
 boxplot(vowel$F1~vowel$Class,data=vowel)
 boxplot(vowel$F2~vowel$Class,data=vowel)
 boxplot(vowel$F3~vowel$Class,data=vowel)
