@@ -5,7 +5,7 @@
 # Dataset: vowel
 ############################################################
 
-# Cálculo de binwidth para un histograma
+# Cálculo de binwidth óptimo para un histograma
 binwd = function(data){
   size = length(data)
   dt = sd(data)
@@ -13,6 +13,7 @@ binwd = function(data){
   return(1/(cr)*dt*3.49)
 }
 
+# Función para crear la matriz de correlación más bonita
 flattenCorrMatrix <- function(cormat, pmat) {
   ut <- upper.tri(cormat)
   data.frame(
