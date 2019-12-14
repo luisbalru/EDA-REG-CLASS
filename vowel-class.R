@@ -596,3 +596,22 @@ for(i in 0:10){
   print(sapply(aux[,4:13],var))
 }
 
+
+train.index <- createDataPartition(vowel$Class, p = .7, list = FALSE)
+v.train <- vowel[ train.index,]
+v.test  <- vowel[-train.index,]
+
+v.train$TT= NULL
+v.train$SpeakerNumber = NULL
+v.test$TT = NULL
+v.test$SpeakerNumber = NULL
+v.train$Class = as.factor(v.train$Class)
+v.test$Class = as.factor(v.test$Class)
+vowel.lda.predict <- train(Class ~ ., method = "qda", data = v.train)
+confusionMatrix(v.test$Class, predict(vowel.lda.predict, v.test))
+library(klaR)
+X11(width=15, height=15)
+partimat(Class ~F0+F1+F2+F3, data = v.test, method = "qda")
+
+
+
