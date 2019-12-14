@@ -571,10 +571,10 @@ run_lda_fold <- function(i, x, tt = "test") {
   else {
     test <- x_tst
   }
-  x_tra$X1 = NULL
-  x_tra$X2 = NULL
-  test$X1 = NULL
-  test$X2 =  NULL
+  #x_tra$X1 = NULL
+  #x_tra$X2 = NULL
+  #test$X1 = NULL
+  #test$X2 =  NULL
   x_tra$Y = as.factor(x_tra$Y)
   test$Y = as.factor(test$Y)
   modelo <- train(Y ~ ., method = "lda", data = x_tra)
