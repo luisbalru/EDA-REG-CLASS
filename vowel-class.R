@@ -365,7 +365,7 @@ corrplot(res2m$r, type="upper", order="hclust",
 ###############################################################
 # BOXPLOT POR CLASES
 # vowel
-boxplot(vowel$F0~vowel$Class,data=vowel)
+  boxplot(vowel$F0~vowel$Class,data=vowel)
 boxplot(vowel$F1~vowel$Class,data=vowel)
 boxplot(vowel$F2~vowel$Class,data=vowel)
 boxplot(vowel$F3~vowel$Class,data=vowel)
@@ -552,3 +552,37 @@ library(klaR)
 X11(width=15, height=15)
 partimat(Class ~F0+F1+F2+F3, data = v.test, method = "lda")
 
+# Cross-validation
+
+nombre <- "./data/vowel/vowel"
+run_lda_fold <- function(i, x, tt = "test") {
+  file <- paste(x, "-10-", i, "tra.dat", sep="")
+  x_tra <- read.csv(file, comment.char="@", header=FALSE)
+  file <- paste(x, "-10-", i, "tst.dat", sep="")
+  x_tst <- read.csv(file, comment.char="@", header=FALSE)
+  In <- length(names(x_tra)) - 1
+  names(x_tra)[1:In] <- paste ("X", 1:In, sep="")
+  names(x_tra)[In+1] <- "Y"
+  names(x_tst)[1:In] <- paste ("X", 1:In, sep="")
+  names(x_tst)[In+1] <- "Y"
+  if (tt == "train") {
+    test <- x_tra
+  }
+  else {
+    test <- x_tst
+  }
+  x_tra$X1 = NULL
+  x_tra$X2 = NULL
+  test$X1 = NULL
+  test$X2 =  NULL
+  x_tra$Y = as.factor(x_tra$Y)
+  test$Y = as.factor(test$Y)
+  modelo <- train(Y ~ ., method = "lda", data = x_tra)
+  pr = predict(modelo,test)
+  return(sum(pr==test$Y)/nrow(test)) 
+}
+acc_mean_train_lda = mean(sapply(1:10,run_lda_fold,nombre,"train"))
+acc_mean_test_lda = mean(sapply(1:10,run_lda_fold,nombre,"test"))
+
+######################################################################################
+# C.3
