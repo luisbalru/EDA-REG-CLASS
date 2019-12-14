@@ -642,6 +642,6 @@ run_qda_fold <- function(i, x, tt = "test") {
   pr = predict(modelo,test)
   return(sum(pr==test$Y)/nrow(test)) 
 }
-acc_mean_train_lda = mean(sapply(1:10,run_lda_fold,nombre,"train"))
-acc_mean_test_lda = mean(sapply(1:10,run_lda_fold,nombre,"test"))
+acc_mean_train_qda = mean(sapply(1:10,run_qda_fold,nombre,"train"))
+acc_mean_test_qda = mean(sapply(1:10,run_qda_fold,nombre,"test"))
 
