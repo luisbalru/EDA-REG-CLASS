@@ -528,6 +528,11 @@ plot(x=seq(1,15,2),y=kfolds_list_train,xlab="Valores de k", ylab="Accuracy sobre
 plot(x=seq(1,15,2),y=kfolds_list_test,xlab="Valores de k", ylab="Accuracy sobre vowel en test",ylim=c(0,1), main="Resultado kNN 10-kfoldCross validation",type='o',col='blue')
 
 
+resultados_knn3_test = sapply(1:10,run_knn_fold,nombre,"test",3)
+acc_mean_test_knn = mean(resultados_knn3_test)
+
+
+
 ################################################################################################
 ## C.2
 # LDA
@@ -582,7 +587,9 @@ run_lda_fold <- function(i, x, tt = "test") {
   return(sum(pr==test$Y)/nrow(test)) 
 }
 acc_mean_train_lda = mean(sapply(1:10,run_lda_fold,nombre,"train"))
-acc_mean_test_lda = mean(sapply(1:10,run_lda_fold,nombre,"test"))
+resultados_lda_test = sapply(1:10,run_lda_fold,nombre,"test")
+acc_mean_test_lda = mean(resultados_lda_test)
+
 
 ######################################################################################
 # C.3
@@ -642,6 +649,11 @@ run_qda_fold <- function(i, x, tt = "test") {
   pr = predict(modelo,test)
   return(sum(pr==test$Y)/nrow(test)) 
 }
-acc_mean_train_qda = mean(sapply(1:10,run_qda_fold,nombre,"train"))
-acc_mean_test_qda = mean(sapply(1:10,run_qda_fold,nombre,"test"))
 
+acc_mean_train_qda = mean(sapply(1:10,run_qda_fold,nombre,"train"))
+resultados_qda_test = sapply(1:10,run_qda_fold,nombre,"test")
+acc_mean_test_qda = mean(resultados_qda_test)
+
+##############################################################################
+# C.4
+# Comparación de algoritmos
