@@ -529,6 +529,7 @@ plot(x=seq(1,15,2),y=kfolds_list_test,xlab="Valores de k", ylab="Accuracy sobre 
 
 
 resultados_knn3_test = sapply(1:10,run_knn_fold,nombre,"test",3)
+resultados_knn1_test = sapply(1:10,run_knn_fold,nombre,"test",1)
 acc_mean_test_knn = mean(resultados_knn3_test)
 
 
@@ -657,3 +658,5 @@ acc_mean_test_qda = mean(resultados_qda_test)
 ##############################################################################
 # C.4
 # Comparación de algoritmos
+tabla = cbind(resultados_knn1_test,resultados_knn3_test,resultados_lda_test,resultados_qda_test)
+tabla_resultados = as.data.frame(tabla,col.names=c("1NN", "3NN","LDA","QDA"))
