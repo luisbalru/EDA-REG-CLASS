@@ -6,7 +6,8 @@
 ############################################################
 library(ggplot2)
 library(tidyverse)
-library(outlier)
+install.packages("outliers")
+library(outliers)
 
 binwd = function(data){
   size = length(data)
@@ -48,12 +49,6 @@ ggplot(data=wankara_scale, aes(x=wankara_scale$Min_temperature, y=wankara_scale$
   ggtitle("Temperatura mínima vs Temperatura media") +
   labs(x="Temperatura mínima", y="Temperatura media")
 
-# Histograma temperatura media
-ggplot(data=wankara_scale, aes(x=Mean_temperature)) +
-  geom_histogram(fill="blue") +
-  ggtitle("Histograma de temperatura media") +
-  labs(x="Temperatura média", y="Count\nof Records")
-
 
 mean_t1 = wankara_scale %>% filter(Mean_temperature < 0.5 & Mean_temperature > 0.3)
 ggplot(data=mean_t1, aes(x=Mean_temperature)) +
@@ -61,3 +56,71 @@ ggplot(data=mean_t1, aes(x=Mean_temperature)) +
   ggtitle("Histograma de temperatura media (entre 0.3 y 0.5)") +
   labs(x="Temperatura média", y="Count\nof Records")
 
+
+#############################################################################################
+# HISTOGRAMAS
+
+# Max-temperature
+ggplot(data=wankara, aes(x=Max_temperature)) +
+  geom_histogram(binwidth = binwd(wankara$Max_temperature),fill="blue") +
+  ggtitle("Histograma de temperatura máxima") +
+  labs(x="Temperatura máxima", y="Count\nof Records")
+
+# Min-temperature
+ggplot(data=wankara, aes(x=Min_temperature)) +
+  geom_histogram(binwidth = binwd(wankara$Min_temperature),fill="blue") +
+  ggtitle("Histograma de temperatura mínima") +
+  labs(x="Temperatura mínima", y="Count\nof Records")
+
+# Dewpoint
+ggplot(data=wankara, aes(x=Dewpoint)) +
+  geom_histogram(binwidth = binwd(wankara$Dewpoint),fill="blue") +
+  ggtitle("Histograma Dewpoint") +
+  labs(x="Dewpoint", y="Count\nof Records")
+
+# Precipitation
+ggplot(data=wankara, aes(x=Precipitation)) +
+  geom_histogram(binwidth = binwd(wankara$Precipitation),fill="blue") +
+  ggtitle("Histograma Precipitaciones") +
+  labs(x="Precipitaciones", y="Count\nof Records")
+
+# Sea level pressure
+ggplot(data=wankara, aes(x=Sea_level_pressure)) +
+  geom_histogram(binwidth = binwd(wankara$Sea_level_pressure),fill="blue") +
+  ggtitle("Histograma Sea_level_pressure") +
+  labs(x="Sea_level_pressure", y="Count\nof Records")
+
+# Standard pressure
+ggplot(data=wankara, aes(x=Standard_pressure)) +
+  geom_histogram(binwidth = binwd(wankara$Standard_pressure),fill="blue") +
+  ggtitle("Histograma Standard pressure") +
+  labs(x="Standard pressure", y="Count\nof Records")
+
+# Visibility
+ggplot(data=wankara, aes(x=Visibility)) +
+  geom_histogram(binwidth = binwd(wankara$Visibility),fill="blue") +
+  ggtitle("Histograma Visibility") +
+  labs(x="Visibility", y="Count\nof Records")
+
+# Wind speed
+ggplot(data=wankara, aes(x=Wind_speed)) +
+  geom_histogram(binwidth = binwd(wankara$Wind_speed),fill="blue") +
+  ggtitle("Histograma Wind speed") +
+  labs(x="Wind speed", y="Count\nof Records")
+
+# Max Wind speed
+ggplot(data=wankara, aes(x=Max_wind_speed)) +
+  geom_histogram(binwidth = binwd(wankara$Max_wind_speed),fill="blue") +
+  ggtitle("Histograma Max Wind speed") +
+  labs(x="Max Wind speed", y="Count\nof Records")
+
+# Histograma temperatura media
+ggplot(data=wankara, aes(x=Mean_temperature)) +
+  geom_histogram(binwidth=binwd(wankara$Mean_temperature),fill="blue") +
+  ggtitle("Histograma de temperatura media") +
+  labs(x="Temperatura média", y="Count\nof Records")
+
+#############################################################################################
+# OUTLIERS
+
+outlier(wankara$Max_temperature)
