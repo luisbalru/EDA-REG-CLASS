@@ -133,7 +133,8 @@ wankara[is.na(wankara)]
 install.packages("outliers")
 library(outliers)
 
-outlier(wankara$Max_temperature)
+sapply(wankara,outlier)
+sapply(wankara,outlier,opposite=TRUE)
 
 
 #############################################################################################
