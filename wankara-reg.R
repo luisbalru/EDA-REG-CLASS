@@ -2,7 +2,7 @@
 # INTRODUCCIÓN A LA CIENCIA DE DATOS
 # Autor: Luis Balderas Ruiz
 # EDA+Regresion
-# Dataset: wankara
+# Dataset: wankara (01/01/1994 to 28/05/1998)
 ############################################################
 
 library(ggplot2)
@@ -115,6 +115,46 @@ library(outliers)
 
 outlier(wankara$Max_temperature)
 
+
+#############################################################################################
+# DIVISIÓN POR MESES
+dias = seq(1,1609,30)
+max_temp = c()
+min_temp = c()
+dewp = c()
+precip = c()
+slp = c()
+sp = c()
+visib = c()
+Ws = c() 
+Msp = c()
+Mean_temp = c()
+for(i in 1:54){
+  if(i == 54){
+    max_temp = append(max_temp, mean(wankara$Max_temperature[dias[i]:1609]))
+    min_temp = append(min_temp,mean(wankara$Min_temperature[dias[i]:1609]))
+    dewp = append(dewp, mean(wankara$Dewpoint[dias[i]:1609]))
+    precip = append(precip, mean(wankara$Precipitation[dias[i]:1609]))
+    slp = append(slp,mean(wankara$Sea_level_pressure[dias[i]:1609]))
+    sp = append(sp, mean(wankara$Standard_pressure[dias[i]:1609]))
+    visib = append(visib, mean(wankara$Visibility[dias[i]:1609]))
+    Ws = append(Ws, mean(wankara$Wind_speed[dias[i]:1609]))
+    Msp = append(Msp, mean(wankara$Max_wind_speed[dias[i]:1609]))
+    Mean_temp = append(Mean_temp, mean(wankara$Mean_temperature[dias[i]:1609]))
+  }
+  else{
+    max_temp = append(max_temp, mean(wankara$Max_temperature[dias[i]:(dias[i+1]-1)]))
+    min_temp = append(min_temp,mean(wankara$Min_temperature[dias[i]:(dias[i+1]-1)]))
+    dewp = append(dewp, mean(wankara$Dewpoint[dias[i]:(dias[i+1]-1)]))
+    precip = append(precip, mean(wankara$Precipitation[dias[i]:(dias[i+1]-1)]))
+    slp = append(slp,mean(wankara$Sea_level_pressure[dias[i]:(dias[i+1]-1)]))
+    sp = append(sp, mean(wankara$Standard_pressure[dias[i]:(dias[i+1]-1)]))
+    visib = append(visib, mean(wankara$Visibility[dias[i]:(dias[i+1]-1)]))
+    Ws = append(Ws, mean(wankara$Wind_speed[dias[i]:(dias[i+1]-1)]))
+    Msp = append(Msp, mean(wankara$Max_wind_speed[dias[i]:(dias[i+1]-1)]))
+    Mean_temp = append(Mean_temp, mean(wankara$Mean_temperature[dias[i]:(dias[i+1]-1)]))
+  }
+}
 
 #############################################################################################
 # HIPÓTESIS
