@@ -118,6 +118,7 @@ outlier(wankara$Max_temperature)
 
 #############################################################################################
 # DIVISIÓN POR MESES
+
 dias = seq(1,1609,30)
 max_temp = c()
 min_temp = c()
@@ -165,6 +166,7 @@ for(i in 1:54){
 }
 df = as.data.frame(cbind(meses, max_temp))
 ggplot(df,aes(x=meses, y=max_temp))+geom_point()
+ggplot(df,aes(x=meses,y=min_temp)) + geom_point()
 
 #############################################################################################
 # HIPÓTESIS
@@ -182,6 +184,12 @@ ggplot(data=wankara_scale, aes(x=wankara_scale$Min_temperature, y=wankara_scale$
   labs(x="Temperatura mínima", y="Temperatura media")
 
 
+###########################################################################################
+# CORRELACIÓN
+
+install.packages("PerformanceAnalytics")
+library("PerformanceAnalytics")
+chart.Correlation(wankara, histogram=TRUE, pch=19)
 
 #############################################################################################3
 # REESCALADO
