@@ -32,30 +32,6 @@ par(mfrow=c(3,4)) #Si margin too large => (2,3)
 x <- sapply(1:(dim(temp)[2]-1), plotY, dim(temp)[2])
 par(mfrow=c(1,1))
 
-library("scales")
-wankara_scale = sapply(wankara,rescale)
-wankara_scale = as.data.frame(wankara_scale)
-summary(wankara_scale)
-
-# Hipótesis: mayor temperatura máxima, mayor temperatura media
-ggplot(data=wankara_scale, aes(x=wankara_scale$Max_temperature, y=wankara_scale$Mean_temperature)) +
-  geom_point(alpha=.4, size=4, color="#880011") +
-  ggtitle("Temperatura máxima vs Temperatura media") +
-  labs(x="Temperatura máxima", y="Temperatura media")
-
-# Hipótesis: mayor temperatura mínima, mayor temperatura media
-ggplot(data=wankara_scale, aes(x=wankara_scale$Min_temperature, y=wankara_scale$Mean_temperature)) +
-  geom_point(alpha=.4, size=4, color="#880011") +
-  ggtitle("Temperatura mínima vs Temperatura media") +
-  labs(x="Temperatura mínima", y="Temperatura media")
-
-
-mean_t1 = wankara_scale %>% filter(Mean_temperature < 0.5 & Mean_temperature > 0.3)
-ggplot(data=mean_t1, aes(x=Mean_temperature)) +
-  geom_histogram(binwidth = binwd(mean_t1$Mean_temperature), fill="blue") +
-  ggtitle("Histograma de temperatura media (entre 0.3 y 0.5)") +
-  labs(x="Temperatura média", y="Count\nof Records")
-
 
 #############################################################################################
 # HISTOGRAMAS
@@ -120,7 +96,40 @@ ggplot(data=wankara, aes(x=Mean_temperature)) +
   ggtitle("Histograma de temperatura media") +
   labs(x="Temperatura média", y="Count\nof Records")
 
+mean_t1 = wankara_scale %>% filter(Mean_temperature < 0.5 & Mean_temperature > 0.3)
+ggplot(data=mean_t1, aes(x=Mean_temperature)) +
+  geom_histogram(binwidth = binwd(mean_t1$Mean_temperature), fill="blue") +
+  ggtitle("Histograma de temperatura media (entre 0.3 y 0.5)") +
+  labs(x="Temperatura média", y="Count\nof Records")
+
 #############################################################################################
 # OUTLIERS
 
 outlier(wankara$Max_temperature)
+
+
+#############################################################################################
+# HIPÓTESIS
+
+# Hipótesis: mayor temperatura máxima, mayor temperatura media
+ggplot(data=wankara_scale, aes(x=wankara_scale$Max_temperature, y=wankara_scale$Mean_temperature)) +
+  geom_point(alpha=.4, size=4, color="#880011") +
+  ggtitle("Temperatura máxima vs Temperatura media") +
+  labs(x="Temperatura máxima", y="Temperatura media")
+
+# Hipótesis: mayor temperatura mínima, mayor temperatura media
+ggplot(data=wankara_scale, aes(x=wankara_scale$Min_temperature, y=wankara_scale$Mean_temperature)) +
+  geom_point(alpha=.4, size=4, color="#880011") +
+  ggtitle("Temperatura mínima vs Temperatura media") +
+  labs(x="Temperatura mínima", y="Temperatura media")
+
+
+
+#############################################################################################3
+# Reescalado
+
+library("scales")
+wankara_scale = sapply(wankara,rescale)
+wankara_scale = as.data.frame(wankara_scale)
+summary(wankara_scale)
+
