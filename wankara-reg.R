@@ -4,10 +4,10 @@
 # EDA+Regresion
 # Dataset: wankara
 ############################################################
+
 library(ggplot2)
 library(tidyverse)
-install.packages("outliers")
-library(outliers)
+
 
 binwd = function(data){
   size = length(data)
@@ -102,8 +102,16 @@ ggplot(data=mean_t1, aes(x=Mean_temperature)) +
   ggtitle("Histograma de temperatura media (entre 0.3 y 0.5)") +
   labs(x="Temperatura média", y="Count\nof Records")
 
+
+#############################################################################################
+# VALORES PERDIDOS
+
+wankara[is.na(wankara)]
+
 #############################################################################################
 # OUTLIERS
+install.packages("outliers")
+library(outliers)
 
 outlier(wankara$Max_temperature)
 
@@ -126,7 +134,7 @@ ggplot(data=wankara_scale, aes(x=wankara_scale$Min_temperature, y=wankara_scale$
 
 
 #############################################################################################3
-# Reescalado
+# REESCALADO
 
 library("scales")
 wankara_scale = sapply(wankara,rescale)
