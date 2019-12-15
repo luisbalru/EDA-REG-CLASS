@@ -37,60 +37,80 @@ par(mfrow=c(1,1))
 # HISTOGRAMAS
 
 # Max-temperature
+skewness(wankara$Max_temperature)
+kurtosis(wankara$Max_temperature)
 ggplot(data=wankara, aes(x=Max_temperature)) +
   geom_histogram(binwidth = binwd(wankara$Max_temperature),fill="blue") +
   ggtitle("Histograma de temperatura máxima") +
   labs(x="Temperatura máxima", y="Count\nof Records")
 
 # Min-temperature
+skewness(wankara$Min_temperature)
+kurtosis(wankara$Min_temperature)
 ggplot(data=wankara, aes(x=Min_temperature)) +
   geom_histogram(binwidth = binwd(wankara$Min_temperature),fill="blue") +
   ggtitle("Histograma de temperatura mínima") +
   labs(x="Temperatura mínima", y="Count\nof Records")
 
 # Dewpoint
+skewness(wankara$Dewpoint)
+kurtosis(wankara$Dewpoint)
 ggplot(data=wankara, aes(x=Dewpoint)) +
   geom_histogram(binwidth = binwd(wankara$Dewpoint),fill="blue") +
   ggtitle("Histograma Dewpoint") +
   labs(x="Dewpoint", y="Count\nof Records")
 
 # Precipitation
+skewness(wankara$Precipitation)
+kurtosis(wankara$Precipitation)
 ggplot(data=wankara, aes(x=Precipitation)) +
   geom_histogram(binwidth = binwd(wankara$Precipitation),fill="blue") +
   ggtitle("Histograma Precipitaciones") +
   labs(x="Precipitaciones", y="Count\nof Records")
 
 # Sea level pressure
+skewness(wankara$Sea_level_pressure)
+kurtosis(wankara$Sea_level_pressure)
 ggplot(data=wankara, aes(x=Sea_level_pressure)) +
   geom_histogram(binwidth = binwd(wankara$Sea_level_pressure),fill="blue") +
   ggtitle("Histograma Sea_level_pressure") +
   labs(x="Sea_level_pressure", y="Count\nof Records")
 
 # Standard pressure
+skewness(wankara$Standard_pressure)
+kurtosis(wankara$Standard_pressure)
 ggplot(data=wankara, aes(x=Standard_pressure)) +
   geom_histogram(binwidth = binwd(wankara$Standard_pressure),fill="blue") +
   ggtitle("Histograma Standard pressure") +
   labs(x="Standard pressure", y="Count\nof Records")
 
 # Visibility
+skewness(wankara$Visibility)
+kurtosis(wankara$Visibility)
 ggplot(data=wankara, aes(x=Visibility)) +
   geom_histogram(binwidth = binwd(wankara$Visibility),fill="blue") +
   ggtitle("Histograma Visibility") +
   labs(x="Visibility", y="Count\nof Records")
 
 # Wind speed
+skewness(wankara$Wind_speed)
+kurtosis(wankara$Wind_speed)
 ggplot(data=wankara, aes(x=Wind_speed)) +
   geom_histogram(binwidth = binwd(wankara$Wind_speed),fill="blue") +
   ggtitle("Histograma Wind speed") +
   labs(x="Wind speed", y="Count\nof Records")
 
 # Max Wind speed
+skewness(wankara$Max_wind_speed)
+kurtosis(wankara$Max_wind_speed)
 ggplot(data=wankara, aes(x=Max_wind_speed)) +
   geom_histogram(binwidth = binwd(wankara$Max_wind_speed),fill="blue") +
   ggtitle("Histograma Max Wind speed") +
   labs(x="Max Wind speed", y="Count\nof Records")
 
 # Histograma temperatura media
+skewness(wankara$Mean_temperature)
+kurtosis(wankara$Mean_temperature)
 ggplot(data=wankara, aes(x=Mean_temperature)) +
   geom_histogram(binwidth=binwd(wankara$Mean_temperature),fill="blue") +
   ggtitle("Histograma de temperatura media") +
