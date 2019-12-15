@@ -186,7 +186,7 @@ for(i in 1:54){
   meses[i] = paste(meses[i],j,sep="")
 }
 df = as.data.frame(cbind(meses, max_temp))
-ggplot(df,aes(x=meses, y=max_temp))+geom_point()
+ggplot(df[1:12,],aes(x=meses, y=max_temp))+geom_point()
 ggplot(df,aes(x=meses,y=min_temp)) + geom_point()
 
 #############################################################################################
