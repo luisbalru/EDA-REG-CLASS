@@ -155,6 +155,16 @@ for(i in 1:54){
     Mean_temp = append(Mean_temp, mean(wankara$Mean_temperature[dias[i]:(dias[i+1]-1)]))
   }
 }
+meses = rep(month.abb,5)[1:54]
+j=94
+for(i in 1:54){
+  if(i%%12 == 1){
+    j = j+1
+  }
+  meses[i] = paste(meses[i],j,sep="")
+}
+df = as.data.frame(cbind(meses, max_temp))
+ggplot(df,aes(x=meses, y=max_temp))+geom_point()
 
 #############################################################################################
 # HIPÓTESIS
