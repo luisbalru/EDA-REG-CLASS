@@ -140,7 +140,13 @@ sapply(wankara,outlier,opposite=TRUE)
 #############################################################################################
 # DIVISIÓN POR MESES
 
-dias = seq(1,1609,30)
+# Días en cada mes
+dias_mes = c(31,28,31,30,31,30,31,31,30,31,30,31)
+# Días del dataset
+dias = rep(dias_mes,5)[1:53]
+# 1996 fue bisiesto
+dias[12*3+2] = 29
+
 max_temp = c()
 min_temp = c()
 dewp = c()
@@ -151,55 +157,60 @@ visib = c()
 Ws = c() 
 Msp = c()
 Mean_temp = c()
-for(i in 1:54){
-  if(i == 54){
-    max_temp = append(max_temp, mean(wankara$Max_temperature[dias[i]:1609]))
-    min_temp = append(min_temp,mean(wankara$Min_temperature[dias[i]:1609]))
-    dewp = append(dewp, mean(wankara$Dewpoint[dias[i]:1609]))
-    precip = append(precip, mean(wankara$Precipitation[dias[i]:1609]))
-    slp = append(slp,mean(wankara$Sea_level_pressure[dias[i]:1609]))
-    sp = append(sp, mean(wankara$Standard_pressure[dias[i]:1609]))
-    visib = append(visib, mean(wankara$Visibility[dias[i]:1609]))
-    Ws = append(Ws, mean(wankara$Wind_speed[dias[i]:1609]))
-    Msp = append(Msp, mean(wankara$Max_wind_speed[dias[i]:1609]))
-    Mean_temp = append(Mean_temp, mean(wankara$Mean_temperature[dias[i]:1609]))
+actual = 1
+for(i in 1:53){
+  if(i == 53){
+    max_temp = append(max_temp, mean(wankara$Max_temperature[actual:1609]))
+    min_temp = append(min_temp,mean(wankara$Min_temperature[actual:1609]))
+    dewp = append(dewp, mean(wankara$Dewpoint[actual:1609]))
+    precip = append(precip, mean(wankara$Precipitation[actual:1609]))
+    slp = append(slp,mean(wankara$Sea_level_pressure[actual:1609]))
+    sp = append(sp, mean(wankara$Standard_pressure[actual:1609]))
+    visib = append(visib, mean(wankara$Visibility[actual:1609]))
+    Ws = append(Ws, mean(wankara$Wind_speed[actual:1609]))
+    Msp = append(Msp, mean(wankara$Max_wind_speed[actual:1609]))
+    Mean_temp = append(Mean_temp, mean(wankara$Mean_temperature[actual:1609]))
   }
   else{
-    max_temp = append(max_temp, mean(wankara$Max_temperature[dias[i]:(dias[i+1]-1)]))
-    min_temp = append(min_temp,mean(wankara$Min_temperature[dias[i]:(dias[i+1]-1)]))
-    dewp = append(dewp, mean(wankara$Dewpoint[dias[i]:(dias[i+1]-1)]))
-    precip = append(precip, mean(wankara$Precipitation[dias[i]:(dias[i+1]-1)]))
-    slp = append(slp,mean(wankara$Sea_level_pressure[dias[i]:(dias[i+1]-1)]))
-    sp = append(sp, mean(wankara$Standard_pressure[dias[i]:(dias[i+1]-1)]))
-    visib = append(visib, mean(wankara$Visibility[dias[i]:(dias[i+1]-1)]))
-    Ws = append(Ws, mean(wankara$Wind_speed[dias[i]:(dias[i+1]-1)]))
-    Msp = append(Msp, mean(wankara$Max_wind_speed[dias[i]:(dias[i+1]-1)]))
-    Mean_temp = append(Mean_temp, mean(wankara$Mean_temperature[dias[i]:(dias[i+1]-1)]))
+    max_temp = append(max_temp, mean(wankara$Max_temperature[actual:actual+dias[i]-1]))
+    min_temp = append(min_temp,mean(wankara$Min_temperature[actual:actual+dias[i]-1]))
+    dewp = append(dewp, mean(wankara$Dewpoint[actual:actual+dias[i]-1]))
+    precip = append(precip, mean(wankara$Precipitation[actual:actual+dias[i]-1]))
+    slp = append(slp,mean(wankara$Sea_level_pressure[actual:actual+dias[i]-1]))
+    sp = append(sp, mean(wankara$Standard_pressure[actual:actual+dias[i]-1]))
+    visib = append(visib, mean(wankara$Visibility[actual:actual+dias[i]-1]))
+    Ws = append(Ws, mean(wankara$Wind_speed[actual:actual+dias[i]-1]))
+    Msp = append(Msp, mean(wankara$Max_wind_speed[actual:actual+dias[i]-1]))
+    Mean_temp = append(Mean_temp, mean(wankara$Mean_temperature[actual:actual+dias[i]-1]))
+    actual = actual+dias[i]
+    print(actual)
   }
 }
-meses = rep(month.abb,5)[1:54]
+meses = rep(month.abb,5)[1:53]
 j=94
-for(i in 1:54){
-  if(i%%12 == 1){
+for(i in 1:53){
+  if(i%%12 == 1 && i > 12){
     j = j+1
   }
   meses[i] = paste(meses[i],j,sep="")
 }
-df = as.data.frame(cbind(meses, max_temp))
+df = as.data.frame(cbind(meses, max_temp,min_temp))
+df$meses = factor(df$meses,levels=df$meses)
 ggplot(df[1:12,],aes(x=meses, y=max_temp))+geom_point()
-ggplot(df,aes(x=meses,y=min_temp)) + geom_point()
+ggplot(df[1:12,],aes(x=meses,y=min_temp)) + geom_point()
+# Los datos no parecen tener un orden cronológico
 
 #############################################################################################
 # HIPÓTESIS
 
 # Hipótesis: mayor temperatura máxima, mayor temperatura media
-ggplot(data=wankara_scale, aes(x=wankara_scale$Max_temperature, y=wankara_scale$Mean_temperature)) +
+ggplot(data=wankara, aes(x=wankara$Max_temperature, y=wankara$Mean_temperature)) +
   geom_point(alpha=.4, size=4, color="#880011") +
   ggtitle("Temperatura máxima vs Temperatura media") +
   labs(x="Temperatura máxima", y="Temperatura media")
 
 # Hipótesis: mayor temperatura mínima, mayor temperatura media
-ggplot(data=wankara_scale, aes(x=wankara_scale$Min_temperature, y=wankara_scale$Mean_temperature)) +
+ggplot(data=wankara, aes(x=wankara$Min_temperature, y=wankara$Mean_temperature)) +
   geom_point(alpha=.4, size=4, color="#880011") +
   ggtitle("Temperatura mínima vs Temperatura media") +
   labs(x="Temperatura mínima", y="Temperatura media")
