@@ -200,6 +200,11 @@ ggplot(df[1:12,],aes(x=meses, y=max_temp))+geom_point()
 ggplot(df[1:12,],aes(x=meses,y=min_temp)) + geom_point()
 # Los datos no parecen tener un orden cronológico
 
+############################################################################################
+# Normalidad
+library(nortest)
+
+
 #############################################################################################
 # HIPÓTESIS
 
