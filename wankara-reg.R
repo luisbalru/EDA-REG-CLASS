@@ -368,6 +368,88 @@ lmMSEtrain3<-mean(resultados_mls3_train)
 lmMSEtest3<-mean(resultados_mls3_test)
 
 
+# Sea_level_pressure
+fit_mls4 = lm(wankara_scale$Mean_temperature~wankara_scale$Sea_level_pressure)
+summary(fit_mls4)
+
+par(mfrow=c(1,1))
+plot(wankara_scale$Mean_temperature~wankara_scale$Sea_level_pressure)
+abline(fit_mls4,col="red")
+confint(fit_mls4)
+
+# Error cuadrático medio
+yprime=predict(fit_mls4,data.frame(SLP=wankara_scale$Sea_level_pressure))
+sqrt(sum(abs(wankara_scale$Mean_temperature-yprime)^2)/length(yprime))
+
+# Cross-validation
+
+nombre <- "./data/wankara/wankara"
+run_lm4_fold <- function(i, x, tt = "test") {
+  file <- paste(x, "-5-", i, "tra.dat", sep="")
+  x_tra <- read.csv(file, comment.char="@", header=FALSE)
+  file <- paste(x, "-5-", i, "tst.dat", sep="")
+  x_tst <- read.csv(file, comment.char="@", header=FALSE)
+  In <- length(names(x_tra)) - 1
+  names(x_tra)[1:In] <- paste ("X", 1:In, sep="")
+  names(x_tra)[In+1] <- "Y"
+  names(x_tst)[1:In] <- paste ("X", 1:In, sep="")
+  names(x_tst)[In+1] <- "Y"
+  if (tt == "train") {
+    test <- x_tra
+  }
+  else {
+    test <- x_tst
+  }
+  fitMulti=lm(Y~X5,x_tra)
+  yprime=predict(fitMulti,test)
+  sum(abs(test$Y-yprime)^2)/length(yprime) ##MSE
+}
+resultados_mls4_train = sapply(1:5,run_lm4_fold,nombre,"train")
+resultados_mls4_test = sapply(1:5,run_lm4_fold,nombre,"test")
+lmMSEtrain4<-mean(resultados_mls4_train)
+lmMSEtest4<-mean(resultados_mls4_test)
+
+# Visibility
+fit_mls5 = lm(wankara_scale$Mean_temperature~wankara_scale$Visibility)
+summary(fit_mls5)
+
+par(mfrow=c(1,1))
+plot(wankara_scale$Mean_temperature~wankara_scale$Visibility)
+abline(fit_mls5,col="red")
+confint(fit_mls5)
+
+# Error cuadrático medio
+yprime=predict(fit_mls5,data.frame(Vis=wankara_scale$Visibility))
+sqrt(sum(abs(wankara_scale$Mean_temperature-yprime)^2)/length(yprime))
+
+# Cross-validation
+
+nombre <- "./data/wankara/wankara"
+run_lm5_fold <- function(i, x, tt = "test") {
+  file <- paste(x, "-5-", i, "tra.dat", sep="")
+  x_tra <- read.csv(file, comment.char="@", header=FALSE)
+  file <- paste(x, "-5-", i, "tst.dat", sep="")
+  x_tst <- read.csv(file, comment.char="@", header=FALSE)
+  In <- length(names(x_tra)) - 1
+  names(x_tra)[1:In] <- paste ("X", 1:In, sep="")
+  names(x_tra)[In+1] <- "Y"
+  names(x_tst)[1:In] <- paste ("X", 1:In, sep="")
+  names(x_tst)[In+1] <- "Y"
+  if (tt == "train") {
+    test <- x_tra
+  }
+  else {
+    test <- x_tst
+  }
+  fitMulti=lm(Y~X7,x_tra)
+  yprime=predict(fitMulti,test)
+  sum(abs(test$Y-yprime)^2)/length(yprime) ##MSE
+}
+resultados_mls5_train = sapply(1:5,run_lm5_fold,nombre,"train")
+resultados_mls5_test = sapply(1:5,run_lm5_fold,nombre,"test")
+lmMSEtrain5<-mean(resultados_mls5_train)
+lmMSEtest5<-mean(resultados_mls5_test)
+
 ######################################################################################
 # C.2
 # MODELO LINEAL MÚLTIPLE
