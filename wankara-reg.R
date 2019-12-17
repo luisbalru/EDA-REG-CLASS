@@ -315,3 +315,30 @@ summary(fit_mlm7)
 
 # INTERACCIONES
 
+# Interacción entre la presión a nivel del mar y la estándar. Mejor resultado hasta ahora: 0.9899
+fit_i1=lm(wankara_scale$Mean_temperature~.-Precipitation+Sea_level_pressure*Standard_pressure,data=wankara_scale)
+summary(fit_i1)
+
+# Interacción entre la temperatura mínima y dewpoint
+fit_i2=lm(wankara_scale$Mean_temperature~.-Precipitation+Min_temperature*Dewpoint,data=wankara_scale)
+summary(fit_i2)
+
+# Mejor resultado hasta el momento 0.99
+fit_i3 = lm(wankara_scale$Mean_temperature~.-Precipitation+Min_temperature*Dewpoint+I(Dewpoint^2)-Dewpoint,data=wankara_scale)
+summary(fit_i3)
+
+# Eliminamos Visibility por su alto p-value
+fit_i4 = lm(wankara_scale$Mean_temperature~.-Precipitation+Min_temperature*Dewpoint+I(Dewpoint^2)-Dewpoint-Visibility,data=wankara_scale)
+summary(fit_i4)
+
+# Mejor resultado hasta el momento, 0.9916
+fit_i5 = lm(wankara_scale$Mean_temperature~.-Precipitation+I(Max_temperature^2)+Min_temperature*Dewpoint+I(Dewpoint^2)-Dewpoint-Visibility,data=wankara_scale)
+summary(fit_i5)
+
+# Mejor resultado --> 0.992
+fit_i6 = lm(wankara_scale$Mean_temperature~.-Precipitation+I(Min_temperature^2)+I(Max_temperature^2)+Min_temperature*Dewpoint+I(Dewpoint^2)-Dewpoint-Visibility,data=wankara_scale)
+summary(fit_i6)
+
+# 0.9921
+fit_i7 = lm(wankara_scale$Mean_temperature~.-Precipitation+Max_wind_speed*Wind_speed+I(Min_temperature^2)+I(Max_temperature^2)+Min_temperature*Dewpoint+I(Dewpoint^2)-Dewpoint-Visibility-Max_wind_speed,data=wankara_scale)
+summary(fit_i7)
