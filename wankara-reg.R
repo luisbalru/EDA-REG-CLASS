@@ -380,3 +380,15 @@ points(wankara_scale$Max_temperature,fitted(fit_i7),col="green",pch=20)
 
 
 # KNN
+install.packages("kknn")
+library("kknn")
+fitknn1 <- kknn(wankara_scale$Mean_temperature ~ ., wankara_scale, wankara_scale)
+names(fitknn1)
+
+# Visualización
+plot(wankara_scale$Mean_temperature~wankara_scale$Max_temperature)
+points(wankara_scale$Max_temperature,fitknn1$fitted.values,col="blue",pch=20)
+
+# ECM
+yprime = fitknn1$fitted.values
+sqrt(sum((wankara_scale$Mean_temperature-yprime)^2)/length(yprime)) #RMSE
