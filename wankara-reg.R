@@ -635,7 +635,7 @@ rfMSEtrain<-sapply(1:5,run_rf_fold,nombre,"train")
 rfMSEtest<-sapply(1:5,run_rf_fold,nombre,"test")
 
 resultados_train = cbind(lmMSEtrain,kknnMSEtrain,rfMSEtrain)
-tablatr = as.data.frame(resultados_train,col.names=c("lm_MSE_train","kknn_MSE_train","rf_MSE_train"))
+tablatra = as.data.frame(resultados_train,col.names=c("lm_MSE_train","kknn_MSE_train","rf_MSE_train"))
 resultados_test = cbind(lmMSEtest,kknnMSEtest,rfMSEtest)
 tablatst = as.data.frame(resultados_test,col.names=c("lm_MSE_test","kknn_MSE_test","rf_MSE_test"))
 
@@ -688,3 +688,38 @@ Rmenos <- KKNNvsRFtst$statistic
 Rmas
 Rmenos
 pvalue
+
+# COMPARATIVA GENERAL TEST
+
+test_friedman <- friedman.test(as.matrix(tablatst))
+test_friedman
+
+tam <- dim(tablatst)
+groups <- rep(1:tam[2], each=tam[1])
+pairwise.wilcox.test(as.matrix(tablatst), groups, p.adjust = "holm", paired = TRUE)
+
+# COMPARATIVA EN TRAINING
+
+# EXAMINAMOS TRAINING PARA COMPROBAR SI HAY SOBREAPRENDIZAJE
+difs_tr <- (tablatra[,1] - tablatra[,2]) / tablatra[,1]
+wilc_1_2_tr <- cbind(ifelse (difs_tr<0, abs(difs_tr)+0.1, 0+0.1), ifelse (difs_tr>0, abs(difs_tr)+0.1, 0+0.1))
+colnames(wilc_1_2_tr) <- c(colnames(tablatra)[1], colnames(tablatra)[2])
+head(wilc_1_2_tr)
+
+LMvsKNNtr <- wilcox.test(wilc_1_2_tr[,1], wilc_1_2_tr[,2], alternative = "two.sided", paired=TRUE)
+Rmas_tr <- LMvsKNNtr$statistic
+pvalue_tr <- LMvsKNNtr$p.value
+LMvsKNNtr <- wilcox.test(wilc_1_2_tr[,2], wilc_1_2_tr[,1], alternative = "two.sided", paired=TRUE)
+Rmenos_tr <- LMvsKNNtr$statistic
+Rmas_tr
+Rmenos_tr
+pvalue_tr
+
+
+
+test_friedman_tr <- friedman.test(as.matrix(tablatra))
+test_friedman_tr
+
+tam_tr <- dim(tablatra)
+groups_tr <- rep(1:tam_tr[2], each=tam_tr[1])
+pairwise.wilcox.test(as.matrix(tablatr), groups, p.adjust = "holm", paired = TRUE)
