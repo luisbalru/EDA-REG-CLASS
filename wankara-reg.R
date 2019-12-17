@@ -203,7 +203,12 @@ ggplot(df[1:12,],aes(x=meses,y=min_temp)) + geom_point()
 ############################################################################################
 # Normalidad
 library(nortest)
+library(car)
 
+# Ninguna variable es normal
+sapply(wankara,shapiro.test)
+sapply(wankara,lillie.test)
+sapply(wankara,qqPlot)
 
 #############################################################################################
 # HIPÓTESIS
@@ -236,3 +241,44 @@ wankara_scale = sapply(wankara,rescale)
 wankara_scale = as.data.frame(wankara_scale)
 summary(wankara_scale)
 
+
+# Modelo lineal simple con la variable con más correlación: Max_temperature
+fit_mls = lm(wankara_scale$Mean_temperature~wankara_scale$Max_temperature)
+summary(fit_mls)
+
+par(mfrow=c(1,1))
+plot(wankara_scale$Mean_temperature~wankara_scale$Max_temperature)
+abline(fit_mls,col="red")
+confint(fit_mls)
+
+# Error cuadrático medio
+yprime=predict(fit_mls,data.frame(Max_temp=wankara_scale$Max_temperature))
+sqrt(sum(abs(wankara_scale$Mean_temperature-yprime)^2)/length(yprime))
+
+# Cross-validation
+
+nombre <- "./data/wankara/wankara"
+run_lm_fold <- function(i, x, tt = "test") {
+  file <- paste(x, "-5-", i, "tra.dat", sep="")
+  x_tra <- read.csv(file, comment.char="@", header=FALSE)
+  file <- paste(x, "-5-", i, "tst.dat", sep="")
+  x_tst <- read.csv(file, comment.char="@", header=FALSE)
+  In <- length(names(x_tra)) - 1
+  names(x_tra)[1:In] <- paste ("X", 1:In, sep="")
+  names(x_tra)[In+1] <- "Y"
+  names(x_tst)[1:In] <- paste ("X", 1:In, sep="")
+  names(x_tst)[In+1] <- "Y"
+  if (tt == "train") {
+    test <- x_tra
+  }
+  else {
+    test <- x_tst
+  }
+  fitMulti=lm(Y~X1,x_tra)
+  yprime=predict(fitMulti,test)
+  sum(abs(test$Y-yprime)^2)/length(yprime) ##MSE
+}
+resultados_mls_train = sapply(1:5,run_lm_fold,nombre,"train")
+resultados_mls_test = sapply(1:5,run_lm_fold,nombre,"test")
+lmMSEtrain<-mean(resultados_mls_train)
+lmMSEtest<-mean(resultados_mls_test)
