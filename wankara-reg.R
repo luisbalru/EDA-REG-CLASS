@@ -547,7 +547,8 @@ i7MSEtest<-mean(resultados_i7_test)
 plot(wankara_scale$Mean_temperature~wankara_scale$Max_temperature)
 points(wankara_scale$Max_temperature,fitted(fit_i7),col="green",pch=20)
 
-
+#################################################################################################
+# C.3
 # KNN
 install.packages("kknn")
 library("kknn")
