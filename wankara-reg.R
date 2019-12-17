@@ -634,4 +634,57 @@ run_rf_fold <- function(i, x, tt = "test") {
 rfMSEtrain<-sapply(1:5,run_rf_fold,nombre,"train")
 rfMSEtest<-sapply(1:5,run_rf_fold,nombre,"test")
 
+resultados_train = cbind(lmMSEtrain,kknnMSEtrain,rfMSEtrain)
+tablatr = as.data.frame(resultados_train,col.names=c("lm_MSE_train","kknn_MSE_train","rf_MSE_train"))
+resultados_test = cbind(lmMSEtest,kknnMSEtest,rfMSEtest)
+tablatst = as.data.frame(resultados_test,col.names=c("lm_MSE_test","kknn_MSE_test","rf_MSE_test"))
 
+# COMPARATIVA EN TEST
+
+##lm (other) vs knn (ref)
+# + 0.1 porque wilcox R falla para valores == 0 en la tabla
+difs <- (tablatst[,1] - tablatst[,2]) / tablatst[,1]
+wilc_1_2 <- cbind(ifelse (difs<0, abs(difs)+0.1, 0+0.1), ifelse (difs>0, abs(difs)+0.1, 0+0.1))
+colnames(wilc_1_2) <- c(colnames(tablatst)[1], colnames(tablatst)[2])
+head(wilc_1_2)
+
+LMvsKNNtst <- wilcox.test(wilc_1_2[,1], wilc_1_2[,2], alternative = "two.sided", paired=TRUE)
+Rmas <- LMvsKNNtst$statistic
+pvalue <- LMvsKNNtst$p.value
+LMvsKNNtst <- wilcox.test(wilc_1_2[,2], wilc_1_2[,1], alternative = "two.sided", paired=TRUE)
+Rmenos <- LMvsKNNtst$statistic
+Rmas
+Rmenos
+pvalue
+
+##lm (other) vs rf (ref)
+# + 0.1 porque wilcox R falla para valores == 0 en la tabla
+difs <- (tablatst[,1] - tablatst[,3]) / tablatst[,1]
+wilc_1_3 <- cbind(ifelse (difs<0, abs(difs)+0.1, 0+0.1), ifelse (difs>0, abs(difs)+0.1, 0+0.1))
+colnames(wilc_1_3) <- c(colnames(tablatst)[1], colnames(tablatst)[2])
+head(wilc_1_3)
+
+LMvsRFtst <- wilcox.test(wilc_1_3[,1], wilc_1_3[,2], alternative = "two.sided", paired=TRUE)
+Rmas <- LMvsRFtst$statistic
+pvalue <- LMvsRFtst$p.value
+LMvsRFtst <- wilcox.test(wilc_1_3[,2], wilc_1_3[,1], alternative = "two.sided", paired=TRUE)
+Rmenos <- LMvsRFtst$statistic
+Rmas
+Rmenos
+pvalue
+
+##kknn (other) vs rf (ref)
+# + 0.1 porque wilcox R falla para valores == 0 en la tabla
+difs <- (tablatst[,2] - tablatst[,3]) / tablatst[,2]
+wilc_2_3 <- cbind(ifelse (difs<0, abs(difs)+0.1, 0+0.1), ifelse (difs>0, abs(difs)+0.1, 0+0.1))
+colnames(wilc_2_3) <- c(colnames(tablatst)[1], colnames(tablatst)[2])
+head(wilc_2_3)
+
+KKNNvsRFtst <- wilcox.test(wilc_2_3[,1], wilc_2_3[,2], alternative = "two.sided", paired=TRUE)
+Rmas <- KKNNvsRFtst$statistic
+pvalue <- KKNNvsRFtst$p.value
+KKNNvsRFtst <- wilcox.test(wilc_2_3[,2], wilc_2_3[,1], alternative = "two.sided", paired=TRUE)
+Rmenos <- KKNNvsRFtst$statistic
+Rmas
+Rmenos
+pvalue
