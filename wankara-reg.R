@@ -342,3 +342,35 @@ summary(fit_i6)
 # 0.9921
 fit_i7 = lm(wankara_scale$Mean_temperature~.-Precipitation+Max_wind_speed*Wind_speed+I(Min_temperature^2)+I(Max_temperature^2)+Min_temperature*Dewpoint+I(Dewpoint^2)-Dewpoint-Visibility-Max_wind_speed,data=wankara_scale)
 summary(fit_i7)
+
+# Cálculo de RMSE
+yprime_i7 = predict(fit_i7,wankara_scale)
+sqrt(sum(abs(wankara_scale$Mean_temperature-yprime_i7)^2)/length(yprime_i7))
+
+# CV del model más satisfactorio
+nombre <- "./data/wankara/wankara"
+run_i7_fold <- function(i, x, tt = "test") {
+  file <- paste(x, "-5-", i, "tra.dat", sep="")
+  x_tra <- read.csv(file, comment.char="@", header=FALSE)
+  file <- paste(x, "-5-", i, "tst.dat", sep="")
+  x_tst <- read.csv(file, comment.char="@", header=FALSE)
+  In <- length(names(x_tra)) - 1
+  names(x_tra)[1:In] <- paste ("X", 1:In, sep="")
+  names(x_tra)[In+1] <- "Y"
+  names(x_tst)[1:In] <- paste ("X", 1:In, sep="")
+  names(x_tst)[In+1] <- "Y"
+  if (tt == "train") {
+    test <- x_tra
+  }
+  else {
+    test <- x_tst
+  }
+  fit_i7 = lm(Y~.-X4+X9*X8+I(X2^2)+I(X1^2)+X2*X3+I(X3^2)-X3-X7-X9,data=test)
+  yprime=predict(fit_i7,test)
+  sum(abs(test$Y-yprime)^2)/length(yprime) ##MSE
+}
+resultados_i7_train = sapply(1:5,run_i7_fold,nombre,"train")
+resultados_i7_test = sapply(1:5,run_i7_fold,nombre,"test")
+i7MSEtrain<-mean(resultados_i7_train)
+i7MSEtest<-mean(resultados_i7_test)
+
