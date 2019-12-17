@@ -374,3 +374,9 @@ resultados_i7_test = sapply(1:5,run_i7_fold,nombre,"test")
 i7MSEtrain<-mean(resultados_i7_train)
 i7MSEtest<-mean(resultados_i7_test)
 
+# Resultados de las interacción 7 (mejor resultado)
+plot(wankara_scale$Mean_temperature~wankara_scale$Max_temperature)
+points(wankara_scale$Max_temperature,fitted(fit_i7),col="green",pch=20)
+
+
+# KNN
