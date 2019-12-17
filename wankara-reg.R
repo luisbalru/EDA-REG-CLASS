@@ -242,7 +242,7 @@ wankara_scale = as.data.frame(wankara_scale)
 summary(wankara_scale)
 
 ######################################################################
-# C1
+# R.1
 # Modelo lineal simple con la variable con más correlación: Max_temperature
 fit_mls1 = lm(wankara_scale$Mean_temperature~wankara_scale$Max_temperature)
 summary(fit_mls1)
@@ -451,7 +451,7 @@ lmMSEtrain5<-mean(resultados_mls5_train)
 lmMSEtest5<-mean(resultados_mls5_test)
 
 ######################################################################################
-# C.2
+# R.2
 # MODELO LINEAL MÚLTIPLE
 # BACKWARD MODEL
 
@@ -548,7 +548,7 @@ plot(wankara_scale$Mean_temperature~wankara_scale$Max_temperature)
 points(wankara_scale$Max_temperature,fitted(fit_i7),col="green",pch=20)
 
 #################################################################################################
-# C.3
+# R.3
 # KNN
 install.packages("kknn")
 library("kknn")
@@ -578,3 +578,9 @@ yprime = fitknn3$fitted.values
 sqrt(sum((wankara_scale$Mean_temperature-yprime)^2)/length(yprime))
 plot(wankara_scale$Mean_temperature~wankara_scale$Max_temperature)
 points(wankara_scale$Max_temperature,fitknn3$fitted.values,col="green",pch=20)
+
+
+#################################################################################################
+# R.4 
+# Comparación de algoritmos
+
