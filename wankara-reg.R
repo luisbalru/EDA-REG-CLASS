@@ -584,3 +584,33 @@ points(wankara_scale$Max_temperature,fitknn3$fitted.values,col="green",pch=20)
 # R.4 
 # Comparación de algoritmos
 
+nombre <- "./data/wankara/wankara"
+run_lm_fold <- function(i, x, tt = "test") {
+  file <- paste(x, "-5-", i, "tra.dat", sep=""); x_tra <- read.csv(file, comment.char="@" , header=FALSE )
+  file <- paste(x, "-5-", i, "tst.dat", sep=""); x_tst <- read.csv(file, comment.char="@" , header=FALSE )
+  In <- length(names(x_tra)) - 1
+  names(x_tra)[1:In] <- paste ("X", 1:In, sep=""); names(x_tra)[In+1] <- "Y"
+  names(x_tst)[1:In] <- paste ("X", 1:In, sep=""); names(x_tst)[In+1] <- "Y"
+  if (tt == "train") { test <- x_tra }
+  else { test <- x_tst }
+  fitMulti=lm(Y~.,x_tra)
+  yprime=predict(fitMulti,test)
+  sum(abs(test$Y-yprime)^2)/length(yprime) ##MSE
+}
+lmMSEtrain<-sapply(1:5,run_lm_fold,nombre,"train")
+lmMSEtest<-sapply(1:5,run_lm_fold,nombre,"test")
+
+run_kknn_fold <- function(i, x, tt = "test") {
+  file <- paste(x, "-5-", i, "tra.dat", sep=""); x_tra <- read.csv(file, comment.char="@" , header=FALSE )
+  file <- paste(x, "-5-", i, "tst.dat", sep=""); x_tst <- read.csv(file, comment.char="@" , header=FALSE )
+  In <- length(names(x_tra)) - 1
+  names(x_tra)[1:In] <- paste ("X", 1:In, sep=""); names(x_tra)[In+1] <- "Y"
+  names(x_tst)[1:In] <- paste ("X", 1:In, sep=""); names(x_tst)[In+1] <- "Y"
+  if (tt == "train") { test <- x_tra }
+  else { test <- x_tst }
+  fitKNN=kknn(Y~.,x_tra,test)
+  yprime=fitKNN$fitted.values
+  sum(abs(test$Y-yprime)^2)/length(yprime) ##MSE
+}
+kknnMSEtrain<-sapply(1:5,run_kknn_fold,nombre,"train")
+kknnMSEtest<-sapply(1:5,run_kknn_fold,nombre,"test")
