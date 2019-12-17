@@ -614,3 +614,24 @@ run_kknn_fold <- function(i, x, tt = "test") {
 }
 kknnMSEtrain<-sapply(1:5,run_kknn_fold,nombre,"train")
 kknnMSEtest<-sapply(1:5,run_kknn_fold,nombre,"test")
+
+
+# Random Forest
+install.packages("randomForest")
+library(randomForest)
+run_rf_fold <- function(i, x, tt = "test") {
+  file <- paste(x, "-5-", i, "tra.dat", sep=""); x_tra <- read.csv(file, comment.char="@" , header=FALSE )
+  file <- paste(x, "-5-", i, "tst.dat", sep=""); x_tst <- read.csv(file, comment.char="@" , header=FALSE )
+  In <- length(names(x_tra)) - 1
+  names(x_tra)[1:In] <- paste ("X", 1:In, sep=""); names(x_tra)[In+1] <- "Y"
+  names(x_tst)[1:In] <- paste ("X", 1:In, sep=""); names(x_tst)[In+1] <- "Y"
+  if (tt == "train") { test <- x_tra }
+  else { test <- x_tst }
+  fitrf=randomForest(Y~.,data=x_tra)
+  yprime = predict(fitrf, newdata=test)
+  sum(abs(test$Y-yprime)^2)/length(yprime) ##MSE
+}
+rfMSEtrain<-sapply(1:5,run_rf_fold,nombre,"train")
+rfMSEtest<-sapply(1:5,run_rf_fold,nombre,"test")
+
+
