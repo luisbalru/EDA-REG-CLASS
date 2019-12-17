@@ -282,3 +282,36 @@ resultados_mls_train = sapply(1:5,run_lm_fold,nombre,"train")
 resultados_mls_test = sapply(1:5,run_lm_fold,nombre,"test")
 lmMSEtrain<-mean(resultados_mls_train)
 lmMSEtest<-mean(resultados_mls_test)
+
+# MODELO LINEAL MÚLTIPLE
+# BACKWARD MODEL
+
+fit_mlm1=lm(wankara_scale$Mean_temperature~.,data=wankara_scale)
+summary(fit_mlm1)
+
+# Elimino Precipitation por tener un p-valor de 0.885
+fit_mlm2=lm(wankara_scale$Mean_temperature~.-Precipitation,data=wankara_scale)
+summary(fit_mlm2)
+
+# Elimino Sea_level_pressure por tener el mayor error standard
+fit_mlm3=lm(wankara_scale$Mean_temperature~.-Precipitation-Sea_level_pressure,data=wankara_scale)
+summary(fit_mlm3)
+
+# Elimino Max wind speed por tener el mayor error standard
+fit_mlm4 = lm(wankara_scale$Mean_temperature~.-Precipitation-Sea_level_pressure-Max_wind_speed,data=wankara_scale)
+summary(fit_mlm4)
+
+# Elimino visibility
+fit_mlm5 = lm(wankara_scale$Mean_temperature~.-Precipitation-Sea_level_pressure-Max_wind_speed-Visibility,data=wankara_scale)
+summary(fit_mlm5)
+
+# Elimino standard pressure
+fit_mlm6 = lm(wankara_scale$Mean_temperature~.-Standard_pressure-Precipitation-Sea_level_pressure-Max_wind_speed-Visibility,data=wankara_scale)
+summary(fit_mlm6)
+
+# Elimino Wind speed --> Modelo más interpretable
+fit_mlm7 = lm(wankara_scale$Mean_temperature~.-Wind_speed-Standard_pressure-Precipitation-Sea_level_pressure-Max_wind_speed-Visibility,data=wankara_scale)
+summary(fit_mlm7)
+
+# INTERACCIONES
+
