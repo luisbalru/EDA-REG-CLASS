@@ -241,24 +241,25 @@ wankara_scale = sapply(wankara,rescale)
 wankara_scale = as.data.frame(wankara_scale)
 summary(wankara_scale)
 
-
+######################################################################
+# C1
 # Modelo lineal simple con la variable con más correlación: Max_temperature
-fit_mls = lm(wankara_scale$Mean_temperature~wankara_scale$Max_temperature)
-summary(fit_mls)
+fit_mls1 = lm(wankara_scale$Mean_temperature~wankara_scale$Max_temperature)
+summary(fit_mls1)
 
 par(mfrow=c(1,1))
 plot(wankara_scale$Mean_temperature~wankara_scale$Max_temperature)
-abline(fit_mls,col="red")
-confint(fit_mls)
+abline(fit_mls1,col="red")
+confint(fit_mls1)
 
 # Error cuadrático medio
-yprime=predict(fit_mls,data.frame(Max_temp=wankara_scale$Max_temperature))
+yprime=predict(fit_mls1,data.frame(Max_temp=wankara_scale$Max_temperature))
 sqrt(sum(abs(wankara_scale$Mean_temperature-yprime)^2)/length(yprime))
 
 # Cross-validation
 
 nombre <- "./data/wankara/wankara"
-run_lm_fold <- function(i, x, tt = "test") {
+run_lm1_fold <- function(i, x, tt = "test") {
   file <- paste(x, "-5-", i, "tra.dat", sep="")
   x_tra <- read.csv(file, comment.char="@", header=FALSE)
   file <- paste(x, "-5-", i, "tst.dat", sep="")
@@ -278,11 +279,97 @@ run_lm_fold <- function(i, x, tt = "test") {
   yprime=predict(fitMulti,test)
   sum(abs(test$Y-yprime)^2)/length(yprime) ##MSE
 }
-resultados_mls_train = sapply(1:5,run_lm_fold,nombre,"train")
-resultados_mls_test = sapply(1:5,run_lm_fold,nombre,"test")
-lmMSEtrain<-mean(resultados_mls_train)
-lmMSEtest<-mean(resultados_mls_test)
+resultados_mls1_train = sapply(1:5,run_lm1_fold,nombre,"train")
+resultados_mls1_test = sapply(1:5,run_lm1_fold,nombre,"test")
+lmMSEtrain1<-mean(resultados_mls1_train)
+lmMSEtest1<-mean(resultados_mls1_test)
 
+
+# Modelo lineal simple con la variable con más correlación: Min_temperature
+fit_mls2 = lm(wankara_scale$Mean_temperature~wankara_scale$Min_temperature)
+summary(fit_mls2)
+
+par(mfrow=c(1,1))
+plot(wankara_scale$Mean_temperature~wankara_scale$Min_temperature)
+abline(fit_mls2,col="red")
+confint(fit_mls2)
+
+# Error cuadrático medio
+yprime=predict(fit_mls2,data.frame(Max_temp=wankara_scale$Min_temperature))
+sqrt(sum(abs(wankara_scale$Mean_temperature-yprime)^2)/length(yprime))
+
+# Cross-validation
+
+nombre <- "./data/wankara/wankara"
+run_lm2_fold <- function(i, x, tt = "test") {
+  file <- paste(x, "-5-", i, "tra.dat", sep="")
+  x_tra <- read.csv(file, comment.char="@", header=FALSE)
+  file <- paste(x, "-5-", i, "tst.dat", sep="")
+  x_tst <- read.csv(file, comment.char="@", header=FALSE)
+  In <- length(names(x_tra)) - 1
+  names(x_tra)[1:In] <- paste ("X", 1:In, sep="")
+  names(x_tra)[In+1] <- "Y"
+  names(x_tst)[1:In] <- paste ("X", 1:In, sep="")
+  names(x_tst)[In+1] <- "Y"
+  if (tt == "train") {
+    test <- x_tra
+  }
+  else {
+    test <- x_tst
+  }
+  fitMulti=lm(Y~X2,x_tra)
+  yprime=predict(fitMulti,test)
+  sum(abs(test$Y-yprime)^2)/length(yprime) ##MSE
+}
+resultados_mls2_train = sapply(1:5,run_lm2_fold,nombre,"train")
+resultados_mls2_test = sapply(1:5,run_lm2_fold,nombre,"test")
+lmMSEtrain2<-mean(resultados_mls2_train)
+lmMSEtest2<-mean(resultados_mls2_test)
+
+# Dewpoint
+fit_mls3 = lm(wankara_scale$Mean_temperature~wankara_scale$Dewpoint)
+summary(fit_mls3)
+
+par(mfrow=c(1,1))
+plot(wankara_scale$Mean_temperature~wankara_scale$Dewpoint)
+abline(fit_mls3,col="red")
+confint(fit_mls3)
+
+# Error cuadrático medio
+yprime=predict(fit_mls3,data.frame(Max_temp=wankara_scale$Dewpoint))
+sqrt(sum(abs(wankara_scale$Mean_temperature-yprime)^2)/length(yprime))
+
+# Cross-validation
+
+nombre <- "./data/wankara/wankara"
+run_lm3_fold <- function(i, x, tt = "test") {
+  file <- paste(x, "-5-", i, "tra.dat", sep="")
+  x_tra <- read.csv(file, comment.char="@", header=FALSE)
+  file <- paste(x, "-5-", i, "tst.dat", sep="")
+  x_tst <- read.csv(file, comment.char="@", header=FALSE)
+  In <- length(names(x_tra)) - 1
+  names(x_tra)[1:In] <- paste ("X", 1:In, sep="")
+  names(x_tra)[In+1] <- "Y"
+  names(x_tst)[1:In] <- paste ("X", 1:In, sep="")
+  names(x_tst)[In+1] <- "Y"
+  if (tt == "train") {
+    test <- x_tra
+  }
+  else {
+    test <- x_tst
+  }
+  fitMulti=lm(Y~X3,x_tra)
+  yprime=predict(fitMulti,test)
+  sum(abs(test$Y-yprime)^2)/length(yprime) ##MSE
+}
+resultados_mls3_train = sapply(1:5,run_lm3_fold,nombre,"train")
+resultados_mls3_test = sapply(1:5,run_lm3_fold,nombre,"test")
+lmMSEtrain3<-mean(resultados_mls3_train)
+lmMSEtest3<-mean(resultados_mls3_test)
+
+
+######################################################################################
+# C.2
 # MODELO LINEAL MÚLTIPLE
 # BACKWARD MODEL
 
@@ -392,3 +479,19 @@ points(wankara_scale$Max_temperature,fitknn1$fitted.values,col="blue",pch=20)
 # ECM
 yprime = fitknn1$fitted.values
 sqrt(sum((wankara_scale$Mean_temperature-yprime)^2)/length(yprime)) #RMSE
+
+# Uso el mejor resultado anterior
+fitknn2 = kknn(wankara_scale$Mean_temperature~.-Precipitation+Max_wind_speed*Wind_speed+I(Min_temperature^2)+I(Max_temperature^2)+Min_temperature*Dewpoint+I(Dewpoint^2)
+               -Dewpoint-Visibility-Max_wind_speed,wankara_scale,wankara_scale)
+yprime = fitknn2$fitted.values
+sqrt(sum((wankara_scale$Mean_temperature-yprime)^2)/length(yprime))
+
+plot(wankara_scale$Mean_temperature~wankara_scale$Max_temperature)
+points(wankara_scale$Max_temperature,fitknn2$fitted.values,col="red",pch=20)
+
+# Modelo más interpretable anterior --> Mejor resultado aún
+fitknn3 = kknn(wankara_scale$Mean_temperature~.-Wind_speed-Standard_pressure-Precipitation-Sea_level_pressure-Max_wind_speed-Visibility,wankara_scale,wankara_scale)
+yprime = fitknn3$fitted.values
+sqrt(sum((wankara_scale$Mean_temperature-yprime)^2)/length(yprime))
+plot(wankara_scale$Mean_temperature~wankara_scale$Max_temperature)
+points(wankara_scale$Max_temperature,fitknn3$fitted.values,col="green",pch=20)
