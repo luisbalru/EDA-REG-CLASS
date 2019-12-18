@@ -598,7 +598,9 @@ run_lm_fold <- function(i, x, tt = "test") {
   sum(abs(test$Y-yprime)^2)/length(yprime) ##MSE
 }
 lmMSEtrain<-sapply(1:5,run_lm_fold,nombre,"train")
+medialmMSEtrain = mean(lmMSEtrain)
 lmMSEtest<-sapply(1:5,run_lm_fold,nombre,"test")
+medialmMSEtest = mean(lmMSEtest)
 
 run_kknn_fold <- function(i, x, tt = "test") {
   file <- paste(x, "-5-", i, "tra.dat", sep=""); x_tra <- read.csv(file, comment.char="@" , header=FALSE )
@@ -613,8 +615,9 @@ run_kknn_fold <- function(i, x, tt = "test") {
   sum(abs(test$Y-yprime)^2)/length(yprime) ##MSE
 }
 kknnMSEtrain<-sapply(1:5,run_kknn_fold,nombre,"train")
+mediakknnMSEtrain = mean(kknnMSEtrain)
 kknnMSEtest<-sapply(1:5,run_kknn_fold,nombre,"test")
-
+mediakknnMSEtest= mean(kknnMSEtest)
 
 # Random Forest
 install.packages("randomForest")
@@ -634,12 +637,31 @@ run_rf_fold <- function(i, x, tt = "test") {
 rfMSEtrain<-sapply(1:5,run_rf_fold,nombre,"train")
 rfMSEtest<-sapply(1:5,run_rf_fold,nombre,"test")
 
+
+# COMPARATIVA EN TEST
+
+resultados <- read.csv("./data/regr_test_alumnos.csv")
+tablatst <- cbind(resultados[,2:dim(resultados)[2]])
+colnames(tablatst) <- names(resultados)[2:dim(resultados)[2]]
+rownames(tablatst) <- resultados[,1]
+#leemos la tabla con los errores medios de entrenamiento
+resultados <- read.csv("./data/regr_train_alumnos.csv")
+tablatr <- cbind(resultados[,2:dim(resultados)[2]])
+colnames(tablatr) <- names(resultados)[2:dim(resultados)[2]]
+rownames(tablatr) <- resultados[,1]
+
+
+
+
+
+
+
+# EXTRA
+
 resultados_train = cbind(lmMSEtrain,kknnMSEtrain,rfMSEtrain)
 tablatra = as.data.frame(resultados_train,col.names=c("lm_MSE_train","kknn_MSE_train","rf_MSE_train"))
 resultados_test = cbind(lmMSEtest,kknnMSEtest,rfMSEtest)
 tablatst = as.data.frame(resultados_test,col.names=c("lm_MSE_test","kknn_MSE_test","rf_MSE_test"))
-
-# COMPARATIVA EN TEST
 
 ##lm (other) vs knn (ref)
 # + 0.1 porque wilcox R falla para valores == 0 en la tabla
