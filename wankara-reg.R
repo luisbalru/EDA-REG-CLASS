@@ -711,9 +711,59 @@ tam <- dim(tablatst)
 groups <- rep(1:tam[2], each=tam[1])
 pairwise.wilcox.test(as.matrix(tablatst), groups, p.adjust = "holm", paired = TRUE)
 
+# COMPARATIVAS EN TRAINING
+# lm (other) vs kknn (reference)
+difs_tr <- (tablatr[,1] - tablatr[,2]) / tablatr[,1]
+wilc_1_2_tr <- cbind(ifelse (difs_tr<0, abs(difs_tr)+0.1, 0+0.1), ifelse (difs_tr>0, abs(difs_tr)+0.1, 0+0.1))
+colnames(wilc_1_2_tr) <- c(colnames(tablatra)[1], colnames(tablatra)[2])
+head(wilc_1_2_tr)
 
+LMvsKNNtr <- wilcox.test(wilc_1_2_tr[,1], wilc_1_2_tr[,2], alternative = "two.sided", paired=TRUE)
+Rmas_tr <- LMvsKNNtr$statistic
+pvalue_tr <- LMvsKNNtr$p.value
+LMvsKNNtr <- wilcox.test(wilc_1_2_tr[,2], wilc_1_2_tr[,1], alternative = "two.sided", paired=TRUE)
+Rmenos_tr <- LMvsKNNtr$statistic
+Rmas_tr
+Rmenos_tr
+pvalue_tr
 
+# lm (other) vs m5p (reference)
+difs_tr <- (tablatr[,1] - tablatr[,3]) / tablatr[,1]
+wilc_1_3_tr <- cbind(ifelse (difs_tr<0, abs(difs_tr)+0.1, 0+0.1), ifelse (difs_tr>0, abs(difs_tr)+0.1, 0+0.1))
+colnames(wilc_1_3_tr) <- c(colnames(tablatra)[1], colnames(tablatra)[2])
+head(wilc_1_3_tr)
 
+LMvsM5Ptr <- wilcox.test(wilc_1_3_tr[,1], wilc_1_3_tr[,2], alternative = "two.sided", paired=TRUE)
+Rmas_tr <- LMvsM5Ptr$statistic
+pvalue_tr <- LMvsM5Ptr$p.value
+LMvsM5Ptr <- wilcox.test(wilc_1_3_tr[,2], wilc_1_3_tr[,1], alternative = "two.sided", paired=TRUE)
+Rmenos_tr <- LMvsM5Ptr$statistic
+Rmas_tr
+Rmenos_tr
+pvalue_tr
+
+# kknn(other) vs m5p (reference)
+difs_tr <- (tablatr[,2] - tablatr[,3]) / tablatr[,2]
+wilc_2_3_tr <- cbind(ifelse (difs_tr<0, abs(difs_tr)+0.1, 0+0.1), ifelse (difs_tr>0, abs(difs_tr)+0.1, 0+0.1))
+colnames(wilc_2_3_tr) <- c(colnames(tablatra)[1], colnames(tablatra)[2])
+head(wilc_2_3_tr)
+
+KKNNvsM5Ptr <- wilcox.test(wilc_2_3_tr[,1], wilc_2_3_tr[,2], alternative = "two.sided", paired=TRUE)
+Rmas_tr <- KKNNvsM5Ptr$statistic
+pvalue_tr <- KKNNvsM5Ptr$p.value
+KKNNvsM5Ptr <- wilcox.test(wilc_2_3_tr[,2], wilc_2_3_tr[,1], alternative = "two.sided", paired=TRUE)
+Rmenos_tr <- KKNNvsM5Ptr$statistic
+Rmas_tr
+Rmenos_tr
+pvalue_tr
+
+# Comparativa conjunta
+test_friedman_tr <- friedman.test(as.matrix(tablatr))
+test_friedman_tr
+
+tam <- dim(tablatst)
+groups_ <- rep(1:tam[2], each=tam[1])
+pairwise.wilcox.test(as.matrix(tablatr), groups, p.adjust = "holm", paired = TRUE)
 # EXTRA
 
 resultados_train = cbind(lmMSEtrain,kknnMSEtrain,rfMSEtrain)
