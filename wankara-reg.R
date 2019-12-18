@@ -703,6 +703,13 @@ Rmas
 Rmenos
 pvalue
 
+# Comparativa general con Friedman
+test_friedman <- friedman.test(as.matrix(tablatst))
+test_friedman
+
+tam <- dim(tablatst)
+groups <- rep(1:tam[2], each=tam[1])
+pairwise.wilcox.test(as.matrix(tablatst), groups, p.adjust = "holm", paired = TRUE)
 
 
 
