@@ -650,7 +650,58 @@ tablatr <- cbind(resultados[,2:dim(resultados)[2]])
 colnames(tablatr) <- names(resultados)[2:dim(resultados)[2]]
 rownames(tablatr) <- resultados[,1]
 
+# Añadiendo a las tablas mis resultados
+tablatst[17,1] = medialmMSEtest
+tablatst[17,2] = mediakknnMSEtest
 
+tablatr[17,1] = medialmMSEtrain
+tablatr[17,2] = mediakknnMSEtrain
+
+##lm (other) vs knn (ref)
+# + 0.1 porque wilcox R falla para valores == 0 en la tabla
+difs <- (tablatst[,1] - tablatst[,2]) / tablatst[,1]
+wilc_1_2 <- cbind(ifelse (difs<0, abs(difs)+0.1, 0+0.1), ifelse (difs>0, abs(difs)+0.1, 0+0.1))
+colnames(wilc_1_2) <- c(colnames(tablatst)[1], colnames(tablatst)[2])
+head(wilc_1_2)
+
+LMvsKNNtst <- wilcox.test(wilc_1_2[,1], wilc_1_2[,2], alternative = "two.sided", paired=TRUE)
+Rmas <- LMvsKNNtst$statistic
+pvalue <- LMvsKNNtst$p.value
+LMvsKNNtst <- wilcox.test(wilc_1_2[,2], wilc_1_2[,1], alternative = "two.sided", paired=TRUE)
+Rmenos <- LMvsKNNtst$statistic
+Rmas
+Rmenos
+pvalue
+
+## lm (other) vs m5p (ref)
+difs <- (tablatst[,1] - tablatst[,3]) / tablatst[,1]
+wilc_1_3 <- cbind(ifelse (difs<0, abs(difs)+0.1, 0+0.1), ifelse (difs>0, abs(difs)+0.1, 0+0.1))
+colnames(wilc_1_3) <- c(colnames(tablatst)[1], colnames(tablatst)[3])
+head(wilc_1_3)
+
+LMvsM5Ptst <- wilcox.test(wilc_1_3[,1], wilc_1_3[,2], alternative = "two.sided", paired=TRUE)
+Rmas <- LMvsM5Ptst$statistic
+pvalue <- LMvsM5Ptst$p.value
+LMvsM5Ptst <- wilcox.test(wilc_1_3[,2], wilc_1_3[,1], alternative = "two.sided", paired=TRUE)
+Rmenos <- LMvsM5Ptst$statistic
+Rmas
+Rmenos
+pvalue
+
+## kknn (other) vs m5p (ref)
+difs <- (tablatst[,2] - tablatst[,3]) / tablatst[,2]
+wilc_2_3 <- cbind(ifelse (difs<0, abs(difs)+0.1, 0+0.1), ifelse (difs>0, abs(difs)+0.1, 0+0.1))
+colnames(wilc_2_3) <- c(colnames(tablatst)[2], colnames(tablatst)[3])
+head(wilc_2_3)
+
+KKNNvsM5Ptst <- wilcox.test(wilc_2_3[,1], wilc_2_3[,2], alternative = "two.sided", paired=TRUE)
+Rmas <- KKNNvsM5Ptst$statistic
+pvalue <- KKNNvsM5Ptst$p.value
+KKNNvsM5Ptst <- wilcox.test(wilc_2_3[,2], wilc_2_3[,1], alternative = "two.sided", paired=TRUE)
+Rmenos <- KKNNvsM5Ptst$statistic
+Rmas
+Rmenos
+pvalue
 
 
 
