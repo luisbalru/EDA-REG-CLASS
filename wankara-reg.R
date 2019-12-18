@@ -764,7 +764,9 @@ test_friedman_tr
 tam <- dim(tablatst)
 groups_ <- rep(1:tam[2], each=tam[1])
 pairwise.wilcox.test(as.matrix(tablatr), groups, p.adjust = "holm", paired = TRUE)
-# EXTRA
+
+##################################################################################################
+# EXTRA: Comparación con algoritmos sobre los resultados del 5-fold añadiendo Random Forest
 
 resultados_train = cbind(lmMSEtrain,kknnMSEtrain,rfMSEtrain)
 tablatra = as.data.frame(resultados_train,col.names=c("lm_MSE_train","kknn_MSE_train","rf_MSE_train"))
@@ -846,7 +848,7 @@ Rmenos_tr
 pvalue_tr
 
 
-
+# Comparativa general
 test_friedman_tr <- friedman.test(as.matrix(tablatra))
 test_friedman_tr
 
