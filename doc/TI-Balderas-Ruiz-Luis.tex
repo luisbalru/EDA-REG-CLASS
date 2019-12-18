@@ -1348,7 +1348,40 @@ encontramos grandes correlaciones negativas entre F6-F3 (-0.68), F1-F3 (-0.68) o
 
 El conjunto de datos Vowel, visto en su totalidad, parece tener poco sentido desde el punto de vista estadístico, dando lugar a variables sin mucha relación entre ellas. Sin embargo, la existencia de la variable Sexo genera dos nuevos conjuntos de datos independientes donde sí encontramos variables correladas y distribuidas según una normal. Por otra parte, cada variable tiene un rango y un dominio distinto, por lo que es necesario hacer un reescalado para que todas estén en el mismo rango de valores. A partir de ahí, debido a la asimetría y curtosis de cada característica, podría ser posible aplicar transformaciones de tipo raíz cuadrada o logaritmo para así conseguir más normalidad en las variables. \\
 
-Por otra parte, encontramos patrones de outliers en ciertos interlocutores. Es el caso del interlocutor 2, que presenta en las variables F3, F4, F6, F7 y F9; o el 11, en la F2,F5,F7 y F9. Podríamos llegar a pensar que, si cada variable es una medida de parámetros o características lingüísticas, esos interlocutores pueden tener una forma propia de hablar o algún problema de dicción. 
+Por otra parte, encontramos patrones de outliers en ciertos interlocutores. Es el caso del interlocutor 2, que presenta en las variables F3, F4, F6, F7 y F9; o el 11, en la F2,F5,F7 y F9. Podríamos llegar a pensar que, si cada variable es una medida de parámetros o características lingüísticas, esos interlocutores pueden tener una forma propia de hablar o algún problema de dicción. \\
+
+Como se ha podido ver durante este desarrollo, las variables numéricas que tenemos no tienen ningún tipo de explicación ni justificación. Parecieran, a priori, valores descontextualizados, probablemente fruto de transformaciones matemáticas o salidas de instrumentos de medición como micrófonos o amplificadores. En consecuencia, no he podido establecer ninguna suerte de hipótesis, como sí hicimos en regresión. Para terminar el análisis exploratorio de datos, me gustaría enfatizar qué variables son interesantes para marcar fronteras de decisión entre las distintas clases de nuestro problema. Como viene siendo habitual, estudiar esto con el conjunto de datos completo no tiene unos resultados muy concluyentes. Sin embargo, si volvemos a separar por sexos, vemos que algunas variables pueden ser claramente determinantes en la distinción entre clases, dando que sus rangos de valores son disjuntos. Veámoslo con más detalle mediante boxplots:
+
+\begin{itemize}
+	\item \textbf{Hombres.}
+	\begin{itemize}
+		\item F0 y F1.
+		
+		\begin{figure}[H]
+			\centering
+			\begin{subfigure}{.5\textwidth}
+				\centering
+				\includegraphics[width=.9\linewidth]{bphF0.png}
+				\caption{F0 vs Clases}
+				\label{fig:bphF0}
+			\end{subfigure}%
+			\begin{subfigure}{.5\textwidth}
+				\centering
+				\includegraphics[width=.9\linewidth]{bphF1.png}
+				\caption{F1 vs Clases}
+				\label{fig:bphF1}
+			\end{subfigure}
+			\caption{Boxplot para F0 y F1}
+			\label{fig:bph01}
+		\end{figure}
+	\end{itemize}
+	
+	
+	
+	
+	
+	\item \textbf{Mujeres.}
+\end{itemize}
 
 %----------------------------------------------------------------------------------------
 %	Regresión
