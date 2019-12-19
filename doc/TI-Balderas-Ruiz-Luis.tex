@@ -1466,11 +1466,120 @@ Como se ha podido ver durante este desarrollo, las variables numéricas que tene
 	La variable F8, por el contrario, es estupenda para separar entre sí las clases 2,3 y 4; 1,3,4; 3 y 7; 3 y 8. Otras se solapan, como la 8, 9 y 10  o la 4 y 5. Por el contrario, la variable F9 nos lo pone más difícil, con solapamiento en prácticamente todas las clases a excepción de la 3 y 7 o 9, cuya separación podría ser de utilidad.
 	\end{itemize}
 	
-	
-	
-	
-	
 	\item \textbf{Mujeres.}
+	
+	\begin{itemize}
+		\item F0 y F1
+		
+		\begin{figure}[H]
+			\centering
+			\begin{subfigure}{.5\textwidth}
+				\centering
+				\includegraphics[width=.9\linewidth]{bpmF0.png}
+				\caption{F0 vs Clases}
+				\label{fig:bpmF0}
+			\end{subfigure}%
+			\begin{subfigure}{.5\textwidth}
+				\centering
+				\includegraphics[width=.9\linewidth]{bpmF1.png}
+				\caption{F1 vs Clases}
+				\label{fig:bpmF1}
+			\end{subfigure}
+			\caption{Boxplot para F0 y F1}
+			\label{fig:bpm01}
+		\end{figure}
+		
+		Para la variable F0, las clases 0 y 3, 0 y 4, 0 y 5, 0 y 6, 1 y 2, 1 y 4, 1 y 5 u 9 y 10 son fácilmente separables. Por otro lado, las clases 2,3,4 y 5, 6 y 10, 7 y 8 (a pesar de outliers) se solapan. F1, por el contrario, es una estupenda variable para separar clases como 1 y 4,5,6,7,8 o 10. 
+		
+		\item F2 y F3.
+		
+		\begin{figure}[H]
+			\centering
+			\begin{subfigure}{.5\textwidth}
+				\centering
+				\includegraphics[width=.8\linewidth]{bpmF2.png}
+				\caption{F2 vs Clases}
+				\label{fig:bpmF2}
+			\end{subfigure}%
+			\begin{subfigure}{.5\textwidth}
+				\centering
+				\includegraphics[width=.8\linewidth]{bpmF3.png}
+				\caption{F3 vs Clases}
+				\label{fig:bpmF3}
+			\end{subfigure}
+			\caption{Boxplot para F2 y F3}
+			\label{fig:bpm23}
+		\end{figure}
+	
+		En la variable F2, los intervalos para cada clase van disminuyendo muy progresivamente, por lo que separa las clases 0 con 2,3,4,5,6 (salvo el outlier), 7 y 10. Por ejemplo, las clases 3,4,5,6 y 7 se solapan, por lo que esta variable no es conveniente para separarlas entre sí. En la variable F3, las clases 0, 1 y 2 se solapan en valores, al igual que las 8, 9 y 10. Sin embargo, las tres primeras están en el entorno de 1.5 y las demás toman valores menores, por lo que son separables por pares salvo con la clase 7, cuya abundante cantidad de outliers hace que pudiera confundirse con las clases 0,1 o 2.
+		\newpage
+		\item F4 y F5.
+		
+		\begin{figure}[H]
+			\centering
+			\begin{subfigure}{.5\textwidth}
+				\centering
+				\includegraphics[width=.8\linewidth]{bpmF4.png}
+				\caption{F4 vs Clases}
+				\label{fig:bpmF4}
+			\end{subfigure}%
+			\begin{subfigure}{.5\textwidth}
+				\centering
+				\includegraphics[width=.8\linewidth]{bpmF5.png}
+				\caption{F5 vs Clases}
+				\label{fig:bpmF5}
+			\end{subfigure}
+			\caption{Boxplot para F4 y F5}
+			\label{fig:bpm45}
+		\end{figure}
+	
+		La variable F4, a pesar de concentrar gran número de outliers en las clases 2, 3, 9 y 10, puede resultar muy útil para separar las clases 0 con 4 ,5, 6,7 y 8, al igual que 1 con con 4 ,5, 6,7 y 8. F5, por su parte, podría servir para separar las clases 2 con 4 y 8, al igual que la 3. Sin embargo, la gran mayoría de las clases se solapan en los valores por ser una variable muy concentrada (2 unidades).
+		
+		\item F6 y F7.
+		
+		\begin{figure}[H]
+			\centering
+			\begin{subfigure}{.5\textwidth}
+				\centering
+				\includegraphics[width=.8\linewidth]{bpmF6.png}
+				\caption{F6 vs Clases}
+				\label{fig:bpmF6}
+			\end{subfigure}%
+			\begin{subfigure}{.5\textwidth}
+				\centering
+				\includegraphics[width=.8\linewidth]{bpmF7.png}
+				\caption{F7 vs Clases}
+				\label{fig:bpmF7}
+			\end{subfigure}
+			\caption{Boxplot para F6 y F7}
+			\label{fig:bpm67}
+		\end{figure}
+		
+		El variable F6, la clase 1 se separa de todas excepto de la 0 y la 2. Sin embargo, el resto se solapan. En la variable 7, encontramos un grupo de clases que se agolpan bajo el 0.0 (de la 0 a la 5) y otras que están por encima de 0.0 (6 a 10), por lo que son fácilmente separables entre grupos y se solapan entre grupos.
+		
+		\item F8 y F9.
+		
+		\begin{figure}[H]
+			\centering
+			\begin{subfigure}{.5\textwidth}
+				\centering
+				\includegraphics[width=.8\linewidth]{bpmF8.png}
+				\caption{F8 vs Clases}
+				\label{fig:bpmF8}
+			\end{subfigure}%
+			\begin{subfigure}{.5\textwidth}
+				\centering
+				\includegraphics[width=.8\linewidth]{bpmF9.png}
+				\caption{F9 vs Clases}
+				\label{fig:bpmF9}
+			\end{subfigure}
+			\caption{Boxplot para F8 y F9}
+			\label{fig:bpm89}
+		\end{figure}
+	
+		La variable F8 no es buena para separar ninguna clase en especial, dado que se solapan prácticamente los valores entorno al 0.5. Por el contrario, la variable F9 separa bien las clases 0,1,2,3,4 y 6,7,8 y 9. 0,1,2,3,4,5 y 10 se solapan, al igual que 6,7,8 y 9.
+	\end{itemize}
+
 \end{itemize}
 
 %----------------------------------------------------------------------------------------
