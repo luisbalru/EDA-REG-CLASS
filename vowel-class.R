@@ -465,6 +465,10 @@ boundary = ddply(plot.df1, .variables = "predicted", .fun = find_hull)
 ggplot(plot.df, aes(F0, F1, color = predicted, fill = predicted)) + 
   geom_point(size = 5) + 
   geom_polygon(data = boundary, aes(x,y), alpha = 0.5)
+
+ggplot(plot.df, aes(F2, F6, color = predicted, fill = predicted)) + 
+  geom_point(size = 5) + 
+  geom_polygon(data = boundary, aes(x,y), alpha = 0.5)
 #############################
 # Prueba por sexos
 

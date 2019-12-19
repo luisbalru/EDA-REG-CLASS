@@ -72,6 +72,8 @@ El presente documento contiene los resultados obtenidos en el Trabajo Teórico/P
 
 \subsection{Conjunto de datos Wankara}
 
+
+\newpage
 \subsection{Conjunto de datos Vowel}
 
 El presente conjunto de datos contiene información sobre el reconocimiento de las once vocales existentes en inglés por parte de 15 interlocutores independientes. Es un problema de clasificación de once clases (las once vocales inglesas) con trece características, diez de ellas reales y tres enteras. A pesar de ser numéricas, esas tres variables son realmente categóricas, dado que
@@ -1582,6 +1584,7 @@ Como se ha podido ver durante este desarrollo, las variables numéricas que tene
 
 \end{itemize}
 
+\newpage
 %----------------------------------------------------------------------------------------
 %	Regresión
 %----------------------------------------------------------------------------------------
@@ -1591,14 +1594,92 @@ Como se ha podido ver durante este desarrollo, las variables numéricas que tene
 
 
 
-
+\newpage
 %----------------------------------------------------------------------------------------
 %	Clasificación
 %----------------------------------------------------------------------------------------
 
+
 \section{Problema de clasificación: Vowel}
 
+Comenzamos con el estudio de clasificación para el conjunto de datos Vowel. Esta sección constará de cuatro partes: la primera dedicada al algoritmo KNN; la segunda, a LDA; la tercera, a QDA; por último, realizo una comparación entre los algoritmos nombrados. Dicha comparación se hace gracias a la ejecución de los mismos sobre 5 particiones previamente fijadas. Se almacena el accuracy de cada algoritmo y partición y se llevan a cabo los tests estadísticos de Wilcoxon (para el estudio por parejas de algoritmos) y el de Friedman, con Post-Hoc Holm para la comparación conjunta. Previa ejecución de cualquier algoritmo, las variables han sido escaladas para que la diferencia de rangos no afecte a los resultados. Además, sólo utilizo como variables predictivas las numéricas, obviando por el momento el sexo (para hacer distinciones) o el interlocutor.
 
+\subsection{KNN}
+
+Dentro del ejercicio 1 propuesto, se pide que se trabaje con distintos valores de k para el algoritmo kNN. En esta primera parte, sobre el conjunto de datos al completo, realizo un particionamiento training-test del 70\%-30\% para entrenar el algoritmo con distintos valores de k, desde 1 hasta 15. En la siguiente imagen podemos ver el rendimiento extraído:
+
+\begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
+	\centering
+	\includegraphics[scale=0.8]{k-values.png}  %el parámetro scale permite agrandar o chicar la imagen. En el nombre de archivo puede especificar directorios
+	\caption{Accuracy para los distintos valores de k} 
+	\label{fig:k-values}
+\end{figure}
+
+A la luz de los resultados, elijo el valor de $k=3$ para continuar y ahora intento mostrar las fronteras de decisión entre clases, haciendo un plot con las variables, por ejemplo,, F0 y F1.
+
+\begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
+	\centering
+	\includegraphics[scale=0.8]{boundaries-knn.png}  %el parámetro scale permite agrandar o chicar la imagen. En el nombre de archivo puede especificar directorios
+	\caption{Plot F1-F2 para mostrar las fronteras de decisión} 
+	\label{fig:boundaries-knn}
+\end{figure}
+
+o para F2 y F6
+
+\begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
+	\centering
+	\includegraphics[scale=0.8]{boundariesf2f6-knn.png}  %el parámetro scale permite agrandar o chicar la imagen. En el nombre de archivo puede especificar directorios
+	\caption{Plot F2-F6 para mostrar las fronteras de decisión} 
+	\label{fig:boundaries-knn-f2f6}
+\end{figure}
+
+Si realizamos la clasificación por sexos y el rendimiento respecto del valor de $k$, vemos que los resultados son algo distintos:
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}{.5\textwidth}
+		\centering
+		\includegraphics[width=.8\linewidth]{knn-k-h.png}
+		\caption{Evolución del accuracy y k para hombres}
+		\label{fig:k-h}
+	\end{subfigure}%
+	\begin{subfigure}{.5\textwidth}
+		\centering
+		\includegraphics[width=.8\linewidth]{knn-k-m.png}
+		\caption{Evolución del accuracy y k para mujeres}
+		\label{fig:k-m}
+	\end{subfigure}
+	\caption{Valores de k vs Accuracy para hombres y mujeres}
+	\label{fig:k-h-m}
+\end{figure}
+
+lo que nos muestra que, por separado, el resultado de la clasificación sería aún mejor. Por último, intento validar estos resultados con una validación cruzada de 10 particiones para ver los mejores valores de k tanto en training como en test. Primero, para training,
+
+\begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
+	\centering
+	\includegraphics[scale=0.8]{k-knn-10kf-tr.png}  %el parámetro scale permite agrandar o chicar la imagen. En el nombre de archivo puede especificar directorios
+	\caption{Evolución de accuracy respecto de k en training} 
+	\label{fig:k-knn-10kf-tr}
+\end{figure}
+
+donde los mejores valores son $k=1, k=3$. Para test,
+
+\begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
+	\centering
+	\includegraphics[scale=0.8]{k-knn-10kf-tst.png}  %el parámetro scale permite agrandar o chicar la imagen. En el nombre de archivo puede especificar directorios
+	\caption{Evolución de accuracy respecto de k en test} 
+	\label{fig:k-knn-10kf-tst}
+\end{figure}
+
+donde vemos que los mejores valores se mantienen pero que caen a partir de $k=11$.
+
+
+
+\subsection{LDA}
+
+\subsection{QDA}
+
+\subsection{Comparación de algoritmos}
 \newpage
 \section{Bibliografía}
 
