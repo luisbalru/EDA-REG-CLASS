@@ -1671,11 +1671,31 @@ donde los mejores valores son $k=1, k=3$. Para test,
 	\label{fig:k-knn-10kf-tst}
 \end{figure}
 
-donde vemos que los mejores valores se mantienen pero que caen a partir de $k=11$.
+donde vemos que los mejores valores se mantienen pero que caen a partir de $k=11$. Para la comparación de algoritmos, utilizo los valores de $k=1, k=3$ y almaceno el accuracy para cada partición. Además, a modo de resumen, calculo la media de los resultados en test para cada partición, obteniendo un $99.69697\%$.
 
 
 
 \subsection{LDA}
+
+Pasamos ahora a LDA. Previa a su implementación sobre el conjunto de datos, tenemos que comprobar que las variables siguen una distribución normal y todas tienen la misma varianza.
+
+\begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
+	\centering
+	\includegraphics[scale=0.6]{shapiro-lda.png}  %el parámetro scale permite agrandar o chicar la imagen. En el nombre de archivo puede especificar directorios
+	\caption{Test de normalidad para cada variable} 
+	\label{fig:shapiro-lda}
+\end{figure}
+
+Como vemos, las variables no siguen una distribución normal (ya lo vimos también en el EDA).
+
+\begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
+	\centering
+	\includegraphics[scale=0.6]{var-lda.png}  %el parámetro scale permite agrandar o chicar la imagen. En el nombre de archivo puede especificar directorios
+	\caption{Varianza de las variables} 
+	\label{fig:var-lda}
+\end{figure}
+
+
 
 \subsection{QDA}
 

@@ -561,6 +561,41 @@ v.train$Class = as.factor(v.train$Class)
 v.test$Class = as.factor(v.test$Class)
 vowel.lda.predict <- train(Class ~ ., method = "lda", data = v.train)
 confusionMatrix(v.test$Class, predict(vowel.lda.predict, v.test))
+
+#############################
+# Prueba por sexos
+
+hombres = vowel %>% filter(Sex==0)
+mujeres = vowel %>% filter(Sex==1)
+
+# para hombres
+train.index <- createDataPartition(hombres$Class, p = .7, list = FALSE)
+v.train <- hombres[ train.index,]
+v.test  <- hombres[-train.index,]
+
+v.train$TT= NULL
+v.train$SpeakerNumber = NULL
+v.test$TT = NULL
+v.test$SpeakerNumber = NULL
+v.train$Class = as.factor(v.train$Class)
+v.test$Class = as.factor(v.test$Class)
+hombres.lda.predict <- train(Class ~ ., method = "lda", data = v.train)
+confusionMatrix(v.test$Class, predict(hombres.lda.predict, v.test))
+
+# para mujeres
+train.index <- createDataPartition(mujeres$Class, p = .7, list = FALSE)
+v.train <- mujeres[ train.index,]
+v.test  <- mujeres[-train.index,]
+
+v.train$TT= NULL
+v.train$SpeakerNumber = NULL
+v.test$TT = NULL
+v.test$SpeakerNumber = NULL
+v.train$Class = as.factor(v.train$Class)
+v.test$Class = as.factor(v.test$Class)
+mujeres.lda.predict <- train(Class ~ ., method = "lda", data = v.train)
+confusionMatrix(v.test$Class, predict(mujeres.lda.predict, v.test))
+
 library(klaR)
 X11(width=15, height=15)
 partimat(Class ~F0+F1+F2+F3, data = v.test, method = "lda")
