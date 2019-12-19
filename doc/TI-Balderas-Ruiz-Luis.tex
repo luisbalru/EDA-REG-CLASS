@@ -1374,6 +1374,50 @@ Como se ha podido ver durante este desarrollo, las variables numéricas que tene
 			\caption{Boxplot para F0 y F1}
 			\label{fig:bph01}
 		\end{figure}
+	
+	Podemos ver que la variable F0 es útil para separar las clases 3,6,8 o 9 mientras que puede ser confusa para la 0 o la 1 porque sus valores se solapan en exceso. Además, apenas presenta outliers, centrados en las clases 4,5 y 7. En el caso de F1, se pueden separar fácilmente las clases 0, 2, 4 o 10, mientras que la 8 y 9 se solapan mucho y la 3 presenta bastantes outliers en el rango de la clase 2, por lo que puede ser confusa. 
+	\newpage
+	\item F2 y F3.
+	
+	\begin{figure}[H]
+		\centering
+		\begin{subfigure}{.5\textwidth}
+			\centering
+			\includegraphics[width=.8\linewidth]{bphF2.png}
+			\caption{F2 vs Clases}
+			\label{fig:bphF2}
+		\end{subfigure}%
+		\begin{subfigure}{.5\textwidth}
+			\centering
+			\includegraphics[width=.8\linewidth]{bphF3.png}
+			\caption{F3 vs Clases}
+			\label{fig:bphF3}
+		\end{subfigure}
+		\caption{Boxplot para F2 y F3}
+		\label{fig:bph23}
+	\end{figure}
+
+	En el caso de la variable F2, se podrían diferenciar las clases 2 o 3 de la 7 fácilmente (a pesar de los outliers para la variable 7). Las demás presentan algunas diferencias pero todas se centran más o menos en un rango de una unidad. Para F3, la clase 0 y 2 se separan muy bien, de la misma forma que la 0 y la 4. 0 y 8 no por la gran cantidad de outliers en la clase 8. Por el contrario, vemos como las clases 6 y 7 tienen valores prácticamente iguales en esta variable y, como el rango es amplio, engloban muchas otras clases menores en el mismo.
+	
+		\item F4 y F5.
+	
+	\begin{figure}[H]
+		\centering
+		\begin{subfigure}{.5\textwidth}
+			\centering
+			\includegraphics[width=.8\linewidth]{bphF4.png}
+			\caption{F4 vs Clases}
+			\label{fig:bphF4}
+		\end{subfigure}%
+		\begin{subfigure}{.5\textwidth}
+			\centering
+			\includegraphics[width=.8\linewidth]{bphF5.png}
+			\caption{F5 vs Clases}
+			\label{fig:bphF5}
+		\end{subfigure}
+		\caption{Boxplot para F4 y F5}
+		\label{fig:bph45}
+	\end{figure}
 	\end{itemize}
 	
 	
