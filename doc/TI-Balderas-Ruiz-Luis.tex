@@ -1695,6 +1695,33 @@ Como vemos, las variables no siguen una distribución normal (ya lo vimos tambi�
 	\label{fig:var-lda}
 \end{figure}
 
+Podemos ver que las varianzas difieren en $\pm 0.02$ aproximadamente, por lo que tampoco se cumple esta condición. En consecuencia, los resultados de LDA no serán especialmente rigurosos. Primero, entrenamos un modelo generando una partición, con las mismas proporciones que en el caso de kNN, sobre nuestro conjunto de datos.  Veamos la matriz de confusión generada:
+
+\begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
+	\centering
+	\includegraphics[scale=0.6]{cm-lda.png}  %el parámetro scale permite agrandar o chicar la imagen. En el nombre de archivo puede especificar directorios
+	\caption{Matriz de confusión para LDA} 
+	\label{fig:cm-lda}
+\end{figure}
+
+y cuyas estadísticas generales son
+
+\begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
+	\centering
+	\includegraphics[scale=0.6]{statis-lda.png}  %el parámetro scale permite agrandar o chicar la imagen. En el nombre de archivo puede especificar directorios
+	\caption{Estadísticas generales para LDA} 
+	\label{fig:statis-lda}
+\end{figure}
+
+El resultado, sobre la partición estratificada, es bastante pobre. Intentamos una visualización con la herramienta \textit{Partimat} sobre las variables F0, F1, F2 y F3:
+
+\begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
+	\centering
+	\includegraphics[scale=0.4]{partimat-lda-v.png}  %el parámetro scale permite agrandar o chicar la imagen. En el nombre de archivo puede especificar directorios
+	\caption{Partimat sobre F0-F3 para el modelo de LDA en Vowel} 
+	\label{fig:partimat-lda-v}
+\end{figure}
+
 
 
 \subsection{QDA}

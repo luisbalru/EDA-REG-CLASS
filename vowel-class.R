@@ -545,6 +545,8 @@ acc_mean_test_knn = mean(resultados_knn3_test)
 ## C.2
 # LDA
 library(MASS)
+install.packages("ROCR")
+library(ROCR)
 # checks (ya hecho en EDA)
 sapply(vowel[,3:13],shapiro.test)
 sapply(vowel[,4:13],var)
@@ -562,6 +564,10 @@ v.test$Class = as.factor(v.test$Class)
 vowel.lda.predict <- train(Class ~ ., method = "lda", data = v.train)
 confusionMatrix(v.test$Class, predict(vowel.lda.predict, v.test))
 
+predic = as.data.frame(predict(vowel.lda.predict, v.test))
+pred <- prediction(predic, v.test$Class)
+perf <- performance(pred,"tpr","fpr")
+plot(perf,colorize=TRUE)
 #############################
 # Prueba por sexos
 
