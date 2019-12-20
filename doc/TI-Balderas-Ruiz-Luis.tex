@@ -1813,7 +1813,62 @@ donde vemos que todas las clases tienen un accuracy de más del $90\%$ excepto l
 \end{figure}
 
 lo que nos muestra la dificultad en la partición por clases. Por último, para validar los resultados, llevo a cabo una validación cruzada con las 10 particiones ofrecidas, de nuevo almacenando el accuracy de cada partición tanto en training como en test. El accuracy medio en train resulta $94.92705\%$ y en test, $91.0101\%$. Como estos resultados son satisfactorios, no hago la división por sexos como LDA. Sin embargo, casi con toda probabilidad obtendríamos un rendimiento mayor que con el conjunto total.
+
 \subsection{Comparación de algoritmos}
+
+Para terminar con el apartado de clasificación, procedemos a la comparación de algoritmos. Como se ha comentado, para cada una de las etapas anteriores se han almacenado los distintos accuracy en las particiones. Tras ejecutar todos los modelos, la tabla de resultados es la siguiente:
+
+\begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
+	\centering
+	\includegraphics[scale=0.6]{tabla-resultados.png}  %el parámetro scale permite agrandar o chicar la imagen. En el nombre de archivo puede especificar directorios
+	\caption{Tabla de resultados para cada algoritmo y partición} 
+	\label{fig:tabla-res}
+\end{figure}
+
+Como se puede ver, en cada columna colocamos los modelos tratados: 1NN, 3NN, LDA y QDA. Por cada fila se encuentra el accuracy obtenido en test para la partición correspondiente. En esta sección utilizaremos el test de Wilcoxon para hacer comparaciones por pares y el de Friedman (con Post-Hoc Holm) para hacer una comparativa conjunta. Debido a que los valores de accuracy tienen valores muy parecidos en las columnas (de hecho, hay bastantes repetidos). Dichos empates van en detrimento de la capacidad de rechazar la hipótesis nula (esto es, que los algoritmos no tienen diferencias significativas entre sí). Dado que los tests no paramétricos se basan en rankings, los empates aporta información nula a dicha ordenación y el p-valor resultante tiende a ser peor. En la vida real, necesitaríamos buscar nuevas muestras que nos proporcionaran valores distintos para así dar lugar a variabilidad. Aquí, nos ceñiremos a los resultados obtenidos dado que las particiones están fijas.
+
+\subsubsection{1NN vs LDA}
+
+Realizamos el test de Wilcoxon para tratar de encontrar diferencias significativas en los algoritmos. Tras realizarlo, encontramos un $R^{+}$ de 55 y $R^{-}$ de 0, alcanzando un p-valor de $0.005825024$, por lo que tenemos que rechazar la hipótesis de que los algoritmos no tengan diferencias significativas.
+
+\subsubsection{1NN vs QDA}
+
+Realizamos el test de Wilcoxon para tratar de encontrar diferencias significativas en los algoritmos. Tras realizarlo, encontramos un $R^{+}$ de 55 y $R^{-}$ de 0, alcanzando un p-valor de $0.005729376$, por lo que tenemos que rechazar la hipótesis de que los algoritmos no tengan diferencias significativas.
+
+\subsubsection{3NN vs LDA}
+
+Realizamos el test de Wilcoxon para tratar de encontrar diferencias significativas en los algoritmos. Tras realizarlo, encontramos un $R^{+}$ de 55 y $R^{-}$ de 0, alcanzando un p-valor de $0.005825024$, por lo que tenemos que rechazar la hipótesis de que los algoritmos no tengan diferencias significativas.
+
+\subsubsection{3NN vs QDA}
+
+Realizamos el test de Wilcoxon para tratar de encontrar diferencias significativas en los algoritmos. Tras realizarlo, encontramos un $R^{+}$ de 55 y $R^{-}$ de 0, alcanzando un p-valor de $0.005857099$, por lo que tenemos que rechazar la hipótesis de que los algoritmos no tengan diferencias significativas.
+
+\subsubsection{LDA vs QDA}
+
+Realizamos el test de Wilcoxon para tratar de encontrar diferencias significativas en los algoritmos. Tras realizarlo, encontramos un $R^{+}$ de 0 y $R^{-}$ de 55, alcanzando un p-valor de $0.00588927$, por lo que tenemos que rechazar la hipótesis de que los algoritmos no tengan diferencias significativas.
+
+\subsubsection{Comparativa general con el test de Friedman}
+
+Utilizamos el test de Friedman para comparar globalmente los algoritmos. En él, establecemos como hipótesis nula que no hay diferencias significativas entre los algoritmos. Estos son los resultados:
+
+\begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
+	\centering
+	\includegraphics[scale=0.6]{friedman-c.png}  %el parámetro scale permite agrandar o chicar la imagen. En el nombre de archivo puede especificar directorios
+	\caption{Resultados del test de Friedman para clasificación} 
+	\label{fig:friedman-c}
+\end{figure}
+
+Como podemos ver, el p-valor es bastante menor que 0.05, por lo que debemos rechazar la hipótesis nula. Por tanto, consideramos que hay diferencias significativas al menos entre un par de algoritmos. Vemos la diferencias a través del Post-Hoc
+
+\begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
+	\centering
+	\includegraphics[scale=0.6]{ph-c.png}  %el parámetro scale permite agrandar o chicar la imagen. En el nombre de archivo puede especificar directorios
+	\caption{Post Hoc Holm en clasificación} 
+	\label{fig:ph-c}
+\end{figure}
+
+Existen diferencias significativas entre QDA y 1NN (a favor de 1NN), QDA y 3NN (a favor de 3NN), QDA y LDA (a favor de QDA) con un $96.6\%$ de confianza, al igual que LDA y 1NN (a favor de 1NN) y LDA y 3NN (a favor de 3NN). 1NN y 3NN pueden considerarse equivalentes.
+
 \newpage
 \section{Bibliografía}
 
