@@ -539,6 +539,42 @@ resultados_knn3_test = sapply(1:10,run_knn_fold,nombre,"test",3)
 resultados_knn1_test = sapply(1:10,run_knn_fold,nombre,"test",1)
 acc_mean_test_knn = mean(resultados_knn3_test)
 
+###############################
+# Sobre distancias y knn
+
+library(philentropy)
+
+normalize <- function(x) {
+  return ((x - min(x)) / (max(x) - min(x)))
+}
+
+knn <- function(train, test, k, method){
+  n.test <- nrow(test)
+  n.train <- nrow(train)
+  if (n.train + n.test <= k) stop("k can not be more than n-1")
+  neigh <- matrix(0, nrow = n.test, ncol = k) 
+  ddist <- NULL
+  for(i in 1:n.test) {
+    for(j in 1:n.train) {
+      xmat <- rbind(test[i,], train[j,]) #we make a 2 row matrix combining the current test and train rows
+      ddist[j] <- distance(as.data.frame(xmat), method, k)  #then we calculate the distance and append it to the ddist vector.
+    }
+    neigh[i, ] <- sort(ddist)[2:(k + 1)] 
+  }
+  return(neigh)
+}
+
+
+vowel = read.csv("./data/vowel/vowel.dat",header=FALSE, comment.char="@")
+colnames(vowel) = c("TT","SpeakerNumber","Sex","F0","F1","F2","F3","F4","F5","F6","F7","F8","F9","Class")
+vowel$TT = NULL
+vowel = normalize(vowel)
+
+train.index <- createDataPartition(vowel$Class, p = .7, list = FALSE)
+v.train <- vowel[ train.index,]
+v.test  <- vowel[-train.index,]
+vowel_nn1 <-knn(v.train, v.test ,3, method="euclidean") #Cambiar el tipo de distancia usada en el paquete philentropy
+vowel_nn2 = knn(v.train,v.test,3,method="mahalonobis")
 
 
 ################################################################################################
