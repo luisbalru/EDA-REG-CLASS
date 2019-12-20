@@ -72,6 +72,33 @@ El presente documento contiene los resultados obtenidos en el Trabajo Teórico/P
 
 \subsection{Conjunto de datos Wankara}
 
+El presente conjunto de datos contiene información sobre el tiempo atmosférico entre los días 01/01/1994 y 28/05/1998 en la ciudad de Ankara, Turquía. En total, 1609 días (tantos como instancias) con información expresada en 10 variables numéricas que son las siguientes:
+
+\begin{itemize}
+	\item Max-temperature: Temperatura máxima del día (ºF).
+	\item Min-temperature: Temperatura mínima del día (ºF).
+	\item Dewpoint:  (Punto de rocío) Es la más alta temperatura a la que empieza a condensarse el vapor de agua contenido en el aire, produciendo rocío, neblina, cualquier tipo de nube o, en caso de que la temperatura sea lo suficientemente baja, escarcha (ºF).
+	\item Precipitation: Cantidad de precipitaciones en el día(mm).
+	\item Sea-level-pressure: Presión a nivel del mar (suponemos que en P).
+	\item Standard-pressure: Presión estándar (suponemos que en P).
+	\item Visibility: Medida de la mayor distancia en la cual un objeto puede verse de forma nítida (suponemos millas).
+	\item Wind-speed: Velocidad del viento (suponemos mph).
+	\item Max-wind-speed: Velocidad máxima del viento (suponemos mph).
+	\item Mean-temperature (variable a modelar): temperatura media del día (ºF).
+\end{itemize}
+
+Tras entender el significado de cada variable y antes de empezar a estudiarlas un poco una a una, conviene tener una idea general de cuál es la tendencia entre las variables. Para ello, presento el siguiente gráfico:
+
+\begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
+	\centering
+	\includegraphics[scale=0.7]{primer-vistazo-wankara.png}  %el parámetro scale permite agrandar o chicar la imagen. En el nombre de archivo puede especificar directorios
+	\caption{Primer vistazo a las variables} 
+	\label{fig:pvwankara}
+\end{figure}
+
+En cada plot enfrento la variable que queremos modelar, Mean-temperature, y las demás. Como se puede ver, hay tendencias muy claras entre Max-temperature, Min-temperature o Dewpoint y Mean-temperature. Las estudiaremos más a fondo a continuación para poder elegir correctamente los regresores.
+
+
 
 \newpage
 \subsection{Conjunto de datos Vowel}
