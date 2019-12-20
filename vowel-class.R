@@ -568,11 +568,19 @@ knn <- function(train, test, k, method){
 vowel = read.csv("./data/vowel/vowel.dat",header=FALSE, comment.char="@")
 colnames(vowel) = c("TT","SpeakerNumber","Sex","F0","F1","F2","F3","F4","F5","F6","F7","F8","F9","Class")
 vowel$TT = NULL
-vowel = normalize(vowel)
+vowel[,3:12] = normalize(vowel[,3:12])
 
 train.index <- createDataPartition(vowel$Class, p = .7, list = FALSE)
 v.train <- vowel[ train.index,]
 v.test  <- vowel[-train.index,]
+v.train$TT= NULL
+v.train$SpeakerNumber = NULL
+v.train$Sex = NULL
+v.test$TT = NULL
+v.test$SpeakerNumber = NULL
+v.test$Sex = NULL
+v.train$Class = as.factor(v.train$Class)
+v.test$Class = as.factor(v.test$Class)
 vowel_nn1 <-knn(v.train, v.test ,3, method="euclidean") #Cambiar el tipo de distancia usada en el paquete philentropy
 vowel_nn2 = knn(v.train,v.test,3,method="mahalonobis")
 
