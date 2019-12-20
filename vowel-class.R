@@ -894,7 +894,23 @@ Rmas
 Rmenos
 pvalue
 
-## 4) LDA-QDA
+## 4) 3NN - QDA
+
+wilc_2_4 = cbind(tabla_resultados_tr[,2],tabla_resultados_tr[,4])
+colnames(wilc_2_4) <- c(colnames(tabla_resultados_tr)[2], colnames(tabla_resultados_tr)[4])
+head(wilc_2_4)
+
+K3NNvsQDAtst = wilcox.test(wilc_2_4[,1],wilc_2_4[,2],alternative = "two.sided",paired=TRUE)
+Rmas = K3NNvsQDAtst$statistic
+pvalue = K3NNvsQDAtst$p.value
+K3NNvsQDAtst = wilcox.test(wilc_2_4[,2],wilc_2_4[,1],alternative = "two.sided",paired=TRUE)
+Rmenos = K3NNvsQDAtst$statistic
+Rmas
+Rmenos
+pvalue
+
+
+## 5) LDA-QDA
 
 
 wilc_3_4 = cbind(tabla_resultados_tr[,3],tabla_resultados_tr[,4])
