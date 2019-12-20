@@ -1722,7 +1722,34 @@ El resultado, sobre la partición estratificada, es bastante pobre. Intentamos u
 	\label{fig:partimat-lda-v}
 \end{figure}
 
+Si dividimos el dataset por sexos, a parte de que se consigue con mayor facilidad la normalidad (como ya vimos en EDA), los resultados mejoran mucho:
 
+\begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
+	\centering
+	\includegraphics[scale=0.6]{cm-hombres.png}  %el parámetro scale permite agrandar o chicar la imagen. En el nombre de archivo puede especificar directorios
+	\caption{Matriz de confusión para hombres LDA} 
+	\label{fig:cm-hombres}
+\end{figure}
+
+Así también se refleja en las estadísticas
+
+\begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
+	\centering
+	\includegraphics[scale=0.6]{statis-hombres.png}  %el parámetro scale permite agrandar o chicar la imagen. En el nombre de archivo puede especificar directorios
+	\caption{Estadísticas generales para hombres LDA} 
+	\label{fig:statis-hombres}
+\end{figure}
+
+con un aumento del $20\%$ en accuracy. También mejora para el subconjunto de mujeres en un $15\%$:
+
+\begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
+	\centering
+	\includegraphics[scale=0.6]{statis-mujeres.png}  %el parámetro scale permite agrandar o chicar la imagen. En el nombre de archivo puede especificar directorios
+	\caption{Estadísticas generales para mujeres LDA} 
+	\label{fig:statis-mujeres}
+\end{figure}
+
+Para validar, los resultados, llevo a cabo una validación cruzada de 10 particiones con predicciones sobre el conjunto de training como el de test, almacenándose el accuracy para cada partición y obteniéndose una media de $64.82604\%$ en training y  $60.30303\%$ en test.
 
 \subsection{QDA}
 
