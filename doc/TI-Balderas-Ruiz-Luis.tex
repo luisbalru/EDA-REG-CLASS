@@ -1757,27 +1757,62 @@ A juzgar por los resultados de LDA, parece que las 11 clases de nuestro dataset 
 
 \begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
 	\centering
-	\includegraphics[scale=0.6]{var1-qda.png}  %el parámetro scale permite agrandar o chicar la imagen. En el nombre de archivo puede especificar directorios
+	\includegraphics[scale=0.5]{var1-qda.png}  %el parámetro scale permite agrandar o chicar la imagen. En el nombre de archivo puede especificar directorios
 	\caption{Varianza de los regresores entre las clases 0 y 4} 
 	\label{fig:var1-qda}
 \end{figure}
 
 \begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
 	\centering
-	\includegraphics[scale=0.6]{var2-qda.png}  %el parámetro scale permite agrandar o chicar la imagen. En el nombre de archivo puede especificar directorios
+	\includegraphics[scale=0.5]{var2-qda.png}  %el parámetro scale permite agrandar o chicar la imagen. En el nombre de archivo puede especificar directorios
 	\caption{Varianza de los regresores entre las clases 4 y 8} 
 	\label{fig:var2-qda}
 \end{figure}
 
 \begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
 	\centering
-	\includegraphics[scale=0.6]{var3-qda.png}  %el parámetro scale permite agrandar o chicar la imagen. En el nombre de archivo puede especificar directorios
+	\includegraphics[scale=0.5]{var3-qda.png}  %el parámetro scale permite agrandar o chicar la imagen. En el nombre de archivo puede especificar directorios
 	\caption{Varianza de los regresores entre las clases 9 y 10} 
 	\label{fig:var3-qda}
 \end{figure}
 
-Ha quedado patente que no se cumple la hipótesis de QDA. Aún así, seguimos adelante en el estudio.
+Ha quedado patente que no se cumple la hipótesis de QDA. Aún así, seguimos adelante en el estudio. Como en los algoritmos anteriores, realizamos una partición estratificada 70-30 para training/test y genero un modelo con QDA. Vemos que el resultado es notoriamente mejor. Primero, con la matriz de confusión
 
+\begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
+	\centering
+	\includegraphics[scale=0.6]{cm-qda.png}  %el parámetro scale permite agrandar o chicar la imagen. En el nombre de archivo puede especificar directorios
+	\caption{Matriz de confusión para QDA} 
+	\label{fig:cm-qda}
+\end{figure}
+
+y cuyas estadísticas generales son
+
+\begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
+	\centering
+	\includegraphics[scale=0.6]{statis-qda.png}  %el parámetro scale permite agrandar o chicar la imagen. En el nombre de archivo puede especificar directorios
+	\caption{Estadísticas generales para QDA} 
+	\label{fig:statis-qda}
+\end{figure}
+
+con un $87.54\%$ de accuracy. Sin embargo, la matriz de confusión da la sensación, al menos en la mayoría de las clases, que el rendimiento debería ser mayor. Veamos las estadísticas por clases
+
+\begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
+	\centering
+	\includegraphics[scale=0.5]{statis-qda-c.png}  %el parámetro scale permite agrandar o chicar la imagen. En el nombre de archivo puede especificar directorios
+	\caption{Estadísticas generales para QDA por clase} 
+	\label{fig:statis-qda-c}
+\end{figure}
+
+donde vemos que todas las clases tienen un accuracy de más del $90\%$ excepto la 5, que tiene un $86.252\%$. Este hecho podría explicarse con que, como hemos visto antes, para el subconjunto de mujeres, la clase 5 presenta outliers en la mayoría de las variables. Vemos, como antes, una separación del espacio representado en las variables F0-F3:
+
+\begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
+	\centering
+	\includegraphics[scale=0.3]{partimat-qda.png}  %el parámetro scale permite agrandar o chicar la imagen. En el nombre de archivo puede especificar directorios
+	\caption{Partimat sobre F0-F3 para el modelo de QDA en Vowel} 
+	\label{fig:partimat-qda-v}
+\end{figure}
+
+lo que nos muestra la dificultad en la partición por clases. Por último, para validar los resultados, llevo a cabo una validación cruzada con las 10 particiones ofrecidas, de nuevo almacenando el accuracy de cada partición tanto en training como en test. El accuracy medio en train resulta $94.92705\%$ y en test, $91.0101\%$. Como estos resultados son satisfactorios, no hago la división por sexos como LDA. Sin embargo, casi con toda probabilidad obtendríamos un rendimiento mayor que con el conjunto total.
 \subsection{Comparación de algoritmos}
 \newpage
 \section{Bibliografía}
