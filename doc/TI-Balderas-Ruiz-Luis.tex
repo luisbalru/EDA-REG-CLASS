@@ -1753,6 +1753,31 @@ Para validar, los resultados, llevo a cabo una validación cruzada de 10 partici
 
 \subsection{QDA}
 
+A juzgar por los resultados de LDA, parece que las 11 clases de nuestro dataset son difícilmente separables con una función lineal. Sin embargo, una cuadrática pueda tener un mejor rendimiento. Es por eso que utilizamos ahora QDA. Como en LDA, necesitamos comprobar unas hipótesis. En este caso, QDA requiere que la varianza de los regresores sea igual en cada clase, aunque pueda ser distinta entre clases. Como se verá a continuación, esta hipótesis tampoco se va a cumplir (como en LDA), por lo que la capacidad de predicción de QDA se verá mermada.
+
+\begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
+	\centering
+	\includegraphics[scale=0.6]{var1-qda.png}  %el parámetro scale permite agrandar o chicar la imagen. En el nombre de archivo puede especificar directorios
+	\caption{Varianza de los regresores entre las clases 0 y 4} 
+	\label{fig:var1-qda}
+\end{figure}
+
+\begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
+	\centering
+	\includegraphics[scale=0.6]{var2-qda.png}  %el parámetro scale permite agrandar o chicar la imagen. En el nombre de archivo puede especificar directorios
+	\caption{Varianza de los regresores entre las clases 4 y 8} 
+	\label{fig:var2-qda}
+\end{figure}
+
+\begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
+	\centering
+	\includegraphics[scale=0.6]{var3-qda.png}  %el parámetro scale permite agrandar o chicar la imagen. En el nombre de archivo puede especificar directorios
+	\caption{Varianza de los regresores entre las clases 9 y 10} 
+	\label{fig:var3-qda}
+\end{figure}
+
+Ha quedado patente que no se cumple la hipótesis de QDA. Aún así, seguimos adelante en el estudio.
+
 \subsection{Comparación de algoritmos}
 \newpage
 \section{Bibliografía}
