@@ -433,9 +433,6 @@ for (i in 4:13){
   vowel[,i] = rescale(vowel[,i])
 }
 accuracy_vowel = c()
-train.index <- createDataPartition(vowel$Class, p = .7, list = FALSE)
-v.train <- vowel[ train.index,]
-v.test  <- vowel[-train.index,]
 for (i in seq(1,15,2)){
   train.index <- createDataPartition(vowel$Class, p = .7, list = FALSE)
   v.train <- vowel[ train.index,]
@@ -548,7 +545,7 @@ normalize <- function(x) {
   return ((x - min(x)) / (max(x) - min(x)))
 }
 
-knn <- function(train, test, k, method){
+knn2 <- function(train, test, k, method){
   n.test <- nrow(test)
   n.train <- nrow(train)
   if (n.train + n.test <= k) stop("k can not be more than n-1")
@@ -804,7 +801,23 @@ Rmas
 Rmenos
 pvalue
 
-## 4) LDA-QDA
+## 4) 3NN - QDA
+
+wilc_2_4 = cbind(tabla_resultados[,2],tabla_resultados[,4])
+colnames(wilc_2_4) <- c(colnames(tabla_resultados)[2], colnames(tabla_resultados)[4])
+head(wilc_2_4)
+
+K3NNvsQDAtst = wilcox.test(wilc_2_4[,1],wilc_2_4[,2],alternative = "two.sided",paired=TRUE)
+Rmas = K3NNvsQDAtst$statistic
+pvalue = K3NNvsQDAtst$p.value
+K3NNvsQDAtst = wilcox.test(wilc_2_4[,2],wilc_2_4[,1],alternative = "two.sided",paired=TRUE)
+Rmenos = K3NNvsQDAtst$statistic
+Rmas
+Rmenos
+pvalue
+
+
+## 5) LDA-QDA
 
 
 wilc_3_4 = cbind(tabla_resultados[,3],tabla_resultados[,4])
