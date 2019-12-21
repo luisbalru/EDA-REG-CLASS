@@ -206,6 +206,188 @@ vemos que rechazamos la hipótesis de normalidad. En efecto, a través del QQPlo
 \end{figure}
 
 
+\subsubsection{Dewpoint}
+
+
+La variable Dewpoint se almacena la más alta temperatura a la que empieza a condensarse el vapor de agua contenido en el aire, produciendo rocío, neblina, cualquier tipo de nube o, en caso de que la temperatura sea lo suficientemente baja, escarcha (ºF). Veamos un resumen estadístico:
+
+\begin{table}[H]
+	\centering
+	\begin{tabular}{|c|c|c|c|c|c|c|}
+		\hline
+		Mín. & 1st Qu. & Median & Mean  & SD       & 3rd Qu. & Max   \\ \hline
+		-3.1 & 28.50   & 36.80  & 36.29 & 10.81945 & 45.30   & 57.60 \\ \hline
+	\end{tabular}
+\end{table}
+
+con valores de asimetría $-0.3740575$ (por la izquierda) y curtosis $-0.4824467$ (platicúrtica). Veamos su histograma.
+
+ 
+\begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
+	\centering
+	\includegraphics[scale=0.7]{hist-dew.png}  %el parámetro scale permite agrandar o chicar la imagen. En el nombre de archivo puede especificar directorios
+	\caption{Histograma de Dewpoint} 
+	\label{fig:hist-dew}
+\end{figure}
+
+donde confirmamos la asimetría por la derecha y vemos como la media y la mediana están bastante cercanas. Respecto de outliers, la herramienta nos informa de los valores $-3.1$ y $57.60$, como posibles candidatos, dada su escasez de apariciones. Podremos contrastarlo más detenidamente después. Si aplicamos los tests de normalidad 
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}{.5\textwidth}
+		\centering
+		\includegraphics[width=.7\linewidth]{shapiro-dew.png}
+		\caption{Shapiro-Wilk}
+		\label{fig:sw-dew}
+	\end{subfigure}%
+	\begin{subfigure}{.5\textwidth}
+		\centering
+		\includegraphics[width=.7\linewidth]{lillie-dew.png}	\caption{Lilliefors}
+		\label{fig:l-dew}
+	\end{subfigure}
+	\caption{Tests de normalidad sobre Dewpoint}
+	\label{fig:norm-dew}
+\end{figure}
+
+vemos que rechazamos la hipótesis de normalidad. En efecto, a través del QQPlot comprobamos que así es.
+
+
+\begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
+	\centering
+	\includegraphics[scale=0.7]{qq-dew.png}  %el parámetro scale permite agrandar o chicar la imagen. En el nombre de archivo puede especificar directorios
+	\caption{QQPlot de Dewpoint} 
+	\label{fig:qq-dew}
+\end{figure}
+
+
+\subsubsection{Precipitation}
+
+La variable Precipitation refleja la cantidad de precipitaciones (mm) en un día. Veamos un resumen estadístico de su contenido.
+
+\begin{table}[H]
+	\centering
+	\begin{tabular}{|c|c|c|c|c|c|c|}
+		\hline
+		Mín. & 1st Qu. & Median & Mean   & SD        & 3rd Qu. & Max \\ \hline
+		0    & 0       & 0      & 0.0541 & 0.1844009 & 0       & 4   \\ \hline
+	\end{tabular}
+\end{table}
+
+Podemos ver el escaso nivel de precipitaciones. Respecto de la asimetría (11.07923), es asimétrica por la derecha y presenta una curtosis de 194.1193 (leptocúrtica). Veamos su histograma:
+
+
+ 
+\begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
+	\centering
+	\includegraphics[scale=0.7]{hist-pre.png}  %el parámetro scale permite agrandar o chicar la imagen. En el nombre de archivo puede especificar directorios
+	\caption{Histograma de Precipitation} 
+	\label{fig:hist-pre}
+\end{figure}
+
+en el que confirmamos el nivel de sequía (casi 1250 días sin llover). Encontramos un par de días con un nivel de lluvia de 4mm y 3.2mm, lo que pueden ser errores en la medición días extraordinariamente lluviosos para el histórico de la ciudad. Aplicando los tests de normalidad
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}{.5\textwidth}
+		\centering
+		\includegraphics[width=.7\linewidth]{shapiro-prec.png}
+		\caption{Shapiro-Wilk}
+		\label{fig:sw-pre}
+	\end{subfigure}%
+	\begin{subfigure}{.5\textwidth}
+		\centering
+		\includegraphics[width=.7\linewidth]{lillie-pre.png}	\caption{Lilliefors}
+		\label{fig:l-pre}
+	\end{subfigure}
+	\caption{Tests de normalidad sobre Precipitation}
+	\label{fig:norm-pre}
+\end{figure}
+
+vemos que por sus p-valores debemos rechazar la hipótesis de normalidad. 
+
+\subsubsection{Sea-level-pressure}
+
+En esta variable se aloja la presión a nivel del mar diaria en Ankara. A continuación, presento un resumen estadístico de la misma:
+
+\begin{table}[H]
+	\centering
+	\begin{tabular}{|c|c|c|c|c|c|c|}
+		\hline
+		Mín.  & 1st Qu. & Median & Mean  & SD        & 3rd Qu. & Max   \\ \hline
+		29.46 & 29.83   & 29.96  & 29.98 & 0.2015043 & 30.11   & 30.60 \\ \hline
+	\end{tabular}
+\end{table}
+
+Cabe destacar del resumen estadístico la cercanía de la media y la mediana y la muy reducida variabilidad. Además, presenta una asimetría por la derecha (0.4085841) y es platicúrtica (-0.1849383 de curtosis), aunque cerca de ser mesocúrtica. Veamos el histograma:
+
+\begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
+	\centering
+	\includegraphics[scale=0.7]{hist-slp.png}  %el parámetro scale permite agrandar o chicar la imagen. En el nombre de archivo puede especificar directorios
+	\caption{Histograma de Sea-level-pressure} 
+	\label{fig:hist-slp}
+\end{figure}
+
+Vemos que su forma se asemeja a la de una distribución normal. Sin embargo aplicando los tests de normalidad,
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}{.5\textwidth}
+		\centering
+		\includegraphics[width=.7\linewidth]{shapiro-slp.png}
+		\caption{Shapiro-Wilk}
+		\label{fig:sw-slp}
+	\end{subfigure}%
+	\begin{subfigure}{.5\textwidth}
+		\centering
+		\includegraphics[width=.7\linewidth]{lillie-slp.png}	\caption{Lilliefors}
+		\label{fig:l-slp}
+	\end{subfigure}
+	\caption{Tests de normalidad sobre Sea-level-pressure}
+	\label{fig:norm-slp}
+\end{figure}
+
+vemos que se rechaza la hipótesis de normalidad en ambos tests. Podemos asegurarnos con el QQPlot de que, a pesar de que se parece a una normal, se sale de los rangos:
+
+\begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
+	\centering
+	\includegraphics[scale=0.7]{qq-slp.png}  %el parámetro scale permite agrandar o chicar la imagen. En el nombre de archivo puede especificar directorios
+	\caption{QQPlot de Sea level pressure} 
+	\label{fig:qq-slp}
+\end{figure}
+
+
+y por lo tanto, no sigue una distribución normal.
+
+\subsubsection{Standard pressure}
+
+Standard pressure representa la presión atmosférica diaria en la ciudad de Ankara. Veamos un resumen estadístico de la misma:
+
+\begin{table}[H]
+	\centering
+	\begin{tabular}{|c|c|c|c|c|c|c|}
+		\hline
+		Mín.  & 1st Qu. & Median & Mean  & SD        & 3rd Qu. & Max   \\ \hline
+		26.30 & 26.69   & 26.77  & 26.78 & 0.1383007 & 26.87   & 27.18 \\ \hline
+	\end{tabular}
+\end{table}
+
+Vemos de nuevo una distribución de valores muy concentrada alrededor del 26.78, con media y medianas muy cercanas y apenas variabilidad. Por tanto, no se darán outliers. Además, no presenta asimetría (un escaso $-0.00832628$) y es leptocúrtica ($0.1495295$). Veamos su histograma. 
+
+\begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
+	\centering
+	\includegraphics[scale=0.7]{hist-sp.png}  %el parámetro scale permite agrandar o chicar la imagen. En el nombre de archivo puede especificar directorios
+	\caption{Histograma de Standard pressure} 
+	\label{fig:hist-sp}
+\end{figure}
+
+
+
+
+
+
+
+
+
+
 \newpage
 \subsection{Conjunto de datos Vowel}
 
