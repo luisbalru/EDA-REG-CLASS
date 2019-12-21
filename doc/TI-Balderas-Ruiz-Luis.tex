@@ -379,11 +379,35 @@ Vemos de nuevo una distribución de valores muy concentrada alrededor del 26.78,
 	\label{fig:hist-sp}
 \end{figure}
 
+De nuevo vemos una distribución de valores que se parece a la normal. Comprobamos con los tests de normalidad
 
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}{.5\textwidth}
+		\centering
+		\includegraphics[width=.7\linewidth]{shapiro-sp.png}
+		\caption{Shapiro-Wilk}
+		\label{fig:sw-sp}
+	\end{subfigure}%
+	\begin{subfigure}{.5\textwidth}
+		\centering
+		\includegraphics[width=.7\linewidth]{lillie-sp.png}	\caption{Lilliefors}
+		\label{fig:l-sp}
+	\end{subfigure}
+	\caption{Tests de normalidad sobre Standard pressure}
+	\label{fig:norm-sp}
+\end{figure}
 
+que debemos rechazar la hipótesis de normalidad. El gráfico QQ nos lo pone algo difícil en la confirmación:
 
+\begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
+	\centering
+	\includegraphics[scale=0.7]{qq-sp.png}  %el parámetro scale permite agrandar o chicar la imagen. En el nombre de archivo puede especificar directorios
+	\caption{QQPlot de Standard Pressure} 
+	\label{fig:qq-sp}
+\end{figure}
 
-
+ya que los puntos siempre lindan con los rangos permitidos. No obtante, prevalece para nosotros el diagnóstico de los tests de normalidad. 
 
 
 
