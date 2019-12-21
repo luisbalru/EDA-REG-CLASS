@@ -96,8 +96,114 @@ Tras entender el significado de cada variable y antes de empezar a estudiarlas u
 	\label{fig:pvwankara}
 \end{figure}
 
-En cada plot enfrento la variable que queremos modelar, Mean-temperature, y las demás. Como se puede ver, hay tendencias muy claras entre Max-temperature, Min-temperature o Dewpoint y Mean-temperature. Las estudiaremos más a fondo a continuación para poder elegir correctamente los regresores.
+En cada plot enfrento la variable que queremos modelar, Mean-temperature, y las demás. Como se puede ver, hay tendencias muy claras entre Max-temperature, Min-temperature o Dewpoint y Mean-temperature. Las estudiaremos más a fondo a continuación para poder elegir correctamente los regresores. Hay que señalar que no existen valores perdidos en el conjunto de datos. Pasamos a estudiar cada variable de forma individual.
 
+
+\subsubsection{Max-temperature}
+
+La variable Max-temperature mide, en grados Fahrenheit, la temperatura máxima de cada día en Ankara. Presento primero un resumen estadístico de la misma:
+
+\begin{table}[H]
+	\centering
+	\begin{tabular}{|c|c|c|c|c|c|c|}
+		\hline
+		Mín.  & 1st Qu. & Median & Mean  & SD      & 3rd Qu. & Max    \\ \hline
+		23.00 & 46.40   & 60.80  & 77.40 & 17.8727 & 77.40   & 100.00 \\ \hline
+	\end{tabular}
+\end{table}
+
+
+Además, los valores de asimetría es $0.0197847$ y curtosis, $-1.138017$, por lo que hay una muy ligera asimetría hacia la derecha y la distribución es platicúrtica. Veamos su histograma
+
+\begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
+	\centering
+	\includegraphics[scale=0.7]{hist-max-temp.png}  %el parámetro scale permite agrandar o chicar la imagen. En el nombre de archivo puede especificar directorios
+	\caption{Histograma de Max-temperature} 
+	\label{fig:hist-max-temp}
+\end{figure}
+
+en el que vemos que los valores se concentran mayoritariamente en 40ºF y 80ºF aproximadamente. Este hecho se justifica con la estacionalidad, ya que los veranos de Ankara son calurosos y rondan los 30ºC (80ºF) (\cite{ankara-weather}). Respecto de outliers, la herramienta del paquete \textit{outliers} nos dice que encuentra el valor 23.0 como outlier por la izquierda y 100.0 por la derecha, mínimo y máximo de la muestra respectivamente, y se puede ver en el histograma que apenas están representados. En efecto, 100ºF es un valor muy alto para Ankara (difícilmente se pasa de los 35ºC (\cite{ankara-weather})) y 23ºF roza sobrepasa los mínimos habituales. \\
+
+Por último, comprobamos con los test de normalidad Shapiro-Wilk (\cite{10.1093/biomet/52.3-4.591}) y la corrección de Lilliefors del test de Kolmogorov-Smirnov (\cite{10.1080/01621459.1967.10482916}, si la distribución de la variables es normal:
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}{.5\textwidth}
+		\centering
+		\includegraphics[width=.7\linewidth]{shapiro-max-temp.png}
+		\caption{Shapiro-Wilk}
+		\label{fig:sw-max-temp}
+	\end{subfigure}%
+	\begin{subfigure}{.5\textwidth}
+		\centering
+		\includegraphics[width=.7\linewidth]{lillie-max-temp.png}	\caption{Lilliefors}
+		\label{fig:l-max-temp}
+	\end{subfigure}
+	\caption{Tests de normalidad sobre Max-temperature}
+	\label{fig:norm-max-temp}
+\end{figure}
+
+cuyos p-valores son menores que 0.05 y, por tanto, rechazamos la hipótesis de normalidad. Mostramos el gráfico QQ:
+
+\begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
+	\centering
+	\includegraphics[scale=0.7]{qq-max-temp.png}  %el parámetro scale permite agrandar o chicar la imagen. En el nombre de archivo puede especificar directorios
+	\caption{QQPlot de Max-temperature} 
+	\label{fig:qq-max-temp}
+\end{figure}
+
+donde claramente se ve que, efectivamente, la variable no se distribuye según una normal.
+
+\subsubsection{Min-temperature}
+
+La variable Min-temperature mide, en grados Fahrenheit, la temperatura mínima de cada día en Ankara. Presento primero un resumen estadístico de la misma:
+
+\begin{table}[H]
+	\centering
+	\begin{tabular}{|c|c|c|c|c|c|c|}
+		\hline
+		Mín. & 1st Qu. & Median & Mean  & SD       & 3rd Qu. & Max  \\ \hline
+		-7.1 & 26.60   & 36.00  & 37.08 & 13.34527 & 48.20   & 65.5 \\ \hline
+	\end{tabular}
+\end{table}
+
+con valores de asimetría -0.055429 (ligeramente hacia la izquierda) y curtosis -0.7089539 (platicúrtica). Veamos su histograma.
+
+\begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
+	\centering
+	\includegraphics[scale=0.7]{hist-min-temp.png}  %el parámetro scale permite agrandar o chicar la imagen. En el nombre de archivo puede especificar directorios
+	\caption{Histograma de Min-temperature} 
+	\label{fig:hist-min-temp}
+\end{figure}
+
+con una media de 37.08ºF aunque también vemos un repunte cerca de los 50ºF, lo que nos muestra temperaturas suaves en gran parte de los días. Respecto de outliers, encontramos valores de -7.1 ºF (-22ºC), claramente irregulares en la tendencia general de la temperatura mínima, por lo que pudo darse una ola de frío sin precedentes o errores en la medición.\\
+Si aplicamos los test de normalidad,
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}{.5\textwidth}
+		\centering
+		\includegraphics[width=.7\linewidth]{shapiro-min-temp.png}
+		\caption{Shapiro-Wilk}
+		\label{fig:sw-min-temp}
+	\end{subfigure}%
+	\begin{subfigure}{.5\textwidth}
+		\centering
+		\includegraphics[width=.7\linewidth]{lillie-min-temp.png}	\caption{Lilliefors}
+		\label{fig:l-min-temp}
+	\end{subfigure}
+	\caption{Tests de normalidad sobre Min-temperature}
+	\label{fig:norm-min-temp}
+\end{figure}
+
+vemos que rechazamos la hipótesis de normalidad. En efecto, a través del QQPlot comprobamos que así es.
+
+\begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
+	\centering
+	\includegraphics[scale=0.7]{qq-min-temp.png}  %el parámetro scale permite agrandar o chicar la imagen. En el nombre de archivo puede especificar directorios
+	\caption{QQPlot de Min-temperature} 
+	\label{fig:qq-min-temp}
+\end{figure}
 
 
 \newpage
@@ -1948,7 +2054,7 @@ Como podemos ver, el p-valor es bastante menor que 0.05, por lo que debemos rech
 	\label{fig:ph-tr-c}
 \end{figure}
 
-Existen diferencias significativas entre QDA y 1NN (a favor de 1NN), QDA y 3NN (a favor de 3NN), QDA y LDA (a favor de QDA) con un $96.6\%$ de confianza, al igual que LDA y 1NN (a favor de 1NN) y LDA y 3NN (a favor de 3NN). 1NN y 3NN pueden considerarse equivalentes. Como podemos ver, descartamos sobreaprendizaje porque los resultados coinciden-
+Existen diferencias significativas entre QDA y 1NN (a favor de 1NN), QDA y 3NN (a favor de 3NN), QDA y LDA (a favor de QDA) con un $96.6\%$ de confianza, al igual que LDA y 1NN (a favor de 1NN) y LDA y 3NN (a favor de 3NN). 1NN y 3NN pueden considerarse equivalentes. Como podemos ver, descartamos sobreaprendizaje porque los resultados coinciden.
 
 \newpage
 \section{Bibliografía}

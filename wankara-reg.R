@@ -36,6 +36,7 @@ par(mfrow=c(1,1))
 #############################################################################################
 # HISTOGRAMAS
 
+library(e1071)
 # Max-temperature
 skewness(wankara$Max_temperature)
 kurtosis(wankara$Max_temperature)
