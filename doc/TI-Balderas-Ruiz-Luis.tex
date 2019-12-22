@@ -2430,6 +2430,62 @@ Como se ve, se cubre gran parte de los puntos. Llevamos a cabo una validación c
 
 No cabe duda de que los modelos lineales múltiples, introduciendo interacciones y no linealidades mejoran los resultados del apartado anterior, si bien se pierde interpretabilidad. Mi opción es siempre dar las dos facetas: el modelo interpretable más útil en términos de ajuste y una opción óptima, menos interpretable pero que gana, en este caso, una centésima en rendimiento. 
 
+\subsection{kNN en regresión}
+
+Ajustamos ahora un modelo kNN. Lo hago de tres formas distintas: la primera, con todos los regresores; la segunda, con el modelo óptimo obtenido en el apartado anterior; la tercera, con el modelo más interpretable. \\
+
+\begin{itemize}
+	\item \textbf{kNN con todos las variables.}
+	
+	Aplico kNN con todas las variables y este es el resultado:
+	
+	\begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
+		\centering
+		\includegraphics[scale=0.5]{knn1.png}  %el parámetro scale permite agrandar o chicar la imagen. En el nombre de archivo puede especificar directorios
+		\caption{Primera aproximación: knn con todas las variables} 
+		\label{fig:knn1}
+	\end{figure}
+	
+	El error cuadrático medio cometido es 0.02173683
+	
+	\item \textbf{kNN con la combinación óptima (para el modelo lineal) de las variables}
+	
+	Rescato la combinación para que esté clara:
+	\begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
+		\centering
+		\includegraphics[scale=0.5]{fitknn2.png}  %el parámetro scale permite agrandar o chicar la imagen. En el nombre de archivo puede especificar directorios
+		\caption{Segunda aproximación: knn con la combinación óptima anterior. Modelo} 
+		\label{fig:fitknn2}
+	\end{figure}
+
+	El resultado es el siguiente:
+	\begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
+		\centering
+		\includegraphics[scale=0.5]{knn2.png}  %el parámetro scale permite agrandar o chicar la imagen. En el nombre de archivo puede especificar directorios
+		\caption{Primera aproximación: knn con la combinación óptima anterior} 
+		\label{fig:knn2}
+	\end{figure}
+
+	El error cuadrático medio cometido es 0.01609035, por lo que este modelo es mejor que kNN con todas las variables.
+	
+	\item \textbf{kNN con el modelo lineal más interpretable.}
+	
+	El modelo lineal más interpretable era el que sólo incluía Max temperature, Min temperature y Dewpoint como regresores. El resultado es el siguiente:
+	
+	\begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
+		\centering
+		\includegraphics[scale=0.5]{knn3.png}  %el parámetro scale permite agrandar o chicar la imagen. En el nombre de archivo puede especificar directorios
+		\caption{Primera aproximación: knn con la combinación más interpretable} 
+		\label{fig:knn3}
+	\end{figure}
+	
+	El error cuadrático medio cometido es 0.01461469, aún menor que con la combinación óptima del modelo lineal, por lo que vemos que el modelo lineal y kNN varían en sus resultados. 
+\end{itemize} 
+
+	En resumen, confirmamos que las combinaciones de regresores para kNN y el modelo lineal obtienen diferentes salidas y que, por ahora, para kNN, la interpretabilidad pesa más que la optimalidad con interacciones y términos no lineales.
+
+\subsection{Comparación con algoritmos}
+
 
  
 

@@ -557,8 +557,8 @@ yprime = fitknn1$fitted.values
 sqrt(sum((wankara_scale$Mean_temperature-yprime)^2)/length(yprime)) #RMSE
 
 # Uso el mejor resultado anterior
-fitknn2 = kknn(wankara_scale$Mean_temperature~.-Precipitation+Max_wind_speed*Wind_speed+I(Min_temperature^2)+I(Max_temperature^2)+Min_temperature*Dewpoint+I(Dewpoint^2)
-               -Dewpoint-Visibility-Max_wind_speed,wankara_scale,wankara_scale)
+fitknn2 = kknn(wankara_scale$Mean_temperature~.-Precipitation+Max_wind_speed*Wind_speed+I(Min_temperature^2)+I(Max_temperature^2)
+               +Min_temperature*Dewpoint+I(Dewpoint^2)-Dewpoint-Visibility-Max_wind_speed,wankara_scale,wankara_scale)
 yprime = fitknn2$fitted.values
 sqrt(sum((wankara_scale$Mean_temperature-yprime)^2)/length(yprime))
 
