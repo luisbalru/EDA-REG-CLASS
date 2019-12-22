@@ -2335,6 +2335,77 @@ Partimos de una tabla resumen para sacar las conclusiones del estudio anterior.
 
 Como elegimos los regresores en función de la correlación, es evidente que aquellos que están más correlacionados con Mean temperature obtienen valores de $R^2$ ajustado más alto y MSE más pequeño. Una gran diferencia entre el MSE sobre todo el conjunto de datos y la media en training y test de la validación cruzada, la cual se justifica debido a la cantidad de datos que tiene un modelo y otro: mientras que el primero se realiza con todos los datos, lo que le da un gran poder de aprendizaje, el segundo se hace sobre un quinto de los datos cada vez y luego se calcula la media de los resultados. Aún así, vemos que la diferencia entre entrenamiento y test es muy pequeña, lo que nos indica que nuestro modelo está generalizando correctamente y no hay sobreajuste. Por supuesto, en virtud del valor de $R^2$ ajustado y los MSE, el modelo lineal basado en Max temperature es el más potente para predecir el valor de Mean temperature. 
 
+\subsection{Modelos lineales múltiples. Interacciones y no linealidad}
+
+Una vez explorados los 5 modelos lineales con un solo regresor. Enfrentamos ahora el problema con regresión múltiple. Dado que tenemos 9 regresores, por eficiencia elijo hacerlo con el llamado Backward Model, es decir, partiendo de todos los regresores e ir eliminando los regresores menos significativos. Nuestro objetivo es doble: el primero es encontrar un modelo competitivo y a la vez explicable (\cite{aiexpl}); el segundo, encontrar un modelo con el mayor $R^2$ ajustado posible. Para el primer objetivo, utilizamos backward model; para el segundo, interacciones y no linealidad.
+
+\subsubsection{Hacia un modelo competitivo y explicable}
+
+Partimos de un modelo lineal con los 9 regresores. Obtenemos este resultado:
+
+\begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
+	\centering
+	\includegraphics[scale=0.6]{mlm1.png}  %el parámetro scale permite agrandar o chicar la imagen. En el nombre de archivo puede especificar directorios
+	\caption{Modelo lineal múltiple con todas las variables} 
+	\label{fig:mlm1}
+\end{figure}
+
+Obtenemos un $R^2$ ajustado de 0.9898 y 1599 grados de libertad. Mirando los p-valores de los regresores, vemos uno, el de Precipitation, de 0.885, por lo que no es relevante en el ajuste. Siendo así, la eliminamos y generamos un nuevo modelo:
+
+\begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
+	\centering
+	\includegraphics[scale=0.6]{mlm2.png}  %el parámetro scale permite agrandar o chicar la imagen. En el nombre de archivo puede especificar directorios
+	\caption{Modelo lineal múltiple sin Precipitation} 
+	\label{fig:mlm2}
+\end{figure}
+
+Como vemos, el error residual ha disminuido, el $R^2$ ajustado se mantiene y ganamos un grado de libertad, 1600, por lo que ha sido acertado eliminar esa variable. Todos los p-valores ahora son bastante pequeños, así que eliminamos la variable que tenga mayor error estándar, es decir, Sea level pressure:
+
+\begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
+	\centering
+	\includegraphics[scale=0.6]{mlm3.png}  %el parámetro scale permite agrandar o chicar la imagen. En el nombre de archivo puede especificar directorios
+	\caption{Modelo lineal múltiple sin Precipitation y Sea level pressure} 
+	\label{fig:mlm3}
+\end{figure}
+
+Este modelo disminuye muy ligeramente el $R^2$ ajustado (0.9893) y aumenta el error residual (0.02163). Sin embargo, la disminución es tan pequeña que merece la pena eliminar una variable y ganar interpretabilidad. Seguimos en la misma dinámica y elimino el regresor con un error estándar elevado (aunque no el mayor, que es Dewpoint), Max wind speed. No elimino Dewpoint porque antes vimos que está muy correlacionada con Mean temperature, lo que sospecho nos puede hacer bajar demasiado el $R^2$ ajustado.
+
+\begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
+	\centering
+	\includegraphics[scale=0.6]{mlm4.png}  %el parámetro scale permite agrandar o chicar la imagen. En el nombre de archivo puede especificar directorios
+	\caption{Modelo lineal múltiple sin Precipitation, Sea level pressure, Max wind speed} 
+	\label{fig:mlm4}
+\end{figure}
+
+Como resultado de la eliminación de Max wind speed, disminuimos 3 diezmilésimas el $R^2$ ajustado (0.98) y el error residual aumenta apenas nada. Visibility es la siguiente variable a eliminar, que tiene el mayor p-valor en general y mayor error estándar de entre las poco correladas:
+
+\begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
+	\centering
+	\includegraphics[scale=0.6]{mlm5.png}  %el parámetro scale permite agrandar o chicar la imagen. En el nombre de archivo puede especificar directorios
+	\caption{Modelo lineal múltiple sin Precipitation, Sea level pressure, Max wind speed, Visibility} 
+	\label{fig:mlm5}
+\end{figure}
+
+Volvemos a perder una diezmilésima en el $R^2$ ajustado (0.9889), aún sigue siendo un resultado muy bueno (apenas hemos perdido una centésima) quitando cuatro regresores. La siguiente en eliminarse es
+
+\begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
+	\centering
+	\includegraphics[scale=0.6]{mlm6.png}  %el parámetro scale permite agrandar o chicar la imagen. En el nombre de archivo puede especificar directorios
+	\caption{Modelo lineal múltiple sin Precipitation, Sea level pressure, Max wind speed, Visibility, Standard Pressure} 
+	\label{fig:mlm6}
+\end{figure}
+
+El resultado vuelve a ser favorable, 0.9886. Por último, para encontrar el modelo más interpretable, con las variables que más sentido podemos darle respecto de la temperatura media, eliminamos Wind speed.
+
+\begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
+	\centering
+	\includegraphics[scale=0.6]{mlm7.png}  %el parámetro scale permite agrandar o chicar la imagen. En el nombre de archivo puede especificar directorios
+	\caption{Modelo lineal múltiple más interpretable: Max temperature, Min temperature y Dewpoint} 
+	\label{fig:mlm7}
+\end{figure}
+
+Hemos perdido un par de centésimas desde un modelo con nueve regresores a uno con 3, con $R^2$ ajustado 0.9879, 1605 grados de libertad y un error residual de 0.02301. Además, esos tres regresores son semánticamente muy relevantes con el problema, ya que están basados en las hipótesis que comenté en el EDA e incluyen Dewpoint, una variable que también tiene que ver con la temperatura, para explicar la temperatura media. Por tanto, hemos cumplido nuestro primer objetivo en regresión lineal múltiple. 
+
 \newpage
 %----------------------------------------------------------------------------------------
 %	Clasificación
