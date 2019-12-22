@@ -2228,6 +2228,113 @@ Con un $R^2$ ajustado de 0.9456 y un error cuadrático medio de $0.04876785$. El
 Tras realizar la validación cruzada, obtenemos un error cuadrático medio en training de 12.98672 y en test de 13.00239.
 
 \subsubsection{Modelo lineal con Min-temperature}
+
+Entrenamos un segundo modelo lineal con la variable Min-temperature. Este es el resultado:
+
+\begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
+	\centering
+	\includegraphics[scale=0.735]{lm2.png}  %el parámetro scale permite agrandar o chicar la imagen. En el nombre de archivo puede especificar directorios
+	\caption{Modelo lineal con Min-temperature} 
+	\label{fig:lm2}
+\end{figure}
+
+que nos deja un $R^2$ ajustado de 0.8775 y un error cuadrático medio de $0.07315107$. Podemos verlo gráficamente como sigue.
+
+\begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
+	\centering
+	\includegraphics[scale=0.735]{plot2.png}  %el parámetro scale permite agrandar o chicar la imagen. En el nombre de archivo puede especificar directorios
+	\caption{Modelo lineal con Min-temperature. Scatter plot} 
+	\label{fig:plot2}
+\end{figure}
+
+Podemos ver que el ajuste no es tan bueno como el anterior, dado que la nube de puntos es más ancha y se separa algo más de la recta obtenida. Tras la validación cruzada de 5 particiones, obtenemos un error cuadrático medio en training de $29.21725$ y en test de $29.27856$. La diferencia tan pequeña del error en entrenamiento y test indica que no existe sobreajuste y la generalización ha sido buena. 
+
+\subsubsection{Modelo lineal con Dewpoint}
+
+Entrenamos un tercer modelo lineal con Dewpoint. Este es el resultado:
+
+\begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
+	\centering
+	\includegraphics[scale=0.55]{lm3.png}  %el parámetro scale permite agrandar o chicar la imagen. En el nombre de archivo puede especificar directorios
+	\caption{Modelo lineal con Dewpoint} 
+	\label{fig:lm3}
+\end{figure}
+
+con un $R^2$ ajustado de $0.8035$  y un error cuadrático medio de $0.09265712$. Gráficamente vemos cómo se ajusta esta recta a los puntos:
+
+\begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
+	\centering
+	\includegraphics[scale=0.55]{plot3.png}  %el parámetro scale permite agrandar o chicar la imagen. En el nombre de archivo puede especificar directorios
+	\caption{Modelo lineal con Dewpoint. Scatter plot} 
+	\label{fig:plot3}
+\end{figure}
+
+El ajuste va bajando en calidad conforme pasamos avanzamos en los modelos. Tras la validación cruzada de 5 particiones, obtenemos un error cuadrático medio en training de $46.88105$ y en test de $46.93901$, con pequeñas diferencias entre ellos también.
+
+\subsubsection{Modelo lineal con Sea level pressure}
+
+Cuarto modelo lineal, ahora con la variable Sea level pressure. El resultado es el siguiente:
+
+\begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
+	\centering
+	\includegraphics[scale=0.55]{lm4.png}  %el parámetro scale permite agrandar o chicar la imagen. En el nombre de archivo puede especificar directorios
+	\caption{Modelo lineal con Sea level pressure} 
+	\label{fig:lm4}
+\end{figure}
+
+con un $R^2$ ajustado de $0.4118$  y un error cuadrático medio de $0.1603035$. Gráficamente vemos cómo se ajusta esta recta a los puntos:
+
+\begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
+	\centering
+	\includegraphics[scale=0.55]{plot4.png}  %el parámetro scale permite agrandar o chicar la imagen. En el nombre de archivo puede especificar directorios
+	\caption{Modelo lineal con Sea level pressure. Scatter plot} 
+	\label{fig:plot4}
+\end{figure}
+
+El ajuste ha empeorado mucho con esta variable. Tras la validación cruzada de 5 particiones, obtenemos un error cuadrático medio en training de $140.3178$ y en test de $140.5083$
+
+\subsubsection{Modelo lineal con Visibility}
+
+Último modelo lineal con una variable, en este caso Visibility. Este es el resultado:
+
+\begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
+	\centering
+	\includegraphics[scale=0.55]{lm5.png}  %el parámetro scale permite agrandar o chicar la imagen. En el nombre de archivo puede especificar directorios
+	\caption{Modelo lineal con Visibility} 
+	\label{fig:lm5}
+\end{figure}
+
+con un $R^2$ ajustado de $0.2345$  y un error cuadrático medio de $0.1828792$. Gráficamente vemos cómo se ajusta esta recta a los puntos:
+
+\begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
+	\centering
+	\includegraphics[scale=0.55]{plot5.png}  %el parámetro scale permite agrandar o chicar la imagen. En el nombre de archivo puede especificar directorios
+	\caption{Modelo lineal con Visibility. Scatter plot} 
+	\label{fig:plot5}
+\end{figure}
+
+Tras la validación cruzada de 5 particiones, obtenemos un error cuadrático medio en training de $182.5684$ y en test de $183.3558$
+
+\subsubsection{Conclusiones}
+
+Partimos de una tabla resumen para sacar las conclusiones del estudio anterior.
+
+\begin{table}[H]
+	\centering
+	\begin{tabular}{|c|c|c|c|c|}
+		\hline
+		& $R^2$ ajustado & MSE        & \begin{tabular}[c]{@{}c@{}}CV 5fold\\ MSE train(media)\end{tabular} & \begin{tabular}[c]{@{}c@{}}CV 5fold\\ MSE test(media)\end{tabular} \\ \hline
+		Max-temperature    & 0.9456         & 0.04876785 & 12.98670                                                            & 13.00239                                                           \\ \hline
+		Min-temperature    & 0.8775         & 0.07315107 & 29.21725                                                            & 29.27856                                                           \\ \hline
+		Dewpoint           & 0.8035         & 0.09265712 & 46.88105                                                            & 46.93901                                                           \\ \hline
+		Sea level pressure & 0.4118         & 0.1603035  & 140.3178                                                            & 140.5083                                                           \\ \hline
+		Visibility         & 0.2345         & 0.1828792  & 182.5684                                                            & 183.3558                                                           \\ \hline
+	\end{tabular}
+	\caption{Resumen de resultados para modelos lineales simples}
+\end{table}
+
+Como elegimos los regresores en función de la correlación, es evidente que aquellos que están más correlacionados con Mean temperature obtienen valores de $R^2$ ajustado más alto y MSE más pequeño. Una gran diferencia entre el MSE sobre todo el conjunto de datos y la media en training y test de la validación cruzada, la cual se justifica debido a la cantidad de datos que tiene un modelo y otro: mientras que el primero se realiza con todos los datos, lo que le da un gran poder de aprendizaje, el segundo se hace sobre un quinto de los datos cada vez y luego se calcula la media de los resultados. Aún así, vemos que la diferencia entre entrenamiento y test es muy pequeña, lo que nos indica que nuestro modelo está generalizando correctamente y no hay sobreajuste. Por supuesto, en virtud del valor de $R^2$ ajustado y los MSE, el modelo lineal basado en Max temperature es el más potente para predecir el valor de Mean temperature. 
+
 \newpage
 %----------------------------------------------------------------------------------------
 %	Clasificación
