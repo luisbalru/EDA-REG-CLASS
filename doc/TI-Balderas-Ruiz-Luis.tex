@@ -407,9 +407,278 @@ que debemos rechazar la hipótesis de normalidad. El gráfico QQ nos lo pone alg
 	\label{fig:qq-sp}
 \end{figure}
 
-ya que los puntos siempre lindan con los rangos permitidos. No obtante, prevalece para nosotros el diagnóstico de los tests de normalidad. 
+ya que los puntos siempre lindan con los rangos permitidos. No obstante, prevalece para nosotros el diagnóstico de los tests de normalidad. 
 
 
+\subsubsection{Visibility}
+
+La variable Visibility contiene los datos acerca de la mayor distancia en la cual un objeto puede verse de forma nítida. Mostramos algunas estadísticas para conocerla mejor:
+
+\begin{table}[H]
+	\centering
+	\begin{tabular}{|c|c|c|c|c|c|c|}
+		\hline
+		Mín. & 1st Qu. & Median & Mean  & SD      & 3rd Qu. & Max  \\ \hline
+		0.2  & 7.4     & 8.3    & 7.718 & 1.47925 & 8.6     & 11.5 \\ \hline
+	\end{tabular}
+\end{table}
+
+
+Encontramos gran distancia entre el valor mínimo y el primer cuartil, y teniendo en cuenta que la desviación estandar es 1.47925, podríamos estar ante un outlier. Además, la variable presenta asimetría hacia la izquierda (-1.947852) y es leptocúrtica (4.207581). Observamos el histograma de frecuencias
+
+\begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
+	\centering
+	\includegraphics[scale=0.7]{hist-vis.png}  %el parámetro scale permite agrandar o chicar la imagen. En el nombre de archivo puede especificar directorios
+	\caption{Histograma de Visibility} 
+	\label{fig:hist-vis}
+\end{figure}
+
+En él se observa bastante bien la asimetría y que los valores entorno a 8.3 son los más repetidos. Si estudiamos los tests de normalidad para Visibility
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}{.5\textwidth}
+		\centering
+		\includegraphics[width=.7\linewidth]{shapiro-vis.png}
+		\caption{Shapiro-Wilk}
+		\label{fig:sw-vis}
+	\end{subfigure}%
+	\begin{subfigure}{.5\textwidth}
+		\centering
+		\includegraphics[width=.7\linewidth]{lillie-vis.png}	\caption{Lilliefors}
+		\label{fig:l-vis}
+	\end{subfigure}
+	\caption{Tests de normalidad sobre Visibility}
+	\label{fig:norm-vis}
+\end{figure}
+
+vemos que la variable no se distribuye como una normal. Lo confirmamos con el QQPlot:
+
+\begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
+	\centering
+	\includegraphics[scale=0.7]{qq-vis.png}  %el parámetro scale permite agrandar o chicar la imagen. En el nombre de archivo puede especificar directorios
+	\caption{QQPlot de Visibility} 
+	\label{fig:qq-vis}
+\end{figure}
+
+donde claramente la distribución está fuera de la tendencia de una normal.
+
+\subsubsection{Wind speed}
+
+Wind speed almacena los datos de la velocidad (entendemos que media) del viento en Ankara cada día. Estudiamos su resumen estadístico para comprenderla mejor:
+
+\begin{table}[H]
+	\centering
+	\begin{tabular}{|c|c|c|c|c|c|c|}
+		\hline
+		Mín. & 1st Qu. & Median & Mean  & SD       & 3rd Qu. & Max \\ \hline
+		0    & 3.11    & 5.06   & 5.393 & 3.041806 & 7.25    & 18  \\ \hline
+	\end{tabular}
+\end{table}
+
+Como podemos ver, se trata de una distribución con media y mediana parecidas y con una considerable desviación típica. Además, los valores máximos y mínimos distan bastante de la media, especialmente el máximo, por lo que se puede tratar de un outlier tanto por un error de medida o por una ventisca. Por otra parte, la variable presenta una asimetría por la derecha (0.7321927) y es leptocúrtica (0.2130076). Veamos su histograma.
+
+\begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
+	\centering
+	\includegraphics[scale=0.7]{hist-ws.png}  %el parámetro scale permite agrandar o chicar la imagen. En el nombre de archivo puede especificar directorios
+	\caption{Histograma de Wind speed} 
+	\label{fig:hist-ws}
+\end{figure}
+
+Vía el histograma, vemos que en Ankara siempre hace viento. Pocos días la velocidad del viento es 0. A falta de conocer la unidad de medida, podríamos decir que los vientos no son excesivamente virulentos.\\
+
+Estudiamos si sigue una distribución normal vía los tests de normalidad.
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}{.5\textwidth}
+		\centering
+		\includegraphics[width=.7\linewidth]{shapiro-ws.png}
+		\caption{Shapiro-Wilk}
+		\label{fig:sw-ws}
+	\end{subfigure}%
+	\begin{subfigure}{.5\textwidth}
+		\centering
+		\includegraphics[width=.7\linewidth]{lillie-ws.png}	
+		\caption{Lilliefors}
+		\label{fig:l-ws}
+	\end{subfigure}
+	\caption{Tests de normalidad sobre Wind speed}
+	\label{fig:norm-ws}
+\end{figure}
+
+Los p-valores nos dejan claro que debemos rechazar la hipótesis de normalidad. 
+
+\subsubsection{Max wind speed}
+
+En este caso, estudiamos la variable Max wind speed, con la velocidad máxima del viento cada día en Ankara. Veamos el estudio estadístico de la misma:
+
+\begin{table}[H]
+	\centering
+	\begin{tabular}{|c|c|c|c|c|c|c|}
+		\hline
+		Mín. & 1st Qu. & Median & Mean  & SD       & 3rd Qu. & Max  \\ \hline
+		2.19 & 10.2    & 12.7   & 13.32 & 5.498989 & 16.1    & 57.4 \\ \hline
+	\end{tabular}
+\end{table}
+
+Evidentemente, los valores de esta variable son, para cada día, mayores o iguales que los de Wind speed. Aquí encontramos el valor que generaba el outlier (o ventisca) en Wind speed, que es 57.4, prácticamente 5 veces mayor que la media. Presenta, al igual que Wind speed, asimetría por la derecha (1.855093) más pronunciada y es leptocúrtica, con curtosis aún mayor (8.624427). Veamos el histograma.
+
+\begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
+	\centering
+	\includegraphics[scale=0.7]{hist-mws.png}  %el parámetro scale permite agrandar o chicar la imagen. En el nombre de archivo puede especificar directorios
+	\caption{Histograma de Max Wind speed} 
+	\label{fig:hist-mws}
+\end{figure}
+
+En él podemos encontrar ciertos outliers cuando se supera el valor 30 de velocidad. Parece lógico pensar que no sigue una distribución normal dada la forma del histograma. Estudiamos los tests de normalidad para comprobarlo:
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}{.5\textwidth}
+		\centering
+		\includegraphics[width=.7\linewidth]{shapiro-mws.png}
+		\caption{Shapiro-Wilk}
+		\label{fig:sw-mws}
+	\end{subfigure}%
+	\begin{subfigure}{.5\textwidth}
+		\centering
+		\includegraphics[width=.7\linewidth]{lillie-mws.png}	
+		\caption{Lilliefors}
+		\label{fig:l-mws}
+	\end{subfigure}
+	\caption{Tests de normalidad sobre Max Wind speed}
+	\label{fig:norm-mws}
+\end{figure}
+
+y su QQPlot
+
+\begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
+	\centering
+	\includegraphics[scale=0.7]{qq-mws.png}  %el parámetro scale permite agrandar o chicar la imagen. En el nombre de archivo puede especificar directorios
+	\caption{QQPlot de Max wind speed} 
+	\label{fig:qq-mws}
+\end{figure}
+
+En efecto, rechazamos la hipótesis de normalidad.
+
+\subsubsection{Mean temperatura}
+
+Mean temperature contiene la temperatura media del día en Ankara. Es la variable que queremos aproximar a través de regresores y distintos modelos. A continuación mostraré una serie de hipótesis sobre ella y la relación con las demás variables. Así podremos descubrir cómo aproximarla de forma efectiva y eficiente. Antes de eso, estudiamos su resumen estadístico:
+
+\begin{table}[H]
+	\centering
+	\begin{tabular}{|c|c|c|c|c|c|c|}
+		\hline
+		Mín. & 1st Qu. & Median & Mean  & SD      & 3rd Qu. & Max \\ \hline
+		7.90 & 36.7    & 48.5   & 49.56 & 15.4564 & 63.3    & 81  \\ \hline
+	\end{tabular}
+\end{table}
+
+Podemos ver que, con excepción de días muy fríos o algo calurosos, la temperatura media en Ankara se mantiene fría (48.5ºF, menos de 10ºC). Desde el punto de vista más estadístico, apenas tiene asimetría a la derecha (0.03417221) y es platicúrtica (-1.060112). Veamos el histograma.
+
+
+\begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
+	\centering
+	\includegraphics[scale=0.7]{hist-mt.png}  %el parámetro scale permite agrandar o chicar la imagen. En el nombre de archivo puede especificar directorios
+	\caption{Histograma de Mean temperature} 
+	\label{fig:hist-mt}
+\end{figure}
+
+
+Parece como si fuera bimodal. En mi opinión, se corresponde con la estación fría y cálida, donde más se repiten las temperaturas. Veamos si sigue una distribución normal:
+
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}{.5\textwidth}
+		\centering
+		\includegraphics[width=.7\linewidth]{shapiro-mt.png}
+		\caption{Shapiro-Wilk}
+		\label{fig:sw-mt}
+	\end{subfigure}%
+	\begin{subfigure}{.5\textwidth}
+		\centering
+		\includegraphics[width=.7\linewidth]{lillie-mt.png}	
+		\caption{Lilliefors}
+		\label{fig:l-mt}
+	\end{subfigure}
+	\caption{Tests de normalidad sobre Mean temperature}
+	\label{fig:norm-mt}
+\end{figure}
+
+Por los p-valores, rechazamos la hipótesis de normalidad para la variable. 
+
+\subsubsection{Algunas hipótesis previas a estudiar la correlación}
+
+Parece lógico pensar que si las temperatura máxima de un día sube/baja, la temperatura media del mismo día tendrá el mismo comportamiento. De igual manera para la temperatura mínima y la media. Veamos si nuestros datos reflejan eso también.
+
+\begin{itemize}
+	\item \textbf{Hipótesis 1: cuanto mayor (menor) es la temperatura máxima, mayor (menor) es la temperatura media}
+	
+	\begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
+		\centering
+		\includegraphics[scale=0.5]{hip1.png}  %el parámetro scale permite agrandar o chicar la imagen. En el nombre de archivo puede especificar directorios
+		\caption{Temperatura máxima vs media} 
+		\label{fig:hip1}
+	\end{figure}
+
+En efecto, así es. Hay una dependencia lineal muy clara entre las variables.
+
+	 \item \textbf{Hipótesis 2: cuanto mayor (menor) es la temperatura mínima, mayor (menor) es la temperatura media}
+	 
+	 \begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
+	 	\centering
+	 	\includegraphics[scale=0.5]{hip2.png}  %el parámetro scale permite agrandar o chicar la imagen. En el nombre de archivo puede especificar directorios
+	 	\caption{Temperatura mínima vs media} 
+	 	\label{fig:hip2}
+	 \end{figure}
+ 
+Aunque la tendencia no es tan clara como en la gráfica anterior, también vemos cierta dependencia lineal entre las variables, cumpliéndose nuestra hipótesis.
+	
+\end{itemize}
+
+
+\subsubsection{División por meses}
+
+Durante el análisis exploratorio de datos, he tratado de separar los días por meses. Como se ha comentado, cada instancia corresponde con un día de entre el 01/01/1994 y el 28/05/1998. Habiéndolo llevado a cabo, incluso teniendo en cuenta que 1996 fue bisiesto, he intentado estudiar cómo varía la temperatura máxima y mínima (en media) por meses. Sin embargo, los resultados han sido insatisfactorios:
+
+\begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
+	\centering
+	\includegraphics[scale=0.7]{div1.png}  %el parámetro scale permite agrandar o chicar la imagen. En el nombre de archivo puede especificar directorios
+	\caption{Temperatura máxima media de cada mes} 
+	\label{fig:div1}
+\end{figure}
+
+Como se puede ver, la mayor temperatura máxima media de 1994 se dio en diciembre (invierno en Ankara) y la tercera más baja en julio (verano). Por tanto sospecho que las tuplas no están ordenadas por fecha. Continué estudiándolo para la temperatura mínima media por mes.
+
+\begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
+	\centering
+	\includegraphics[scale=0.7]{div2.png}  %el parámetro scale permite agrandar o chicar la imagen. En el nombre de archivo puede especificar directorios
+	\caption{Temperatura mínima media de cada mes} 
+	\label{fig:div2}
+\end{figure}
+
+De nuevo, los datos no tienen sentido porque la menor temperatura mínima se da en julio, con 18.7ºF (-7ºC). Por tanto, definitivamente, las instancias no están ordenadas por fechas y no puedo llevar a cabo un estudio mensual para encontrar patrones.
+
+\newpage 
+\subsubsection{Correlación de las variables}
+
+Presentamos un gráfico resumen con la correlación de todas las parejas de variables y su nivel de significancia, tanto a través de scatter plots, histogramas y p-valores.
+
+
+\begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
+	\centering
+	\includegraphics[scale=0.9]{correlaciones.png}  %el parámetro scale permite agrandar o chicar la imagen. En el nombre de archivo puede especificar directorios
+	\caption{Resumen de la correlación} 
+	\label{fig:correlaciones}
+\end{figure}
+
+Podemos ver que las variables más correladas con Mean temperature son Max temperature (0.97), Min temperature (0.94) y Dewpoint (0.90). Por el contrario, Precipition no tienen ninguna correlación con nuestro target. Además, descubrimos correlaciones entre los posibles regresores, que nos pueden dar motivo luego para eliminar uno u otro en los modelos predictivos. Es el caso de Min temperature y Dewpoint (0.92) O Sea level pressure y Standard pressure (0.90). Advertimos también ciertas correlaciones negativas, por ejemplo entre Sea level pressure y Mean temperature (-0.64). 
+
+\subsubsection{Conclusiones}
+
+El análisis exploratorio de datos realizado sobre el conjunto de datos Wankara nos arroja un montón de información sobre el tiempo en Ankara. Esta ciudad, situada en el centro de la península de Anatolia, presenta un clima más bien continental, con temperaturas frescas que en verano no superan los 38ºC (100ºF), con una temperatura media de 10ºC y con temperaturas mínimas que rondan los 0ºC, con extremos de hasta -22ºc (-7ºF). Además, presenta precipitaciones escasas. La influencia del mar en la ciudad es escasa por la distancia y las montañas que los separa. Podríamos estimar los niveles de contaminación atmosférica entre 1994 y 1998 si supiéramos la unidad de medida de la variable visibilidad. Por ejemplo, si se tratara de km, como la media está alrededor de 7, podríamos asumir que la contaminación es reducida. Tampoco parece ser una ciudad muy ventosa ni con rachas de viento muy fuertes, aunque realmente no conocemos la unidad de medida y los números pueden ser engañosos. Además, hemos constatado que el dataset no está ordenado por fecha, por lo que no podemos encontrar patrones por meses.      
 
 
 \newpage

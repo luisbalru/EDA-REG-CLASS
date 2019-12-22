@@ -87,7 +87,7 @@ ggplot(data=wankara, aes(x=Standard_pressure)) +
 
 # Visibility
 skewness(wankara$Visibility)
-kurtosis(wankara$Visibility)
+kurtosis(wankara$Visibiliy)t
 ggplot(data=wankara, aes(x=Visibility)) +
   geom_histogram(binwidth = binwd(wankara$Visibility),fill="blue") +
   ggtitle("Histograma Visibility") +
