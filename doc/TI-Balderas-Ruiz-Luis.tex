@@ -2404,7 +2404,34 @@ El resultado vuelve a ser favorable, 0.9886. Por último, para encontrar el mode
 	\label{fig:mlm7}
 \end{figure}
 
-Hemos perdido un par de centésimas desde un modelo con nueve regresores a uno con 3, con $R^2$ ajustado 0.9879, 1605 grados de libertad y un error residual de 0.02301. Además, esos tres regresores son semánticamente muy relevantes con el problema, ya que están basados en las hipótesis que comenté en el EDA e incluyen Dewpoint, una variable que también tiene que ver con la temperatura, para explicar la temperatura media. Por tanto, hemos cumplido nuestro primer objetivo en regresión lineal múltiple. 
+Hemos perdido un par de centésimas desde un modelo con nueve regresores a uno con 3, con $R^2$ ajustado 0.9879, 1605 grados de libertad y un error residual de 0.02301. Además, esos tres regresores son semánticamente muy relevantes con el problema, ya que están basados en las hipótesis que comenté en el EDA e incluyen Dewpoint, una variable que también tiene que ver con la temperatura, para explicar la temperatura media. Por tanto, hemos cumplido nuestro primer objetivo en regresión lineal múltiple.
+
+\subsubsection{Modelo lineal múltiple óptimo: interacciones y no linealidad}
+
+ El proceso de búsqueda del modelo lineal múltiple óptimo tiene mucho de eso, de proceso de búsqueda. Muchas veces la heurística y la intuición van de la mano hasta encontrar algo satisfactorio. Parece lógico pensar que hay que enfatizar aquellas variables que sean más importantes (las del modelo más interpretable anterior), eliminar las que apenas aportan nada y combinar las que pueden tener una relación desde el punto de vista semántico. He pasado por siete modelos  (pueden verse en el código del apéndice II), líneas 480-506 con distintas aproximaciones. En el primero, busco la interacción entre Sea level pressure y Standard pressure y elimino Precipitation con resultado 0.9899. En el segundo, elimino Precipitation e interacciono Min-temperature y Dewpoint, con resultado 0.9899 (sin mejora). En el tercero, elimino Precipitation y Dewpoint (tienen un p-valor de 0.99 si lo mantengo), interacciono Dewpoint y Min-temperature y elevo al cuadrado Dewpoint con resultado 0.99. Observo que en el resultado del tercero, Visibility es poco representativo, por lo que en el cuarto mantengo lo anterior y elimino Visibility, con resultado 0.9899, empeorando. En el quinto, añado el término de Max-temperature al cuadrado y mantengo Visibility, con resultado 0.9918 (mejor hasta el momento). En el sexto, elevo al cuadrado también Min-temperature, con resultado 0.9923 (mejorando el anterior). Para evitar la redundancia por la interacción entre Max wind speed y Wind speed, elimino Max wind speed obteniendo el mismo 0.9923, como definitivo modelo óptimo. He aquí el resultado:
+ 
+ \begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
+ 	\centering
+ 	\includegraphics[scale=0.5]{optimo.png}  %el parámetro scale permite agrandar o chicar la imagen. En el nombre de archivo puede especificar directorios
+ 	\caption{Modelo lineal múltiple óptimo} 
+ 	\label{fig:optimo}
+ \end{figure}
+
+$R^2$ ajustado de 0.9923, 1597 grado de libertad y error residual de 0.01837. El error cuadrático medio cometido es 0.01830154. Podemos ver gráficamente el resultado obtenido:
+
+\begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
+	\centering
+	\includegraphics[scale=0.5]{plot-opt.png}  %el parámetro scale permite agrandar o chicar la imagen. En el nombre de archivo puede especificar directorios
+	\caption{Plot del modelo óptimo encontrado sobre la gráfica Max-temperature-Mean-temperature} 
+	\label{fig:plot-opt}
+\end{figure}
+
+Como se ve, se cubre gran parte de los puntos. Llevamos a cabo una validación cruzada de siete particiones para garantizar los resultados. Se comete un error cuadrático medio en training de  1.848325 y en test de 1.784818, por lo que vemos que el modelo no sobreajusta y funciona de manera satisfactoria. \\
+
+No cabe duda de que los modelos lineales múltiples, introduciendo interacciones y no linealidades mejoran los resultados del apartado anterior, si bien se pierde interpretabilidad. Mi opción es siempre dar las dos facetas: el modelo interpretable más útil en términos de ajuste y una opción óptima, menos interpretable pero que gana, en este caso, una centésima en rendimiento. 
+
+
+ 
 
 \newpage
 %----------------------------------------------------------------------------------------

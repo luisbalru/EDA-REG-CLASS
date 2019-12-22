@@ -450,8 +450,6 @@ lmMSEtest5<-mean(resultados_mls5_test)
 # MODELO LINEAL MÚLTIPLE
 # BACKWARD MODEL
 
-fit_mlm1=lm(wankara_scale$Mean_temperature~.,data=wankara_scale)
-summary(fit_mlm1)
 
 # Elimino Precipitation por tener un p-valor de 0.885
 fit_mlm2=lm(wankara_scale$Mean_temperature~.-Precipitation,data=wankara_scale)
@@ -496,18 +494,18 @@ fit_i4 = lm(wankara_scale$Mean_temperature~.-Precipitation+Min_temperature*Dewpo
 summary(fit_i4)
 
 # Mejor resultado hasta el momento, 0.9916
-fit_i5 = lm(wankara_scale$Mean_temperature~.-Precipitation+I(Max_temperature^2)+Min_temperature*Dewpoint+I(Dewpoint^2)-Dewpoint-Visibility,data=wankara_scale)
+fit_i5 = lm(wankara_scale$Mean_temperature~.-Precipitation+I(Max_temperature^2)+Min_temperature*Dewpoint+I(Dewpoint^2)-Dewpoint,data=wankara_scale)
 summary(fit_i5)
 
-# Mejor resultado --> 0.992
-fit_i6 = lm(wankara_scale$Mean_temperature~.-Precipitation+I(Min_temperature^2)+I(Max_temperature^2)+Min_temperature*Dewpoint+I(Dewpoint^2)-Dewpoint-Visibility,data=wankara_scale)
+# Mejor resultado --> 0.9923
+fit_i6 = lm(wankara_scale$Mean_temperature~.-Precipitation+I(Min_temperature^2)+I(Max_temperature^2)+Min_temperature*Dewpoint+I(Dewpoint^2)-Dewpoint,data=wankara_scale)
 summary(fit_i6)
 
-# 0.9921
-fit_i7 = lm(wankara_scale$Mean_temperature~.-Precipitation+Max_wind_speed*Wind_speed+I(Min_temperature^2)+I(Max_temperature^2)+Min_temperature*Dewpoint+I(Dewpoint^2)-Dewpoint-Visibility-Max_wind_speed,data=wankara_scale)
+# 0.9923
+fit_i7 = lm(wankara_scale$Mean_temperature~.-Precipitation+Max_wind_speed*Wind_speed+I(Min_temperature^2)+I(Max_temperature^2)+Min_temperature*Dewpoint+I(Dewpoint^2)-Dewpoint-Max_wind_speed,data=wankara_scale)
 summary(fit_i7)
 
-# Cálculo de RMSE
+# Cálculo de MSE
 yprime_i7 = predict(fit_i7,wankara_scale)
 sqrt(sum(abs(wankara_scale$Mean_temperature-yprime_i7)^2)/length(yprime_i7))
 
