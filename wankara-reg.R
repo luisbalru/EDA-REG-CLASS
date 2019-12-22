@@ -708,7 +708,7 @@ pairwise.wilcox.test(as.matrix(tablatst), groups, p.adjust = "holm", paired = TR
 # lm (other) vs kknn (reference)
 difs_tr <- (tablatr[,1] - tablatr[,2]) / tablatr[,1]
 wilc_1_2_tr <- cbind(ifelse (difs_tr<0, abs(difs_tr)+0.1, 0+0.1), ifelse (difs_tr>0, abs(difs_tr)+0.1, 0+0.1))
-colnames(wilc_1_2_tr) <- c(colnames(tablatra)[1], colnames(tablatra)[2])
+colnames(wilc_1_2_tr) <- c(colnames(tablatr)[1], colnames(tablatr)[2])
 head(wilc_1_2_tr)
 
 LMvsKNNtr <- wilcox.test(wilc_1_2_tr[,1], wilc_1_2_tr[,2], alternative = "two.sided", paired=TRUE)

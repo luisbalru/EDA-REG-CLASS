@@ -2486,9 +2486,199 @@ Ajustamos ahora un modelo kNN. Lo hago de tres formas distintas: la primera, con
 
 \subsection{Comparación con algoritmos}
 
+Llegamos a la última sección de regresión: comparación de algoritmos. En este caso, la llevo a cabo de dos formas. En la primera, realizo una validación cruzada de 5 particiones con el modelo lineal y kNN, ambos dos formados por todos los regresores. Calculo la media del error cuadrático medio para entrenamiento y test y almaceno esos resultados en los ficheros csv cedidos en PRADO. A continuación, realizo los test de Wilcoxon por pares y el de Friedman con Post-Hoc Holm para ver si hay diferencias significativas entre los algoritmos evaluados en los distintos datasets. \\
+Por otro lado, supongo las 5 particiones cedidas para la validación cruzada como distintos conjuntos de datos y hago una comparación sobre los resultados de los modelos lineal, kNN y Random Forest para ver si hay diferencias significativas exclusivamente en el dataset Wankara.
 
+\subsubsection{Comparativa sobre los distintos datasets}
+
+\begin{itemize}
+	\item \textbf{Test}
+		Tras realizar la validación cruzada para el modelo lineal y kNN e incorporar los errores al csv, los resultados de los algoritmos en test son los siguientes:
+		\begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
+			\centering
+			\includegraphics[scale=0.6]{tablatst-R4.png}  %el parámetro scale permite agrandar o chicar la imagen. En el nombre de archivo puede especificar directorios
+			\caption{Tabla de MSE para cada algoritmo sobre los conjuntos} 
+			\label{fig:tablatst-R4}
+		\end{figure}
+	
+		A continuación, aplico el test de Wilcoxon por parejas.
+		\begin{itemize}
+			\item LM (other) vs kNN (reference)
+			Los resultados son los siguientes:
+			
+			\begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
+				\centering
+				\includegraphics[scale=0.6]{lmknn1.png}  %el parámetro scale permite agrandar o chicar la imagen. En el nombre de archivo puede especificar directorios
+				\caption{Test de Wilcoxon: LM vs KNN} 
+				\label{fig:lmknn1}
+			\end{figure}
+			No hay diferencias significativas (p-valor 0.7660294), ya que solo hay un 23.39706\% de confianza de que sean distintos.
+		
+			\item LM (other) vs M5P (reference)
+			Los resultados son los siguientes:
+			\begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
+				\centering
+				\includegraphics[scale=0.6]{lmm5p1.png}  %el parámetro scale permite agrandar o chicar la imagen. En el nombre de archivo puede especificar directorios
+				\caption{Test de Wilcoxon: LM vs M5P} 
+				\label{fig:lmm5p1}
+			\end{figure}
+		
+			Hay diferencias significativas con un 99.8420715\% de confianza.
+			
+			\item kNN (other) vs M5P (reference)
+			Los resultados son los siguientes:
+			\begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
+				\centering
+				\includegraphics[scale=0.6]{knnm5p1.png}  %el parámetro scale permite agrandar o chicar la imagen. En el nombre de archivo puede especificar directorios
+				\caption{Test de Wilcoxon: kNN vs M5P} 
+				\label{fig:knnm5p1}
+			\end{figure}
+			No se pueden asumir diferencias significativas, ya que sólo tenemos un 83.26492\% de confianza de que sean distintos.
+		\end{itemize}
+		Si aplicamos el test de Friedman
+		
+		\begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
+			\centering
+			\includegraphics[scale=0.6]{friedman1.png}  %el parámetro scale permite agrandar o chicar la imagen. En el nombre de archivo puede especificar directorios
+			\caption{Test de Friedman} 
+			\label{fig:friedman1}
+		\end{figure}
+		
+		y el Post Hoc Holm 
+		
+		\begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
+			\centering
+			\includegraphics[scale=0.6]{ph1.png}  %el parámetro scale permite agrandar o chicar la imagen. En el nombre de archivo puede especificar directorios
+			\caption{Post-hoc holm} 
+			\label{fig:ph1}
+		\end{figure}
+		vemos que hay diferencias significativas entre M5P y LM favorables a M5P (0.081) y entre M5P y kNN (0.108) con aproximadamente un 90\% de confianza, mientras que LM y kNN pueden suponerse iguales.
+		
+	\item \textbf{Train}
+	
+	Evalúo ahora los resultados de training, para encontrar posibles sobreajustes. Trabajo de la misma manera: primero Wilcoxon por parejas y después Friedman:
+	
+	\begin{itemize}
+		\item LM (other) vs kNN (reference)
+		Los resultados son los siguientes:
+		
+		\begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
+			\centering
+			\includegraphics[scale=0.6]{lmknn2.png}  %el parámetro scale permite agrandar o chicar la imagen. En el nombre de archivo puede especificar directorios
+			\caption{Test de Wilcoxon: LM vs KNN} 
+			\label{fig:lmknn2}
+		\end{figure}
+		Hay diferencias significativas (p-valor 0.000328064), con una confianza del 99\%.
+		
+		\item LM (other) vs M5P (reference)
+		Los resultados son los siguientes:
+		\begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
+			\centering
+			\includegraphics[scale=0.6]{lmm5p2.png}  %el parámetro scale permite agrandar o chicar la imagen. En el nombre de archivo puede especificar directorios
+			\caption{Test de Wilcoxon: LM vs M5P} 
+			\label{fig:lmm5p2}
+		\end{figure}
+		
+		Hay diferencias significativas con más de un 99\% de confianza.
+		
+		\item kNN (other) vs M5P (reference)
+		Los resultados son los siguientes:
+		\begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
+			\centering
+			\includegraphics[scale=0.6]{knnm5p2.png}  %el parámetro scale permite agrandar o chicar la imagen. En el nombre de archivo puede especificar directorios
+			\caption{Test de Wilcoxon: kNN vs M5P} 
+			\label{fig:knnm5p2}
+		\end{figure}
+		Hay diferencias significativas con un 99\% de confianza.
+	\end{itemize}
+	Si aplicamos el test de Friedman
+	
+	\begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
+		\centering
+		\includegraphics[scale=0.6]{friedman2.png}  %el parámetro scale permite agrandar o chicar la imagen. En el nombre de archivo puede especificar directorios
+		\caption{Test de Friedman} 
+		\label{fig:friedman2}
+	\end{figure}
+	
+	y el Post Hoc Holm 
+	
+	\begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
+		\centering
+		\includegraphics[scale=0.6]{ph2.png}  %el parámetro scale permite agrandar o chicar la imagen. En el nombre de archivo puede especificar directorios
+		\caption{Post-hoc holm} 
+		\label{fig:ph2}
+	\end{figure}
+	
+	Se puede considerar que todos los algoritmos son estadísticamente diferentes con el mismo intervalo de confianza (99.7\% aprox.). Como se puede ver, el comportamiento en training y test puede sugerir sobreajuste o que los datos son erróneos.
+\end{itemize}
  
+ 
+\subsubsection{Comparativa sobre los folds de Wankara}
 
+Tras ejecutar el modelo lineal, kNN y Random Forest con una validación cruzada de 5 particiones del dataset Wankara, obtenemos en test los siguientes errores cuadráticos medios:
+
+\begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
+	\centering
+	\includegraphics[scale=0.6]{tablatst2.png}  %el parámetro scale permite agrandar o chicar la imagen. En el nombre de archivo puede especificar directorios
+	\caption{Tabla resultados en test para los folds} 
+	\label{fig:tablatst2}
+\end{figure}
+
+Aplico ahora los tests de Wilcoxon y Friedman para terminar. 
+
+\begin{itemize}
+	\item LM (other) vs kNN (reference)
+	Los resultados son los siguientes:
+	
+	\begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
+		\centering
+		\includegraphics[scale=0.6]{lmknn3.png}  %el parámetro scale permite agrandar o chicar la imagen. En el nombre de archivo puede especificar directorios
+		\caption{Test de Wilcoxon: LM vs KNN} 
+		\label{fig:lmknn3}
+	\end{figure}
+	Hay diferencias significativas con un 93.75\% de confianza
+	
+	\item LM (other) vs M5P (reference)
+	Los resultados son los siguientes:
+	\begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
+		\centering
+		\includegraphics[scale=0.6]{lmrf3.png}  %el parámetro scale permite agrandar o chicar la imagen. En el nombre de archivo puede especificar directorios
+		\caption{Test de Wilcoxon: LM vs RF} 
+		\label{fig:lmrf3}
+	\end{figure}
+	
+	Hay diferencias significativas con un 93.75\% de confianza
+	
+	\item kNN (other) vs RF (reference)
+	Los resultados son los siguientes:
+	\begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
+		\centering
+		\includegraphics[scale=0.6]{knnrf3.png}  %el parámetro scale permite agrandar o chicar la imagen. En el nombre de archivo puede especificar directorios
+		\caption{Test de Wilcoxon: kNN vs RF} 
+		\label{fig:knnrf3}
+	\end{figure}
+	Hay diferencias significativas con un 93.75\% de confianza.
+\end{itemize}
+
+Si aplicamos el test de Friedman
+
+\begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
+	\centering
+	\includegraphics[scale=0.6]{friedman3.png}  %el parámetro scale permite agrandar o chicar la imagen. En el nombre de archivo puede especificar directorios
+	\caption{Test de Friedman} 
+	\label{fig:friedman3}
+\end{figure}
+
+y el Post Hoc Holm 
+
+\begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
+	\centering
+	\includegraphics[scale=0.6]{ph3.png}  %el parámetro scale permite agrandar o chicar la imagen. En el nombre de archivo puede especificar directorios
+	\caption{Post-hoc holm} 
+	\label{fig:ph3}
+\end{figure}
+
+Vemos que de forma conjunta, no podemos asegurar que sean distintos porque sólo contamos con un 81\% de confianza en ello.
 \newpage
 %----------------------------------------------------------------------------------------
 %	Clasificación
