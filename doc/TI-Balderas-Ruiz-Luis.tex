@@ -2199,9 +2199,35 @@ Como se ha podido ver durante este desarrollo, las variables numéricas que tene
 
 \section{Problema de regresión: Wankara}
 
+Tras realizar el análisis exploratorio de datos sobre el conjunto de datos Wankara, estamos en condiciones de abordar el problema de regresión, es decir, encontrar y ajustar un modelo que prediga bien la variable Mean temperature. Dicho trabajo estará dividido en cuatro secciones, que coinciden con los puntos exigidos en el trabajo. El primero tratará de ajustar y comparar modelos lineales simples con los 5 regresores más interesantes. El segundo, crear modelos lineales más complejos combinando distintos regresores, utilizando interacciones y combinaciones no lineales. En la tercera, ajustamos un modelo kNN y en el último hacemos una comparación de los algoritmos incorporando los resultados obtenidos en la fila de Wankara.
 
+\subsection{Regresión lineal simple sobre 5 regresores}
 
+Como Wankara tiene más de 5 variables, elijo las 5 más representativas para la predicción de Mean temperature. En otras palabras, aquellas que tienen una correlación mayor (vista en el EDA): Max-temperature, Min-temperature, Dewpoint, Sea-level-pressure y Visibility. Antes de aplicar ajustar cualquier modelo, reescalo las variables de Wankara para que todas estén en el mismo rango (y así evitar sesgos hacia las que tienen un rango de valores mayor). Para todas ellas, el procedimiento será el mismo. Entreno un modelo lineal con todo el conjunto a través del regresor elegido, muestro la recta obtenida y el error cuadrático medio. Para validar estos resultados, llevo a cabo una validación cruzada con 5 particiones y calculo el error cuadrático medio en training y test.
 
+\subsubsection{Modelo con Max-temperature}
+
+El modelo generado es el siguiente:
+
+\begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
+	\centering
+	\includegraphics[scale=0.735]{lm1.png}  %el parámetro scale permite agrandar o chicar la imagen. En el nombre de archivo puede especificar directorios
+	\caption{Modelo lineal con Max-temperature} 
+	\label{fig:lm1}
+\end{figure}
+
+Con un $R^2$ ajustado de 0.9456 y un error cuadrático medio de $0.04876785$. El siguiente scatter plot muestra el resultado del ajuste:
+
+\begin{figure}[H] %con el [H] le obligamos a situar aquí la figura
+	\centering
+	\includegraphics[scale=0.735]{plot1.png}  %el parámetro scale permite agrandar o chicar la imagen. En el nombre de archivo puede especificar directorios
+	\caption{Modelo lineal con Max-temperature. Scatter plot} 
+	\label{fig:plot1}
+\end{figure}
+
+Tras realizar la validación cruzada, obtenemos un error cuadrático medio en training de 12.98672 y en test de 13.00239.
+
+\subsubsection{Modelo lineal con Min-temperature}
 \newpage
 %----------------------------------------------------------------------------------------
 %	Clasificación
