@@ -87,7 +87,7 @@ ggplot(data=wankara, aes(x=Standard_pressure)) +
 
 # Visibility
 skewness(wankara$Visibility)
-kurtosis(wankara$Visibiliy)t
+kurtosis(wankara$Visibility)
 ggplot(data=wankara, aes(x=Visibility)) +
   geom_histogram(binwidth = binwd(wankara$Visibility),fill="blue") +
   ggtitle("Histograma Visibility") +
@@ -115,12 +115,6 @@ kurtosis(wankara$Mean_temperature)
 ggplot(data=wankara, aes(x=Mean_temperature)) +
   geom_histogram(binwidth=binwd(wankara$Mean_temperature),fill="blue") +
   ggtitle("Histograma de temperatura media") +
-  labs(x="Temperatura média", y="Count\nof Records")
-
-mean_t1 = wankara_scale %>% filter(Mean_temperature < 0.5 & Mean_temperature > 0.3)
-ggplot(data=mean_t1, aes(x=Mean_temperature)) +
-  geom_histogram(binwidth = binwd(mean_t1$Mean_temperature), fill="blue") +
-  ggtitle("Histograma de temperatura media (entre 0.3 y 0.5)") +
   labs(x="Temperatura média", y="Count\nof Records")
 
 
